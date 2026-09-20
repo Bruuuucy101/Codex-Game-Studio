@@ -1,0 +1,111 @@
+{
+  "description": "CCGS adapter: review and trust in /hooks; requires Python 3.10+, Git and Bash. See docs/codex-adapter/hooks.md.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" SessionStart",
+            "timeout": 120,
+            "additionalContextLimit": 5000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" PreToolUse",
+            "timeout": 120,
+            "additionalContextLimit": 5000
+          }
+        ],
+        "matcher": "^(Bash|apply_patch|Write|Edit|Read)$"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" PostToolUse",
+            "timeout": 120,
+            "additionalContextLimit": 5000
+          }
+        ],
+        "matcher": "^(apply_patch|Write|Edit)$"
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" PreCompact",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" PostCompact",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" Stop",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" SubagentStart",
+            "timeout": 120,
+            "additionalContextLimit": 5000
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" SubagentStop",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/ccgs_hooks.py\" UserPromptSubmit",
+            "timeout": 120,
+            "additionalContextLimit": 5000
+          }
+        ]
+      }
+    ]
+  }
+}

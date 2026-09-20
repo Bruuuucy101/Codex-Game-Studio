@@ -1,0 +1,59 @@
+name: Verify and release Codex adapter
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Verify original files and generated adapters
+        run: python3 tools/ccgs_codex.py check --strict-upstream
+      - name: Test adapter and real upstream hook scripts
+        run: python3 -m unittest discover -s tests/codex_adapter -v
+      - name: Parse native role profiles
+        if: matrix.python == '3.12'
+        run: |
+          python3 - <<'PY'
+          import pathlib, tomllib
+          roles = list(pathlib.Path('.codex/agents').glob('*.toml'))
+          assert len(roles) == 49
+          for role in roles:
+              tomllib.loads(role.read_text())
+          tomllib.loads(pathlib.Path('.codex/config.toml').read_text())
+          PY
+
+  first-beta-release:
+    needs: verify
+    if: github.repository == 'Bruuuucy101/Codex-Game-Studio' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency: first-beta-release
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish first beta if it does not exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view v0.1.0-beta --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo 'The beta release already exists; leaving it unchanged.'
+            exit 0
+          fi
+          git archive --format=zip --prefix=Codex-Game-Studio/ --output=Codex-Game-Studio-v0.1.0-beta.zip HEAD
+          sha256sum Codex-Game-Studio-v0.1.0-beta.zip > SHA256SUMS.txt
+          gh release create v0.1.0-beta Codex-Game-Studio-v0.1.0-beta.zip SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title 'Codex Game Studios v0.1.0-beta' --notes-file RELEASE_NOTES.md

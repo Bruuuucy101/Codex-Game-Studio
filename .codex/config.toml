@@ -1,0 +1,2 @@
+# Repository-scoped settings. Model, approval policy and sandbox are inherited.
+# Hook definitions live in hooks.json, and require explicit review in /hooks.

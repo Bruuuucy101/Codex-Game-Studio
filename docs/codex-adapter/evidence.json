@@ -1,0 +1,94 @@
+{
+  "date": "2026-09-18",
+  "baseline_commit": "984023ddac0d5e27624f2baacde6105e45de375f",
+  "original_files_sha256_verified": 417,
+  "strict_check": {
+    "status": "PASS",
+    "errors": [],
+    "scope": "source and adapter integrity only"
+  },
+  "deterministic_tests": {
+    "count": 34,
+    "passed": true,
+    "output": "test_all_workflows_load_the_actual_full_source (test_catalog.CatalogTests) ... ok\ntest_changed_source_is_reflected_and_stale_output_detected (test_catalog.CatalogTests) ... ok\ntest_deleted_workflow_and_generated_tampering_are_detected (test_catalog.CatalogTests) ... ok\ntest_every_role_retains_its_entire_instructions (test_catalog.CatalogTests) ... ok\ntest_generated_parent_symlink_cannot_escape_project (test_catalog.CatalogTests) ... ok\ntest_generator_refuses_unowned_collisions (test_catalog.CatalogTests) ... ok\ntest_manifest_symlink_cannot_overwrite_other_file (test_catalog.CatalogTests) ... ok\ntest_missing_runtime_contract_cannot_be_regenerated_as_success (test_catalog.CatalogTests) ... ok\ntest_nested_templates_are_included_in_inventory (test_catalog.CatalogTests) ... ok\ntest_optional_tier_mapping_is_explicit_and_validated (test_catalog.CatalogTests) ... ok\ntest_owned_generated_symlink_never_overwrites_user_file (test_catalog.CatalogTests) ... ok\ntest_rule_matching_does_not_confuse_sibling_directories (test_catalog.CatalogTests) ... ok\ntest_check_fails_before_generate_and_passes_after (test_cli.CliTests) ... ok\ntest_doctor_does_not_claim_hooks_are_trusted (test_cli.CliTests) ... ok\ntest_role_retrieval_rejects_path_traversal (test_cli.CliTests) ... ok\ntest_status_reports_unconfigured_and_then_real_state (test_cli.CliTests) ... ok\ntest_strict_baseline_check_detects_original_file_change (test_cli.CliTests) ... ok\ntest_advisory_commit_and_push_warnings_survive_stderr (test_hooks.HookTests) ... ok\ntest_all_patch_paths_checked_including_move_and_delete (test_hooks.HookTests) ... ok\ntest_compaction_failure_keeps_original_error_feedback (test_hooks.HookTests) ... ok\ntest_invalid_staged_json_blocks_commit (test_hooks.HookTests) ... ok\ntest_lifecycle_recovers_state_and_archives_without_deleting (test_hooks.HookTests) ... ok\ntest_malformed_inputs_fail_with_valid_event_json (test_hooks.HookTests) ... ok\ntest_missing_validator_reported_and_json_never_executed (test_hooks.HookTests) ... ok\ntest_nested_asset_invalid_json_keeps_original_coverage (test_hooks.HookTests) ... ok\ntest_nested_skill_change_keeps_original_advisory (test_hooks.HookTests) ... ok\ntest_original_deny_patterns_and_no_autoallow (test_hooks.HookTests) ... ok\ntest_patch_rules_resolve_tool_cwd_and_preserve_complete_rule (test_hooks.HookTests) ... ok\ntest_read_denial_and_malformed_read_path (test_hooks.HookTests) ... ok\ntest_registration_runs_from_subdirectory_with_spaces (test_hooks.HookTests) ... ok\ntest_skill_change_advisory_and_unrelated_edit (test_hooks.HookTests) ... ok\ntest_subagent_audit_preserves_type (test_hooks.HookTests) ... ok\ntest_unicode_asset_path_without_jq_still_validates_json (test_hooks.HookTests) ... ok\ntest_unrelated_bash_does_not_run_validators (test_hooks.HookTests) ... ok\n\n----------------------------------------------------------------------\nRan 34 tests in 13.869s\n\nOK\n"
+  },
+  "role_toml_parse_count": 49,
+  "project_toml_parse": "passed",
+  "native_cli": {
+    "version": "0.150.1",
+    "temporary_model": "gpt-5.5",
+    "default_model_failure": "gpt-6-astra requires newer Codex",
+    "skill_discovery_count": 73,
+    "native_custom_role_selector": "unavailable in tested session",
+    "real_fallback_results": [
+      {
+        "status": "completed",
+        "message": "Actual delegation identity visible: no separate child agent id or nickname was shown; the command identified the role as “the original CCGS technical-director role running in Codex.”\n\nRole name/identity: `technical-director`, Technical Director.\n\nOriginal role source path: `.claude/agents/technical-director.md`.\n\nOne role-specific responsibility: architecture ownership: define and maintain high-level system architecture, with major systems requiring an approved ADR."
+      }
+    ],
+    "real_fallback_child_count": 1
+  },
+  "sampled_behavior": {
+    "missing-prerequisites": {
+      "method": "fresh app child explicitly loaded generated entry and full original workflow",
+      "observed_files": {
+        "assets/data/player.json": {
+          "sha256": "e07e5376ae6d481ba447c8d8b78761eb289b800f65b653ba3386e6c373b8d26a",
+          "text": "{\"speed\": 5}\n"
+        },
+        "production/session-state/active.md": {
+          "sha256": "08fabcf0b5720c5d58e1fb62e971da1fc2ab38915318bfc04571d53b53acb944",
+          "text": "# Active Session\n\n- Date: 2026-09-18\n- Workflow: /dev-story production/epics/story-001.md\n- Story: Story 001: Configure player speed\n- Status: BLOCKED\n- Completed: Read studio instructions and the full dev-story workflow; checked required file presence.\n- Blocker: Governing ADR docs/architecture/adr-movement.md is missing. Run /architecture-decision to create it, or correct the filename in the story's ADR field.\n- Warning: Control manifest docs/architecture/control-manifest.md is missing; layer rules cannot be checked. Run /create-control-manifest.\n- Implementation: Not started. assets/data/player.json remains unchanged with speed 5.\n- Agents spawned: None; stopped at the Phase 2 prerequisite gate.\n- Next: Resolve the governing ADR prerequisite, then rerun /dev-story production/epics/story-001.md.\n"
+        }
+      },
+      "observed_verdict": "BLOCKED: missing governing ADR; data unchanged"
+    },
+    "config-implementation": {
+      "method": "fresh app child explicitly loaded generated entry and full original workflow",
+      "observed_files": {
+        "assets/data/player_movement.json": {
+          "sha256": "694950dd1c40c2615b8b4a0adfe1b9fc072fead6ab1c77693dac69d33b07f9aa",
+          "text": "{\"moveSpeed\": 8, \"schemaVersion\": 1}\n"
+        },
+        "production/epics/story-002.md": {
+          "sha256": "c93e17656df74062267d91f8b9d5791768dd8268612a78d849187bb627957596",
+          "text": "# Story 002: Configure player speed\nStatus: Ready\nLast Updated: 2026-09-18\nLayer: Core\nType: Config/Data\nTR-ID: TR-movement-001\nADR Governing Implementation: docs/architecture/adr-movement.md\nManifest Version: 2026-09-18\n## Acceptance Criteria\n- [ ] assets/data/player_movement.json moveSpeed becomes 8; no other values change.\n## Files to create/modify\n- assets/data/player_movement.json\n## Implementation Notes\nFollow the accepted ADR: edit the existing numeric value, preserve the schema.\n## Test Evidence\nJSON parse and exact-value smoke check; no engine run needed for this data-only fixture.\n## Dependencies\nNone.\n## Out of Scope\nNo source, schema, adapter, or other asset changes. Workflow state updates are authorized.\n"
+        },
+        "production/sprint-status.yaml": {
+          "sha256": "962e22f13c48f522707f5d792847a75a9ed2e48cf70f026af0deea1a11d83e82",
+          "text": "updated: \"2026-09-18\"\nstories:\n  - id: story-002\n    path: production/epics/story-002.md\n    status: in_progress\n"
+        },
+        "production/qa/smoke-2026-09-18.md": {
+          "sha256": "2025996c21ffb1a7d922ac1bd7b9d4fa08a89cfc6d8868f9441c44b31606e177",
+          "text": "# Config/Data Smoke Check — 2026-09-18\n\n- Story: production/epics/story-002.md — Configure player speed\n- Result: PASS\n- Executed: Python 3 JSON parse, exact object/type assertions, and byte comparison against the observed pre-edit baseline.\n- Before: `{\"moveSpeed\": 5, \"schemaVersion\": 1}`\n- After: `{\"moveSpeed\": 8, \"schemaVersion\": 1}`\n- Acceptance criterion: assets/data/player_movement.json moveSpeed becomes 8; no other values change — PASS.\n- Preserved: schemaVersion integer 1, key names, schema, whitespace, and trailing newline. Only the moveSpeed numeric byte changed.\n- Baseline SHA256: `bd62de878031b7155172829961c5082077b71baaba20bf5e365783cae9997150`\n- Result SHA256: `694950dd1c40c2615b8b4a0adfe1b9fc072fead6ab1c77693dac69d33b07f9aa`\n- Actual output: `PASS: valid JSON; moveSpeed 5 -> 8; schemaVersion remains integer 1; only the one numeric byte changed.`\n- Engine execution: not required by this data-only fixture; no engine or gameplay test was run.\n- Hook execution: not verified; rules were explicitly loaded and validation was run directly. No trust settings changed.\n- Test file: none; Config/Data requires smoke evidence rather than unit tests.\n- Closure: pending code review and story-done; this record does not mark the story Done.\n"
+        },
+        "production/session-state/active.md": {
+          "sha256": "18861f9b11b5c906083698cf806f54c076033ffe36bf569c90257ff0e5068124",
+          "text": "# Active Session\n\n- Story: production/epics/story-002.md — Configure player speed\n- Status: IN_PROGRESS\n- Progress: Context loaded; accepted ADR and matching manifest verified; no dependencies. Data edit complete; JSON, exact values, types, and unchanged-byte smoke assertions passed.\n- Review mode: solo (unchanged).\n- Decision: Config/Data branch edits data directly; no programmer or engine specialist is required.\n- Authorization: Fixture data and workflow-state edits already authorized.\n- Next: /code-review assets/data/player_movement.json then /story-done production/epics/story-002.md.\n- Blockers: None.\n\n## Session Extract — /dev-story 2026-09-18\n- Story: production/epics/story-002.md — Configure player speed\n- Files changed: assets/data/player_movement.json, production/epics/story-002.md, production/sprint-status.yaml, production/qa/smoke-2026-09-18.md, production/session-state/active.md\n- Test written: None — Config/Data story; actual PASS recorded at production/qa/smoke-2026-09-18.md.\n- Acceptance criteria: moveSpeed is 8; no other values changed — verified.\n- Deviations from scope: None; data and workflow-state updates only.\n- Engine risks: No engine APIs used; Config/Data no-agent exception applies before engine routing.\n- Blockers: None.\n- Next: /code-review assets/data/player_movement.json then /story-done production/epics/story-002.md\n"
+        }
+      },
+      "observed_verdict": "implemented 5 to 8; actual smoke passed; not closed"
+    },
+    "missing-test-evidence": {
+      "method": "fresh app child explicitly loaded generated entry and full original workflow",
+      "observed_files": {
+        "production/epics/story-003.md": {
+          "sha256": "22e85ec3d162080f367f9605c4166047f912e2815b9f178eeaa6fb5572d9c5cc",
+          "text": "# Story 003: Movement speed calculation\nStatus: In Progress\nLayer: Core\nType: Logic\nTR-ID: TR-movement-001\nADR Governing Implementation: docs/architecture/adr-movement.md\nManifest Version: 2026-09-18\n## Acceptance Criteria\n- [ ] calculate_speed returns the movement tuning value from the passed data.\n## Files to create/modify\n- src/core/movement.py\n## Test Evidence\ntests/unit/movement/movement_speed_test.py must exist and pass.\n## Dependencies\nNone.\n## Out of Scope\nNo adapter or unrelated gameplay changes.\n"
+        },
+        "src/core/movement.py": {
+          "sha256": "64bac10e9c3589babc139ed8e51ca3182b85bf7e77e6f61b0c1228180b3c6f71",
+          "text": "def calculate_speed(data):\n    \"\"\"Return the configured movement speed.\"\"\"\n    return data[\"moveSpeed\"]\n"
+        }
+      },
+      "observed_verdict": "BLOCKED: required unit test missing, 1/1 criteria untested, tuning mismatch; status unchanged"
+    }
+  },
+  "independent_review": "three generator/runtime findings fixed and re-reviewed; no remaining actionable issues in affected scope",
+  "not_verified": [
+    "live desktop hook trust and firing",
+    "all workflows and complex teams",
+    "game engine execution",
+    "native Windows and Linux"
+  ]
+}
