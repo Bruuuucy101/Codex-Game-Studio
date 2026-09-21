@@ -934,7 +934,7 @@
       {
         "name": "test-setup",
         "source": ".claude/skills/test-setup/SKILL.md",
-        "sha256": "98f68bb7b9d13adaefc57774e1caa2da8e8cc8d32479b923d98060820c6d3df5",
+        "sha256": "29adacdd800e504424fd4a74dd2a9193f2a2ddce88471d61005e8c15e39e0ead",
         "metadata": {
           "name": "test-setup",
           "description": "Scaffold the test framework and CI/CD pipeline for the project's engine. Creates the tests/ directory structure, engine-specific test runner configuration, and GitHub Actions workflow. Run once during Technical Setup phase before the first sprint begins.",

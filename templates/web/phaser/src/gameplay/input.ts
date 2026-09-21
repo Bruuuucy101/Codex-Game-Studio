@@ -10,10 +10,13 @@ export function bindInput(canvas: HTMLCanvasElement, config: GameConfig) {
   canvas.setAttribute('aria-label', 'Game field: arrow keys or WASD to move');
   function clear(): void { keys.clear(); target = null; direction.x = 0; direction.y = 0; }
   function down(event: KeyboardEvent): void {
-    if (document.activeElement !== canvas || !movement.has(event.key)) return;
-    event.preventDefault(); keys.add(event.key); target = null;
+    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+    if (document.activeElement !== canvas || !movement.has(key)) return;
+    event.preventDefault(); keys.add(key); target = null;
   }
-  function up(event: KeyboardEvent): void { keys.delete(event.key); }
+  function up(event: KeyboardEvent): void {
+    keys.delete(event.key.length === 1 ? event.key.toLowerCase() : event.key);
+  }
   function pointer(event: PointerEvent): void {
     canvas.focus();
     const rect = canvas.getBoundingClientRect();

@@ -157,8 +157,9 @@ peer-dependency bypass is required.
 The clean-fixture acceptance commands are `npm ci`, `npm run typecheck`,
 `npm test`, `npm run build`, `npx playwright install chromium`, then
 `npm run test:browser`. Fresh copies of both final templates passed all four install/type/unit/build
-commands on Node 22.14.0/npm 10.9.2. Each simulation passed five unit tests.
-Matching Chromium installation and discovery of two browser scenarios per
+commands on Node 22.14.0/npm 10.9.2. After review fixes, each template passed
+ten unit tests: five simulation, two modifier-input and three page-lifecycle tests.
+Matching Chromium installation and discovery of four browser scenarios per
 template succeeded; discovery did not execute them. Unit discovery is
 `tests/web-unit/**/*_test.ts`; browser discovery is `tests/browser`. The engine
 bundles currently trigger Vite's 500 kB chunk warning (approximately 1.21 MB
@@ -171,7 +172,11 @@ application registration path. Type/unit/build checks and Playwright discovery
 are separate evidence and do not prove canvas output. The release-blocking Linux
 web CI matrix runs real keyboard/pointer, two collection/reset cycles, focus
 clearing, resize, teardown and actual Three WebGL2 checks against owned production
-preview. It uploads screenshots/traces for inspection, including failure artifacts.
+preview. Additional scenarios exercise modifier transitions and explicit persisted
+pagehide/pageshow suspension/restoration; the latter tests the event contract,
+not the browser’s independent back/forward-cache eligibility decision. Final
+pagehide/HMR still releases owned resources. It uploads screenshots/traces for
+inspection, including failure artifacts.
 Until that CI run and visual inspection are recorded, browser acceptance is open.
 The full Python adapter suite passed 87 tests; strict provenance and generated
 integrity checks passed with the original lock unchanged.

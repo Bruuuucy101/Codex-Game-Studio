@@ -1,12 +1,13 @@
 import * as THREE from 'three';
 import config from '../../assets/data/game.json';
+import type { PageOwner } from '../core/page-lifecycle';
 import { FixedStep } from '../core/step';
 import { createGame } from '../gameplay/game';
 import { bindInput } from '../gameplay/input';
 import { bindHud } from '../ui/hud';
 
 /** One owner for loop, input, resize observer, meshes and GPU allocations. */
-export function startCollect(host: HTMLElement): () => void {
+export function startCollect(host: HTMLElement): PageOwner {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.domElement.style.width = '100%'; renderer.domElement.style.height = '100%';
@@ -54,12 +55,13 @@ export function startCollect(host: HTMLElement): () => void {
     const direction = controls.sample(simulation.state, dt);
     simulation.step(direction.x, direction.y, dt);
   };
-  renderer.setAnimationLoop(time => {
+  const animate = (time: number): void => {
     if (previous !== null) clock.advance((time - previous) / 1000, simulate);
     previous = time; renderState();
-  });
+  };
+  renderer.setAnimationLoop(animate);
   let disposed = false;
-  return () => {
+  function dispose(): void {
     if (disposed) return;
     disposed = true;
     renderer.setAnimationLoop(null); observer.disconnect(); controls.dispose(); hud.dispose();
@@ -69,5 +71,16 @@ export function startCollect(host: HTMLElement): () => void {
     if (Array.isArray(grid.material)) grid.material.forEach(material => material.dispose());
     else grid.material.dispose();
     renderer.dispose(); renderer.domElement.remove();
+  }
+  return {
+    suspend() {
+      controls.clear(); renderer.domElement.blur(); clock.reset(); previous = null;
+      renderer.setAnimationLoop(null);
+    },
+    resume() {
+      if (disposed) return;
+      previous = null; renderer.setAnimationLoop(animate);
+    },
+    dispose,
   };
 }

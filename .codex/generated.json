@@ -70,7 +70,7 @@
     ".agents/skills/ccgs-test-evidence-review/SKILL.md": "6fddefb4e17d21f93651cbae2499f708c68ff96f0775ef9a116b9389efbe47da",
     ".agents/skills/ccgs-test-flakiness/SKILL.md": "5c2e1766485134d65219cd42e440bc88973b753ce89157760f4dc95bbd691104",
     ".agents/skills/ccgs-test-helpers/SKILL.md": "9abc60405243871b65d776bf689e0cbc13476f295f3322f14c149040c87e1de6",
-    ".agents/skills/ccgs-test-setup/SKILL.md": "2625252a99a55f183fac43097bb46b1988cbd55b77eac34ab181ba3c3784c064",
+    ".agents/skills/ccgs-test-setup/SKILL.md": "1f388a41321239dec009094eb75d060b175fc86e8bf557038d19369cd9a3a29f",
     ".agents/skills/ccgs-ux-design/SKILL.md": "a1017397d8f50f3164f07425c8931567a153b8b9f270528539e05da5959dbda0",
     ".agents/skills/ccgs-ux-review/SKILL.md": "a9303555dc448d4fc45c2041b4b4392058a286d4bf1ed08365a2f050ede75738",
     ".agents/skills/ccgs-vertical-slice/SKILL.md": "555f7130298bb390434b8cdd4fe2b69bce0d86653c9d4ec779af937393e00aa6",
@@ -125,7 +125,7 @@
     ".codex/agents/ccgs-ux-designer.toml": "556ca1366b03f7ceb55dd02e996adb92927be431b99df6373a7bc08252cc8506",
     ".codex/agents/ccgs-world-builder.toml": "ba7bbb7c2bdf44d9d3a3d0b87d113936a158cba94042169e0653f1a2fd33601d",
     ".codex/agents/ccgs-writer.toml": "b598eb0a0cfbe5bad8b1e79a92d3ee05320bb9bd5e7fd590b459a219be20621e",
-    ".codex/capabilities.json": "80f7b004da7d85b990143725e45cb5bb5dc15c8427aa7aa485fc23f365a16c0f",
+    ".codex/capabilities.json": "5776c4179f6b10a3a237a6b65bf375962bb820c6ef0a74ca184e17cc55aad76b",
     "docs/codex-adapter/capabilities.md": "6ade8b69f29988f7ed452cea237267ec2a6777723bd3162ca774feba64082eee"
   }
 }

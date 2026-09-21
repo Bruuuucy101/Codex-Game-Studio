@@ -254,12 +254,12 @@
     {
       "path": ".claude/skills/test-setup/SKILL.md",
       "original_sha256": "bf3477f58af77fdeabed42e9c15f1b7bd41d6837c1ddff0450922cee694c628d",
-      "patched_sha256": "98f68bb7b9d13adaefc57774e1caa2da8e8cc8d32479b923d98060820c6d3df5",
+      "patched_sha256": "29adacdd800e504424fd4a74dd2a9193f2a2ddce88471d61005e8c15e39e0ead",
       "issue_urls": [
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/62",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/22"
       ],
-      "rationale": "Task 1 (#62/#22): extend canonical Phaser 3/Three.js selection, routing, lifecycle/testing guidance and current inventory while retaining original engine paths, review modes and baseline identities. Self-reviewed against the accepted web-engine spec and official dated sources; deterministic source-contract checks are not behavioral/browser certification. Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit."
+      "rationale": "Task 1 (#62/#22): extend canonical Phaser 3/Three.js selection, routing, lifecycle/testing guidance and current inventory while retaining original engine paths, review modes and baseline identities. Self-reviewed against the accepted web-engine spec and official dated sources; deterministic source-contract checks are not behavioral/browser certification. Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. Task 2 review fix: remove stale forthcoming-scaffolds sentence while preserving the separate pending browser/visual acceptance gate."
     },
     {
       "path": "CCGS Skill Testing Framework/README.md",

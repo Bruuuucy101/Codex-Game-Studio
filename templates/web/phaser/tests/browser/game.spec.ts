@@ -80,3 +80,59 @@ test('pagehide releases the canvas and keyboard listeners', async ({ page }) => 
   await expect(page.locator('#game canvas')).toHaveCount(0);
   await expect.poll(() => page.evaluate(() => Reflect.get(window, '__activeKeydownListeners'))).toBe(0);
 });
+
+
+test('WASD starts and stops across actual modifier changes', async ({ page }) => {
+  await page.goto('/');
+  const canvas = page.locator('#game canvas');
+  const position = page.locator('#position');
+  await canvas.focus();
+  await page.keyboard.down('d');
+  await expect(position).not.toHaveText('60, 180');
+  await page.keyboard.down('Shift');
+  await page.keyboard.up('D');
+  await page.keyboard.up('Shift');
+  const stopped = await position.textContent();
+  await page.waitForTimeout(300);
+  expect(await position.textContent()).toBe(stopped);
+  await page.keyboard.down('Shift');
+  await page.keyboard.down('W');
+  await expect(position).not.toHaveText(stopped!);
+  await page.keyboard.up('Shift');
+  await page.keyboard.up('w');
+  const stoppedAgain = await position.textContent();
+  await page.waitForTimeout(300);
+  expect(await position.textContent()).toBe(stoppedAgain);
+});
+
+test('persisted hide/show retains the game and restores input without held movement', async ({ page }, testInfo) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  await page.goto('/');
+  const canvas = page.locator('#game canvas');
+  const position = page.locator('#position');
+  await canvas.focus();
+  await page.keyboard.down('ArrowRight');
+  await expect(position).not.toHaveText('60, 180');
+  // Exercise the persisted browser lifecycle event contract explicitly. This does
+  // not claim that the browser's independent BFCache eligibility decision ran.
+  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
+  await page.keyboard.up('ArrowRight');
+  const suspended = await position.textContent();
+  await expect(canvas).toHaveCount(1);
+  await page.waitForTimeout(300);
+  expect(await position.textContent()).toBe(suspended);
+  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+  await expect(canvas).toBeVisible();
+  await page.waitForTimeout(300);
+  expect(await position.textContent()).toBe(suspended);
+  await canvas.focus();
+  await page.keyboard.down('ArrowRight');
+  await expect(page.locator('#score')).toHaveText('3 / 3');
+  await page.keyboard.up('ArrowRight');
+  await page.screenshot({ path: testInfo.outputPath('restored.png') });
+  await page.getByRole('button', { name: 'Reset game' }).click();
+  await expect(position).toHaveText('60, 180');
+  expect(errors).toEqual([]);
+});

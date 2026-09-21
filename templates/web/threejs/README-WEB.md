@@ -29,7 +29,9 @@ Playwright only. The production bundle exposes no test mutation interface.
 `src/core` owns fixed stepping; `src/gameplay` owns state and input;
 `src/scenes` owns engine rendering/lifecycle; `src/ui` displays state and sends
 reset commands. Input is cleared when the field/window loses focus or the page
-is hidden. Engine resources and listeners are disposed on teardown/HMR.
+is hidden; WASD releases remain stable across Shift/Caps Lock changes. Persisted
+pagehide suspends the game and persisted pageshow resumes it with state intact.
+Final pagehide/HMR disposes engine resources and listeners.
 
 This copy command does not install dependencies or configure the studio engine.
 Use `/setup-engine threejs` separately for version references and role routing.

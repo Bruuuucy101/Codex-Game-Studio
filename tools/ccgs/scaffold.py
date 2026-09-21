@@ -10,7 +10,9 @@ FILES = tuple(sorted((
     'tsconfig.json', 'vite.config.ts', 'vitest.config.ts', 'playwright.config.ts',
     'assets/data/game.json', 'src/core/step.ts', 'src/gameplay/game.ts',
     'src/gameplay/input.ts', 'src/scenes/collect.ts', 'src/ui/hud.ts',
-    'src/main.ts', 'src/styles.css', 'tests/web-unit/game_test.ts',
+    'src/main.ts', 'src/styles.css', 'src/core/page-lifecycle.ts',
+    'tests/web-unit/game_test.ts', 'tests/web-unit/input_test.ts',
+    'tests/web-unit/lifecycle_test.ts',
     'tests/browser/game.spec.ts',
 )))
 

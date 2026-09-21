@@ -380,7 +380,8 @@ Dependency/browser installation is explicit setup work, never a side effect of
 the scaffold helper or smoke check. Use the lockfile and installed Playwright
 version. Preserve logs/screenshots on failure, and block release on this job.
 Chromium alone does not certify Safari, mobile devices or WebGPU. Runnable
-scaffolds and executed acceptance remain forthcoming until Task 2 lands.
+scaffolds are included; browser execution and screenshot acceptance remain
+separate release gates. Consult `docs/codex-adapter/validation.md` for observed evidence.
 
 ## Phase 5: Create Smoke Test Seed
 
