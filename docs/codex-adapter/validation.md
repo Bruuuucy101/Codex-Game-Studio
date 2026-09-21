@@ -1,5 +1,13 @@
 # Codex adapter validation
 
+## Current v0.2.0-beta acceptance
+
+See [feature validation — 2026-09-21](feature-validation-2026-09-21.md) for the current 74-workflow/57-role inventory, 128 adapter tests, five fresh-agent samples, actual Chromium and libGDX headless/build evidence, exact candidate CI tree and pending final publication gates. Board-sync remains entirely unimplemented.
+
+The sections below are historical implementation checkpoints, retained with their original counts and then-pending work; the current feature report supersedes their pending feature acceptance statements.
+
+## Historical v0.1.1-beta checkpoint
+
 Prior local acceptance: **v0.1.1-beta, 2026-09-21**. Original baseline: `984023ddac0d5e27624f2baacde6105e45de375f`. This report separates file integrity, deterministic checks, real Git fixtures and sampled model behavior. None certifies full runtime equivalence or actual game-engine readiness. The historical v0.1.0 evidence is retained below with its original date and scope.
 
 | Evidence layer | Prior v0.1.1 observed result | Limit |
@@ -20,13 +28,13 @@ python3 -m unittest discover -s tests/codex_adapter -v
 python3 tools/ccgs_codex.py doctor
 ```
 
-## Current regression and Git evidence
+## v0.1.1 regression and Git evidence
 
 New deterministic checks were observed failing before their respective fixes, then passing. They cover malformed or unsafe patch ledgers, exact source hashes, large single-line ADR sections, fenced fake status/headings, numbered/nested sections, ambiguous/missing status, complete bounded reconstruction, changed-file detection and corrected workflow ordering. An independent task review reproduced a fence-depth bug where a quoted marker inside a top-level code fence exposed a fake Accepted status; the depth-aware correction and regression now pass. Earlier phase reviews completed without remaining scoped findings; whole-branch release review is a separate acceptance step.
 
 Six disposable local Git repositories exercised: shared/unrelated history with non-overlapping customization (2), shared/unrelated history with overlapping edits and explicit conflict resolution (2), ordinary fast-forward update (1), and divergent merge refusal/conflict/abort (1). The selective updates preserved customized source and untouched adapter/configuration sentinels. Failed `git apply --check` left files unchanged; three-way conflicts required actual resolution or restoration. These validate the documented command paths, not arbitrary conflict-resolution correctness, archive recovery, or network publication.
 
-## Current fresh-agent observations
+## v0.1.1 fresh-agent observations
 
 ### Denied hotfix implementation
 

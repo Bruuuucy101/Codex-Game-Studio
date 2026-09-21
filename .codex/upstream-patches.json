@@ -78,11 +78,11 @@
     {
       "path": "UPGRADING.md",
       "original_sha256": "f502c533d1eb6d7916667b9f7b72a7eabd7e1259eb6f615efa70c8d2df607f66",
-      "patched_sha256": "2ce84f12ffd203ea708e170edee80aa800ba3bb476bcee52d4a80626e390870b",
+      "patched_sha256": "feb17c04916fc685e1a483d7538f6f2e4c94ee701437fd80f9e7c83a32899f1c",
       "issue_urls": [
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/70"
       ],
-      "rationale": "Replace blanket unrelated-history merges and blind copying with backed-up clean review worktrees, exact adopted baseline comparisons and allowlisted imports. Preserve customized infrastructure and distinguish Codex release updates from Claude source imports; retain historical release guidance under a global baseline rule. Reviewed source diff; exercised six local Git fixtures including shared/unrelated history, customized source, wrapper/config sentinels, conflicts, restore and merge abort."
+      "rationale": "Replace blanket unrelated-history merges and blind copying with backed-up clean review worktrees, exact adopted baseline comparisons and allowlisted imports. Preserve customized infrastructure and distinguish Codex release updates from Claude source imports; retain historical release guidance under a global baseline rule. Reviewed source diff; exercised six local Git fixtures including shared/unrelated history, customized source, wrapper/config sentinels, conflicts, restore and merge abort. Release Task 1: refresh current v0.2.0-beta entry/upgrade guidance with actual feature evidence and dependency limits; preserve historical versions and original attribution."
     },
     {
       "path": "CCGS Skill Testing Framework/skills/utility/hotfix.md",
@@ -371,13 +371,13 @@
     {
       "path": "README.md",
       "original_sha256": "bb7abcaee0447d4f812d643240eb7796b6ef2038099504476675d5ff0baa3d96",
-      "patched_sha256": "6f622aac3bc7d20667e073dbd9f0b8c6e77e3e87479160bde63ff9ef40a4700b",
+      "patched_sha256": "778b61e36c17de2bc9394baefdb2b388f6f1921ec218d566bf38d072c6491234",
       "issue_urls": [
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/62",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/22",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/105"
       ],
-      "rationale": "Task 1 (#62/#22): extend canonical Phaser 3/Three.js selection, routing, lifecycle/testing guidance and current inventory while retaining original engine paths, review modes and baseline identities. Self-reviewed against the accepted web-engine spec and official dated sources; deterministic source-contract checks are not behavioral/browser certification. Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review."
+      "rationale": "Task 1 (#62/#22): extend canonical Phaser 3/Three.js selection, routing, lifecycle/testing guidance and current inventory while retaining original engine paths, review modes and baseline identities. Self-reviewed against the accepted web-engine spec and official dated sources; deterministic source-contract checks are not behavioral/browser certification. Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review. Release Task 1: refresh current v0.2.0-beta entry/upgrade guidance with actual feature evidence and dependency limits; preserve historical versions and original attribution."
     },
     {
       "path": "docs/engine-reference/README.md",

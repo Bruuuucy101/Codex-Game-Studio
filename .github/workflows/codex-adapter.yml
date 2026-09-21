@@ -127,15 +127,19 @@ jobs:
     concurrency: beta-patch-release
     steps:
       - uses: actions/checkout@v4
-      - name: Publish v0.1.1-beta if it does not exist
+      - name: Publish v0.2.0-beta if it does not exist
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          if gh release view v0.1.1-beta --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo 'The beta release already exists; leaving it unchanged.'
+          # List endpoints return an empty result for absence; API/auth failures
+          # remain fatal under set -e. Preserve bare tags and draft releases too.
+          existing_tag=$(gh api "repos/$GITHUB_REPOSITORY/git/matching-refs/tags/v0.2.0-beta" --jq '.[] | select(.ref == "refs/tags/v0.2.0-beta") | .ref')
+          existing_release=$(gh api --paginate "repos/$GITHUB_REPOSITORY/releases" --jq '.[] | select(.tag_name == "v0.2.0-beta") | .id')
+          if [ -n "$existing_tag" ] || [ -n "$existing_release" ]; then
+            echo 'The version tag or release already exists; leaving it unchanged.'
             exit 0
           fi
-          git archive --format=zip --prefix=Codex-Game-Studio/ --output=Codex-Game-Studio-v0.1.1-beta.zip HEAD
-          sha256sum Codex-Game-Studio-v0.1.1-beta.zip > SHA256SUMS.txt
-          gh release create v0.1.1-beta Codex-Game-Studio-v0.1.1-beta.zip SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title 'Codex Game Studios v0.1.1-beta' --notes-file RELEASE_NOTES.md
+          git archive --format=zip --prefix=Codex-Game-Studio/ --output=Codex-Game-Studio-v0.2.0-beta.zip HEAD
+          sha256sum Codex-Game-Studio-v0.2.0-beta.zip > SHA256SUMS.txt
+          gh release create v0.2.0-beta Codex-Game-Studio-v0.2.0-beta.zip SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title 'Codex Game Studio v0.2.0-beta' --notes-file RELEASE_NOTES.md

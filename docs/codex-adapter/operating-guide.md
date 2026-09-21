@@ -1,6 +1,6 @@
 # Operating Codex Game Studio
 
-The complete catalog remains available: 74 workflows (73 original plus setup-tool), 52 roles (49 original plus two web leads and pipeline developer), all supported
+The complete catalog remains available: 74 workflows (73 original plus setup-tool), 57 roles (49 original plus two web leads, pipeline developer and five libGDX specialists), all supported
 engine branches and full/lean/solo review modes. The suggestions here narrow the
 work selected for a session; they do not remove tools or replace the workflows.
 See the [capability map](capabilities.md) for the full inventory.
@@ -88,3 +88,19 @@ Config/Data stories use the documented inline edit exception; they do not need
 a programmer spawn. Use bounded story/ADR evidence in role briefs, and preserve
 actual engine version constraints. This guide does not certify native engine
 execution or every Unity package combination; record what was actually tested.
+
+## New project routes
+
+For Phaser, Three.js or libGDX, ask `ccgs-setup-engine` to configure the actual
+engine/version. Keep existing project pins unless a migration is authorized.
+Preview `scaffold-web phaser --target PATH` (or `threejs`) and
+`scaffold-libgdx --target PATH` through `python3 tools/ccgs_codex.py`; add `--write`
+only for the selected copy. Install/test dependencies separately in that target.
+The [English quickstart](../../.github/README.md) lists runtime commands and limits.
+
+For standalone tools, choose start path E or ask `ccgs-setup-tool level-exporter
+author --review lean`. `update` and `adopt` are scoped contract modes; setup does
+not implement or review the tool. Game components preserve engine, stage and
+review mode. Follow the contract through actual implementation and independent
+review/QA. Board-sync and provider integrations remain deferred; no board commands
+or provider dependencies ship. See [current evidence](feature-validation-2026-09-21.md).

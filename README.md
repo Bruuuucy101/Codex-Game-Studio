@@ -1,3 +1,5 @@
+> **Codex community adaptation — v0.2.0-beta.** Read the [English quickstart](.github/README.md) or [中文指南](README-CODEX.zh-CN.md). Current inventory: 74 workflows / 57 roles, retaining all original 73/49 identities. [Current evidence](docs/codex-adapter/feature-validation-2026-09-21.md) covers Phaser, Three.js, tooling and libGDX; board-sync remains unimplemented. Original Donchitos attribution and license are retained below.
+
 <p align="center">
   <h1 align="center">Claude Code Game Studios</h1>
   <p align="center">
@@ -282,7 +284,7 @@ This is a **template**, not a locked framework. Everything is meant to be custom
 
 ## Platform Support
 
-Primary development and testing on **Windows 10** with Git Bash. All hooks use POSIX-compatible patterns (`grep -E`, not `grep -P`) and include fallbacks for missing tools, so they should run on macOS and Linux. The `notify.sh` hook uses PowerShell for Windows toast notifications and is a no-op elsewhere — desktop notifications on macOS/Linux are not yet wired. Cross-platform testing is ongoing; please file issues for any platform-specific breakage.
+**Upstream platform record:** primary development and testing on Windows 10 with Git Bash. The Codex adaptation has separate macOS adapter and Linux Chromium/libGDX evidence; see [current validation](docs/codex-adapter/feature-validation-2026-09-21.md). All hooks use POSIX-compatible patterns (`grep -E`, not `grep -P`) and include fallbacks for missing tools, so they should run on macOS and Linux. The `notify.sh` hook uses PowerShell for Windows toast notifications and is a no-op elsewhere — desktop notifications on macOS/Linux are not yet wired. Cross-platform testing is ongoing; please file issues for any platform-specific breakage.
 
 ## Community
 
@@ -314,7 +316,7 @@ Sponsorships help fund time spent maintaining skills, adding new agents, keeping
 
 MIT License. See [LICENSE](LICENSE) for details.
 
-## Staged web-engine extension
+## Web-engine extension
 
 All 49 original roles and 73 workflows remain; Phaser 3 and Three.js add two
 engine leads; five libGDX roles and a tooling developer bring the current total to 57. Use `/setup-engine phaser` or
@@ -335,3 +337,20 @@ and optional backends remain separate evidence. See
 [libGDX development](.claude/docs/libgdx-development.md) and
 [validation](docs/codex-adapter/validation.md). All original 73 workflows/49 roles
 remain, with setup-tool bringing the current workflow total to 74.
+
+## Tooling projects and Codex quickstart
+
+Use `ccgs-setup-tool level-exporter author --review lean` in Codex (or `/setup-tool`
+in Claude Code) to author a standalone tool contract; use `update` or `adopt` for
+existing work. Game components retain their game's engine, stage and review mode.
+Setup alone does not implement or review the tool. The Python 3.10+ standard-library
+[CSV example](examples/tooling/level-exporter/README.md) needs no engine/provider.
+
+Preview `python3 tools/ccgs_codex.py scaffold-web phaser --target ../my-web-game`
+(or `threejs`) or `python3 tools/ccgs_codex.py scaffold-libgdx --target ../my-java-game`.
+Append `--write` only for the chosen copy; no files are overwritten or packages
+installed. Web targets need Node >=22.12.0/npm; Java targets need JDK 21 and the
+included Gradle wrapper. Run installs/tests inside the copied target. The complete
+[English quickstart](.github/README.md) and [中文指南](README-CODEX.zh-CN.md) give
+exact commands, tested scope and third-party licensing. Board-sync has no shipped
+command/dependency; mobile/Kotlin/WebGPU/provider execution remain unverified.
