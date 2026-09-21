@@ -71,3 +71,14 @@ When an orchestration skill spawns multiple independent agents:
 2. Collect all results before proceeding to dependent phases
 3. If any agent is BLOCKED, surface it immediately — do not silently skip
 4. Always produce a partial report if some agents complete and others block
+
+
+## libGDX Coordination
+
+`libgdx-specialist` reports through lead-programmer to technical-director and
+routes to `libgdx-scene2d-specialist`, `libgdx-graphics-specialist`,
+`libgdx-ashley-specialist`, `libgdx-core-specialist` by actual subsystem. Existing
+programmer/UI/art/QA/build owners retain implementation and review responsibilities.
+Keep full/lean/solo gates. A `.java` or `.kt` suffix is not a Scene2D/ECS diagnosis;
+ambiguous work returns to the lead. Optional dependencies/backends require an
+accepted technical decision and their own runtime evidence.

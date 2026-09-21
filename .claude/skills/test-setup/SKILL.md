@@ -40,6 +40,12 @@ A test framework installed at sprint four costs 3 sprints.
      Reuse the accepted game scaffold's tests; templates/node_modules do not mean
      the adopted game is configured. Read `.claude/docs/web-game-development.md`.
 
+   - For libGDX inspect core/src/test and headless/src/test, Gradle settings/module
+     files, wrapper/checksum and locks; read `.claude/docs/libgdx-development.md`.
+     The existing Java starter tests take precedence over creating parallel test
+     directories. Kotlin requires its actual configured test sourceSets/plugin.
+
+
 3. **Report findings**:
    - "Engine: [engine]. Test directory: [found / not found]. CI workflow: [found / not found]."
    - If everything already exists AND `force` argument was not passed:
@@ -51,6 +57,28 @@ proceed — but still do not overwrite files that already exist at a given path.
 Only create files that are missing.
 
 ---
+
+### libGDX Test Plan and Execution
+
+Plan pure JUnit tests under core/src/test/java and actual backend tests under
+headless/src/test/java (or existing configured Kotlin sourceSets). Pin the tested
+Java starter's Jupiter 5.13.4 and launcher 1.13.4 under Gradle 8.14.3/JDK21;
+existing project pins prevail. Use the shipped wrapper and locks, not global
+Gradle or a moving latest dependency. Capture actual versions and outputs.
+
+Acceptance: `./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon`.
+Windows: `gradlew.bat` with the same tasks. Add no-watch-fs only if the host needs
+it. Headless must instantiate gdx-backend-headless HeadlessApplication and verify
+real create/render/pause/dispose, simulation collection/reset, bounded errors,
+shutdown and Gdx state isolation; a pure unit is insufficient. Reuse the included
+harness; never initialize SpriteBatch/GL in mock graphics. Keep backend tests
+serialized. Desktop packaging is separate from a real GPU/input playtest.
+
+For CI, add a JDK21 job, wrapper validation and clean copied/locked starter
+acceptance alongside the existing engine/game jobs. Do not certify Android/iOS/GWT,
+KTX/Ashley/Box2D without their separately configured dependencies/toolchains/tests.
+Existing approval and no-overwrite rules still apply to the concrete plan below.
+
 
 ## Phase 2: Present Plan
 

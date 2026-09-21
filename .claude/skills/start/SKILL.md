@@ -34,7 +34,7 @@ resume through `/setup-tool update` and `/project-stage-detect` with saved state
 For game/unknown routes, also check:
 - **Engine configured?** Read `.claude/docs/technical-preferences.md`. If the Engine field contains `[TO BE CONFIGURED]`, the engine is not set.
 - **Game concept exists?** Check for `design/gdd/game-concept.md`.
-- **Source code exists?** Glob for source files in `src/` (`*.gd`, `*.cs`, `*.cpp`, `*.h`, `*.rs`, `*.py`, `*.js`, `*.ts`).
+- **Source code exists?** Inspect actual `src/` plus conventional module roots `core/src`, `lwjgl3/src`, `headless/src`, `desktop/src`, `android/src`, `ios/src`, `html/src`, including `.java` and `.kt` as well as `.gd`, `.cs`, `.cpp`, `.h`, `.rs`, `.py`, `.js`, `.ts`, `.mjs`. The read-only `source-files` diagnostic lists these; custom Gradle sourceSets need explicit inspection. Exclude templates/examples, test roots, vendor, generated/build and dependency directories. Bundled Java templates never mean a game is already configured.
 - **Prototypes exist?** Check for subdirectories in `prototypes/`.
 - **Design docs exist?** Count markdown files in `design/gdd/`.
 - **Production artifacts?** Check for files in `production/sprints/` or `production/milestones/`.
@@ -284,3 +284,8 @@ Verdict: **COMPLETE** — user oriented and handed off to next step.
 3. **User decides** — they pick the direction
 4. **Scoped execution** — recommendations need authorization; an existing request for setup/implementation already supplies that scope
 5. **Adapt** — if the user's situation doesn't fit a template, listen and adjust
+
+For libGDX onboarding use `/setup-engine libgdx [version]`, the five-role routing
+and `.claude/docs/libgdx-development.md`. The Java desktop/headless starter is an
+optional authorized scaffold, not an automatic installation. Kotlin/KTX and other
+backends need explicit choices and verified toolchains.

@@ -102,7 +102,7 @@ resource cleanup, memory/size limits and error behavior. Game components retain
 applicable game checks. Never turn N/A into a passed game check.
 
 - [ ] Frame-rate independence (delta time usage)
-- [ ] No allocations in hot paths (update loops)
+- [ ] No avoidable allocations in measured hot paths; optimization claims include profiling evidence
 - [ ] Proper null/empty state handling
 - [ ] Thread safety where required
 - [ ] Resource cleanup (no leaks)
@@ -132,6 +132,21 @@ still needs `phaser-specialist`. Use file responsibility as well as extension.
 Always consult the primary for loop, scene/restart, resources and asset loading.
 Review ownership cleanup, focus clearing, exact pins, data-driven state and
 separate Vitest/Playwright discovery. Keep the selected review mode and all gates.
+
+### libGDX Review
+
+Read the configured module source roots and `.claude/docs/libgdx-development.md`.
+Route Java/Kotlin by responsibility/imports, with `libgdx-specialist` as ambiguous
+fallback. Spawn `libgdx-scene2d-specialist` for Stage/layout/input; graphics
+specialist for batches/shaders/FBOs; Ashley specialist for selected ECS/Box2D;
+core specialist for lifecycle/assets/Gradle/backends. These are the real
+`libgdx-graphics-specialist`, `libgdx-ashley-specialist`, and
+`libgdx-core-specialist` roles, not extension-only substitutes.
+Check explicit screen disposal, manager-owned shared assets, active Actor Batch
+state, serialized Gdx lifetime and bounded headless failure/shutdown propagation.
+Review pure test, actual headless, desktop installDist and GPU/device evidence
+separately. Keep full/lean/solo review gates and original programmer ownership.
+
 
 ### Tool Pipeline Review
 

@@ -47,8 +47,10 @@ Phase 5 outputs a per-platform verdict table in addition to the overall verdict.
 
 Before running anything, understand the environment:
 
-1. **Test framework check**: verify `tests/` directory exists.
-   If it does not: "No test directory found at `tests/`. Run `/test-setup`
+1. **Test framework check**: read the engine preferences first. For libGDX inspect
+   actual Gradle sourceSets, `core/src/test` and `headless/src/test`; a missing root
+   `tests/` does not mean those tests are absent. For other engines verify `tests/`.
+   If no applicable configured test root exists: "No test directory found at `tests/`. Run `/test-setup`
    to scaffold the testing infrastructure, or create the directory manually
    if tests live elsewhere." Then stop.
 
@@ -129,6 +131,18 @@ mock. This branch does not fall into Unknown engine. Under `--platform web` incl
 these checks in Phase 4 and its per-platform report. A warning/manual confirmation
 under the existing gate policy is not evidence that a browser test executed.
 
+**libGDX:**
+Read `.claude/docs/libgdx-development.md` and actual module/test configuration.
+Use `./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon` (Windows:
+`gradlew.bat`), the configured JDK and committed locks. Record each test count,
+background failure/timeout and desktop build result. A missing wrapper/JDK/native
+artifact is NOT RUN with cause, not a switch to Unknown engine or a fabricated
+pass. Headless uses mock graphics/audio/input: manual smoke still requires actual
+desktop movement, collect, reset twice, resize, focus/pause, clean exit and errors.
+Mobile/GWT/Kotlin are separate selected-backend checks. Existing warning/manual
+confirmation policy never turns an unexecuted backend test into execution evidence.
+
+
 **Unknown engine / not configured:**
 "Engine not configured in `.claude/docs/technical-preferences.md`. Run
 `/setup-engine` to specify the engine, then re-run `/smoke-check`."
@@ -169,7 +183,9 @@ For each story in scope:
 1. Extract the system slug from the story's file path
    (e.g., `production/epics/combat/story-001.md` → `combat`)
 2. Glob `tests/unit/[system]/` and `tests/integration/[system]/` for files
-   whose name contains the story slug or a closely related term
+   whose name contains the story slug or a closely related term. For libGDX also
+   inspect the actual module src/test Java/Kotlin classes and Gradle XML evidence;
+   root tests/ absence must not mark implemented module tests MISSING.
 3. Check the story file itself for a `Test file:` header field or a
    "Test Evidence" section
 

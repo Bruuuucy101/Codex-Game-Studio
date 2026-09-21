@@ -1,6 +1,13 @@
 ---
 paths:
   - "src/networking/**"
+  - "core/src/main/**/networking/**"
+  - "lwjgl3/src/main/**/networking/**"
+  - "headless/src/main/**/networking/**"
+  - "desktop/src/main/**/networking/**"
+  - "android/src/main/**/networking/**"
+  - "ios/src/main/**/networking/**"
+  - "html/src/main/**/networking/**"
 ---
 
 # Network Code Rules

@@ -1,4 +1,4 @@
-"""Explicit, non-installing web template copy with complete preflight."""
+"""Explicit, non-installing template copy with complete preflight."""
 import hashlib
 from pathlib import Path
 
@@ -14,6 +14,34 @@ FILES = tuple(sorted((
     'tests/web-unit/game_test.ts', 'tests/web-unit/input_test.ts',
     'tests/web-unit/lifecycle_test.ts',
     'tests/browser/game.spec.ts',
+)))
+
+
+LIBGDX_FILES = tuple(sorted((
+    'README-LIBGDX.md',
+    'THIRD-PARTY-NOTICES.md',
+    'settings.gradle',
+    'build.gradle',
+    'gradlew',
+    'gradlew.bat',
+    'gradle/wrapper/gradle-wrapper.jar',
+    'gradle/wrapper/gradle-wrapper.properties',
+    'assets/data/game_config.json',
+    'assets/i18n/messages.properties',
+    'core/build.gradle',
+    'headless/build.gradle',
+    'lwjgl3/build.gradle',
+    'core/gradle.lockfile',
+    'headless/gradle.lockfile',
+    'lwjgl3/gradle.lockfile',
+    'core/src/main/java/studio/collect/gameplay/GameConfig.java',
+    'core/src/main/java/studio/collect/gameplay/CollectState.java',
+    'core/src/main/java/studio/collect/gameplay/CollectGame.java',
+    'core/src/test/java/studio/collect/gameplay/CollectStateTest.java',
+    'headless/src/main/java/studio/collect/headless/HeadlessRunner.java',
+    'headless/src/main/java/studio/collect/headless/HeadlessLauncher.java',
+    'headless/src/test/java/studio/collect/headless/HeadlessLifecycleTest.java',
+    'lwjgl3/src/main/java/studio/collect/desktop/DesktopLauncher.java',
 )))
 
 
@@ -46,12 +74,21 @@ def copy_web(root, engine, target, write=False):
     if engine not in ENGINES:
         raise ValueError(f'Unknown web engine: {engine}')
     engine = ENGINES[engine]
+    return copy_template(Path(root).absolute() / 'templates' / 'web' / engine,
+                         FILES, engine, target, write)
+
+
+def copy_libgdx(root, target, write=False):
+    return copy_template(Path(root).absolute() / 'templates' / 'libgdx',
+                         LIBGDX_FILES, 'libgdx', target, write)
+
+
+def copy_template(source, names, engine, target, write=False):
     destination = checked_target(target)
     if destination.exists() and not destination.is_dir():
         raise ValueError(f'Target is not a directory: {destination}')
-    source = Path(root).absolute() / 'templates' / 'web' / engine
     payloads = []
-    for name in FILES:
+    for name in names:
         src, dst = source / name, destination / name
         check_chain(src)
         if not src.is_file():
@@ -59,16 +96,16 @@ def copy_web(root, engine, target, write=False):
         check_chain(dst)
         if dst.exists():
             raise ValueError(f'Collision; nothing overwritten: {dst}')
-        payloads.append((name, src.read_bytes()))
+        payloads.append((name, src.read_bytes(), src.stat().st_mode & 0o777))
     result = {'status': 'COPIED' if write else 'PREVIEW', 'engine': engine,
               'target': str(destination), 'files': [
-                  {'path': name, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
-                  for name, data in payloads]}
+                  {'path': name, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest(), 'mode': format(mode, '04o')}
+                  for name, data, mode in payloads]}
     if not write:
         return result
     created_files, created_dirs = [], []
     try:
-        for name, data in payloads:
+        for name, data, mode in payloads:
             dst = destination / name
             check_chain(dst)
             for directory in (*reversed(dst.parent.parents), dst.parent):
@@ -79,6 +116,7 @@ def copy_web(root, engine, target, write=False):
             with dst.open('xb') as handle:
                 created_files.append(dst)
                 handle.write(data)
+            dst.chmod(mode)
     except (OSError, ValueError):
         for path in reversed(created_files):
             path.unlink()

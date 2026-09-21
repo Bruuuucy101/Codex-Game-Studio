@@ -3,7 +3,7 @@
 ## What Is This?
 
 This is a complete Claude Code agent architecture for game development. It
-organizes 51 specialized AI agents into a studio hierarchy that mirrors
+organizes 57 specialized AI agents into a studio hierarchy that mirrors
 real game development teams, with defined responsibilities, delegation
 rules, and coordination protocols. It includes engine-specialist agents
 for Godot, Unity, and Unreal — each with dedicated sub-specialists for
@@ -275,8 +275,8 @@ If you have design docs, prototypes, or code already:
 CLAUDE.md                          -- Master config (read this first, ~60 lines)
 .claude/
   settings.json                    -- Claude Code hooks and project settings
-  agents/                          -- 51 agent definitions (YAML frontmatter)
-  skills/                          -- 73 slash command definitions (YAML frontmatter)
+  agents/                          -- 57 agent definitions (YAML frontmatter)
+  skills/                          -- 74 slash command definitions (YAML frontmatter)
   hooks/                           -- 12 hook scripts (.sh) wired by settings.json
   rules/                           -- 11 path-specific rule files
   docs/
@@ -294,9 +294,11 @@ CLAUDE.md                          -- Master config (read this first, ~60 lines)
 
 ## Web engine choices
 
-Phaser 3 and Three.js bring the current inventory to 51 roles (49 original plus
-two web leads). `/setup-engine phaser` / `/setup-engine threejs` configure the
+Phaser 3, Three.js, game-pipeline-developer and five libGDX roles bring the current inventory to 57 roles (49 original plus eight additions). `/setup-engine phaser` / `/setup-engine threejs` configure the
 matching language, shader and UI routes; aliases phaser3, three and three.js are
 accepted. Web leads reuse existing programmers and technical artists.
-Read [web development](web-game-development.md): runnable scaffold and browser
-acceptance are forthcoming in Task 2, not implied by configuration completion.
+Read [web development](web-game-development.md) and the validation report for actual
+browser evidence; configuration alone does not imply runtime acceptance.
+
+For code-first Java development use `/setup-engine libgdx`; read
+`.claude/docs/libgdx-development.md` for the safe starter and actual evidence scope.

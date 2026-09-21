@@ -221,3 +221,35 @@ def detect_project_kind(root) -> dict:
         warnings.extend(errors)
     result['evidence'] = sorted(set(evidence))
     return result
+
+
+SOURCE_ROOTS = ('src', 'core/src', 'lwjgl3/src', 'headless/src', 'desktop/src',
+                'android/src', 'ios/src', 'html/src')
+SOURCE_SUFFIXES = frozenset({'.gd', '.cs', '.cpp', '.c', '.h', '.hpp', '.rs', '.py',
+                             '.js', '.ts', '.mjs', '.java', '.kt'})
+SOURCE_EXCLUDES = frozenset({'build', '.gradle', 'vendor', 'vendored', 'node_modules',
+                             'templates', 'examples', 'test', 'tests', 'generated'})
+
+
+def source_files(root):
+    """Read-only source inventory; never follow links or count bundled examples/tests."""
+    import os
+    from .scaffold import check_chain
+    root = Path(root).absolute()
+    check_chain(root)
+    if not root.is_dir():
+        raise ValueError('Project root must be an existing directory')
+    paths = []
+    for name in SOURCE_ROOTS:
+        base = root / name
+        check_chain(base)
+        if not base.is_dir():
+            continue
+        for directory, dirs, files in os.walk(base, followlinks=False):
+            dirs[:] = sorted(d for d in dirs if d not in SOURCE_EXCLUDES
+                             and not (Path(directory) / d).is_symlink())
+            for filename in files:
+                path = Path(directory) / filename
+                if path.suffix in SOURCE_SUFFIXES and not path.is_symlink():
+                    paths.append(path.relative_to(root).as_posix())
+    return sorted(set(paths))

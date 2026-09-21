@@ -59,7 +59,7 @@ Analyze project structure and content:
 - Count level designs in `design/levels/`
 
 **Source Code** (`src/`):
-- Count actual source files (language-agnostic, including `.js`, `.ts`, `.mjs` web modules) under `src/` or explicit adopted source roots.
+- Count actual source files (language-agnostic, including `.js`, `.ts`, `.mjs` web modules and `.java`, `.kt` JVM files) under `src/` or explicit adopted source roots. For libGDX include actual `core/src`, `lwjgl3/src`, `headless/src` and selected platform modules; use the read-only `source-files` diagnostic and inspect custom Gradle sourceSets. Exclude `src/test` as well as bundled examples/templates, generated/build/vendor output. Core is shared code, not proof of a runnable backend.
 - Exclude `templates/`, `.claude/docs/templates/`, `node_modules/`, `dist/`, generated output, caches and test trees from game-code evidence, even if they contain nested `src/`. Installing bundled templates never promotes stage.
 - For web projects compare configured technical preferences with package/lockfile evidence. Dependencies alone are an engine candidate, not a configured engine. Report source roots and uncertainty for monorepos; retain `production/stage.txt` as the explicit override.
 - Identify major systems (directories with 5+ files)
@@ -96,8 +96,8 @@ auto-detect using these heuristics (check from most-advanced backward):
 | **Concept** | No game concept doc, brainstorming phase |
 | **Systems Design** | Game concept exists, systems index missing or incomplete |
 | **Technical Setup** | Systems index exists, engine not configured |
-| **Pre-Production** | Engine configured, `src/` has <10 source files |
-| **Production** | `src/` has 10+ source files, active development |
+| **Pre-Production** | Engine configured, actual source roots have <10 implementation files |
+| **Production** | actual source roots have 10+ implementation files, active development |
 | **Polish** | Explicit only (set by `/gate-check` Production → Polish gate) |
 | **Release** | Explicit only (set by `/gate-check` Polish → Release gate) |
 

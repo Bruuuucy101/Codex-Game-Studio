@@ -34,7 +34,7 @@ jobs:
           original = {pathlib.Path(p).stem for p in baseline if p.startswith('.claude/agents/') and p.endswith('.md')}
           canonical = {p.stem for p in pathlib.Path('.claude/agents').glob('*.md')}
           assert original <= canonical
-          assert canonical - original == {'phaser-specialist', 'threejs-specialist', 'game-pipeline-developer'}
+          assert canonical - original == {'phaser-specialist', 'threejs-specialist', 'game-pipeline-developer', 'libgdx-specialist', 'libgdx-scene2d-specialist', 'libgdx-graphics-specialist', 'libgdx-ashley-specialist', 'libgdx-core-specialist'}
           assert {p.stem.removeprefix('ccgs-') for p in roles} == canonical
           for role in roles:
               tomllib.loads(role.read_text())
@@ -83,8 +83,43 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+  libgdx:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Validate official Gradle wrapper JARs
+        uses: gradle/actions/wrapper-validation@v4
+      - name: Copy exact binary and executable starter into a clean fixture
+        run: python3 tools/ccgs_codex.py scaffold-libgdx --target "$RUNNER_TEMP/libgdx-game" --write
+      - name: Test pure simulation and actual headless lifecycle, package desktop
+        working-directory: ${{ runner.temp }}/libgdx-game
+        run: |
+          java -version
+          ./gradlew --version
+          ./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon
+          ./gradlew :headless:run --no-daemon
+      - name: Retain actual JUnit and build evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: libgdx-headless-build-evidence
+          path: |
+            ${{ runner.temp }}/libgdx-game/core/build/test-results/
+            ${{ runner.temp }}/libgdx-game/headless/build/test-results/
+            ${{ runner.temp }}/libgdx-game/core/build/reports/tests/
+            ${{ runner.temp }}/libgdx-game/headless/build/reports/tests/
+          if-no-files-found: warn
+          retention-days: 14
+
   beta-patch-release:
-    needs: [verify, web]
+    needs: [verify, web, libgdx]
     if: github.repository == 'Bruuuucy101/Codex-Game-Studio' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:

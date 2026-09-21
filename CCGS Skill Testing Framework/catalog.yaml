@@ -1131,3 +1131,35 @@ agents:
     last_spec_result: ""
     priority: high
     category: specialist
+
+# libGDX roles: authored scenarios, no execution claimed.
+  - name: libgdx-specialist
+    spec: CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-specialist.md
+    category: engine
+    priority: high
+    last_spec: ""
+    last_spec_result: ""
+  - name: libgdx-scene2d-specialist
+    spec: CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-scene2d-specialist.md
+    category: engine
+    priority: high
+    last_spec: ""
+    last_spec_result: ""
+  - name: libgdx-graphics-specialist
+    spec: CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-graphics-specialist.md
+    category: engine
+    priority: high
+    last_spec: ""
+    last_spec_result: ""
+  - name: libgdx-ashley-specialist
+    spec: CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-ashley-specialist.md
+    category: engine
+    priority: high
+    last_spec: ""
+    last_spec_result: ""
+  - name: libgdx-core-specialist
+    spec: CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-core-specialist.md
+    category: engine
+    priority: high
+    last_spec: ""
+    last_spec_result: ""

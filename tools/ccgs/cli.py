@@ -51,6 +51,10 @@ def main(argv=None):
     web.add_argument('engine')
     web.add_argument('--target', required=True)
     web.add_argument('--write', action='store_true')
+    libgdx = sub.add_parser('scaffold-libgdx', help='Preview or copy the pinned Java desktop/headless starter.')
+    libgdx.add_argument('--target', required=True)
+    libgdx.add_argument('--write', action='store_true')
+    sub.add_parser('source-files', help='List actual game implementation source in root/conventional module roots.')
     context = sub.add_parser('adr-context', help='Read current ADR metadata or bounded, hash-pinned section pages.')
     context.add_argument('path')
     context.add_argument('--metadata-only', action='store_true')
@@ -59,10 +63,14 @@ def main(argv=None):
     context.add_argument('--limit', type=int, default=adr.DEFAULT_LIMIT)
     context.add_argument('--expected-sha256')
     args = parser.parse_args(argv)
-    root = args.root.absolute() if args.command in ('scaffold-web', 'project-kind', 'status') else args.root.resolve()
+    root = args.root.absolute() if args.command in ('scaffold-web', 'scaffold-libgdx', 'source-files', 'project-kind', 'status') else args.root.resolve()
     try:
         if args.command == 'scaffold-web':
             emit(scaffold.copy_web(root, args.engine, args.target, write=args.write))
+        elif args.command == 'scaffold-libgdx':
+            emit(scaffold.copy_libgdx(root, args.target, write=args.write))
+        elif args.command == 'source-files':
+            emit({'files': project.source_files(root)})
         elif args.command == 'adr-context':
             emit(adr.read_context(root, args.path, sections=args.section,
                                   metadata_only=args.metadata_only, offset=args.offset,

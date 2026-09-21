@@ -80,3 +80,14 @@ All stories must have appropriate test evidence before they can be marked Done:
   neither an accessibility guarantee nor successful rendering evidence.
 - Read `.claude/docs/web-game-development.md` and the engine lifecycle reference.
   Record actual commands/results and NOT RUN gaps; Chromium is not all platforms.
+
+
+## Java/Kotlin module projects
+
+For libGDX, apply the same gameplay, UI, data and test responsibilities inside
+actual core/backend package trees; a module prefix does not waive the rules.
+Keep common logic backend-independent and platform services behind interfaces.
+Explicitly document native/shared asset owners and screen disposal. Inspect
+`.claude/docs/libgdx-development.md` for source discovery, Java/Kotlin filtering,
+verified dependency pins and separate headless/rendering evidence. Profile hot
+paths before choosing pooling or other lifetime-sensitive optimizations.

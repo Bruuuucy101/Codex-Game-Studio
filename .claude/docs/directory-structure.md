@@ -21,3 +21,11 @@
 Standalone setup may create `production/project-kind.txt` (`tooling`) and stage
 `Tooling Project`. These markers are not shipped populated. Tool specs and owned
 source/tests are scoped independently from the adapter's `tools/ccgs/`.
+
+
+libGDX projects may also own `core/src`, `lwjgl3/src`, `headless/src` and explicitly
+selected `desktop/src`, `android/src`, `ios/src`, `html/src`. Java/Kotlin package
+subtrees retain gameplay/UI/engine rule responsibilities. Tests use module
+`src/test`; Gradle outputs use module `build/` and `.gradle/`. The shipped
+`templates/libgdx/` is a copy source, never actual game-source evidence. Inspect
+custom sourceSets for adopted projects; read `.claude/docs/libgdx-development.md`.

@@ -181,3 +181,14 @@ Expected: retain existing files/custom scripts, propose authorized merges,
 separate unit and browser discovery, use exact installed pins and production
 preview with actual input/rendering checks. No latest install, overwritten
 lockfile, fabricated browser run or skipped failing job. Missing browser is NOT RUN.
+
+
+## Additional libGDX scenario — Real libGDX backend test plan
+
+**Input/fixture:** Project has Java core/lwjgl3/headless and module src/test tests but no root tests/ directory; prepare automated checks.
+
+**Expected behavior:** Reuses actual module tests and configured pins/wrapper/locks. Pure units and actual HeadlessApplication lifecycle tests stay distinct. Requires bounded error forwarding, thread stop and Gdx isolation; desktop installDist is packaging only. No silent optional dependency/backends, no overwrite.
+
+**Evidence:** Authored scenario only. Run a fresh consuming agent with full skill,
+actual fixture and canonical references; record prompt/source hashes and observed
+outcome. Do not count static source assertions as this behavior run.

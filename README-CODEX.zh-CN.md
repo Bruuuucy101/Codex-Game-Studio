@@ -11,7 +11,7 @@
 | 原版内容 | Codex 接入方式 |
 |---|---|
 | 73 个原工作流 + setup-tool | 当前 74 个 `ccgs-*` 入口，每次读取完整原工作流；没有用摘要替代 |
-| 49 个原角色 + 2 个 Web 引擎负责人 + 工具流水线开发者 | 当前 52 个角色配置，嵌入完整规范；原 49 个身份保留 |
+| 49 个原角色 + 2 个 Web 引擎负责人 + 工具流水线开发者 + 5 个 libGDX 专家 | 当前 57 个角色配置，嵌入完整规范；原 49 个身份保留 |
 | 11 组路径规则 | 保留原文与适用路径；编辑前加载，受支持的工具事件额外自动注入 |
 | 12 个钩子脚本 | 全部保留；11 个脚本接入事件桥接，通知脚本有明确平台差异 |
 | 40 个模板文件 | 包括嵌套目录，按实际文件清点；原 README 的数字不是此处验收依据 |
@@ -82,7 +82,7 @@ python3 tools/ccgs_codex.py check
 
 现可选择 Phaser 3（phaser/phaser3）和 Three.js（threejs/three/three.js），
 使用新增的两个引擎角色和完整的配置、审查、测试路由。原 73 个工作流、49 个角色身份和
-Godot 三种语言模式、Unity、Unreal 分支保留；加入工具流水线角色后当前共 52 个角色。
+Godot 三种语言模式、Unity、Unreal 分支保留；加入工具流水线和 libGDX 专家后当前共 57 个角色。
 
 `templates/web/` 提供收集小游戏、锁定依赖和复制工具。先用
 `python3 tools/ccgs_codex.py scaffold-web phaser --target "你的项目目录"` 预览，
@@ -99,3 +99,9 @@ Three.js 0.186.0/r186，已有项目的锁定版本优先。参见 [Web 开发�
 详见 [工具项目约定](.claude/docs/tooling-projects.md) 和
 [可运行 CSV 转 JSON 示例](examples/tooling/level-exporter/README.md)。示例验证文本文件处理，
 不代表已验证 Unity/Godot/Unreal 原生二进制转换或导入。
+
+
+libGDX 使用 `/setup-engine libgdx [版本]`。Java 模板包含 core、lwjgl3、headless，
+通过 `python3 tools/ccgs_codex.py scaffold-libgdx --target PATH` 预览，添加 `--write`
+才复制；不会覆盖原文件或自动安装依赖。实际无界面生命周期测试与桌面打包分别记录，
+GPU、移动端、GWT、Kotlin/KTX 验证范围见[libGDX 开发说明](.claude/docs/libgdx-development.md)。

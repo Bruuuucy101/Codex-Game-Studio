@@ -52,7 +52,7 @@ class CatalogTests(unittest.TestCase):
         original = {Path(p).stem for p in baseline if p.startswith('.claude/agents/') and p.endswith('.md')}
         actual = {role['name'] for role in roles}
         self.assertTrue(original <= actual)
-        self.assertEqual(actual - original, {'phaser-specialist', 'threejs-specialist', 'game-pipeline-developer'})
+        self.assertEqual(actual - original, {'phaser-specialist', 'threejs-specialist', 'game-pipeline-developer', 'libgdx-specialist', 'libgdx-scene2d-specialist', 'libgdx-graphics-specialist', 'libgdx-ashley-specialist', 'libgdx-core-specialist'})
         for role in roles:
             text = files[f".codex/agents/ccgs-{role['name']}.toml"]
             line = next(x for x in text.splitlines() if x.startswith('developer_instructions = '))

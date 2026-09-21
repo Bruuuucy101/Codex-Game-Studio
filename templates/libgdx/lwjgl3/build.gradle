@@ -1,0 +1,12 @@
+apply plugin: 'application'
+dependencies {
+    implementation project(':core')
+    implementation 'com.badlogicgames.gdx:gdx-backend-lwjgl3:1.14.2'
+    runtimeOnly 'com.badlogicgames.gdx:gdx-platform:1.14.2:natives-desktop'
+}
+application { mainClass = 'studio.collect.desktop.DesktopLauncher' }
+tasks.named('run', JavaExec) {
+    if (System.getProperty('os.name').toLowerCase().contains('mac')) {
+        jvmArgs '-XstartOnFirstThread'
+    }
+}

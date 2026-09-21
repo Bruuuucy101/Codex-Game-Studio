@@ -245,7 +245,7 @@ Ground the concept in reality:
   Note platform implications if relevant (e.g., mobile means Unity is strongly preferred; console means Godot has limitations; browser-first 2D may favor Phaser 3; browser 3D may favor Three.js with application-owned gameplay/UI; Godot/Unity web exports need browser/rendering validation).
 
 - **Engine experience**: Use `AskUserQuestion` — "Do you already have an engine you work in?"
-  Options: `Godot` / `Unity` / `Unreal Engine 5` / `Phaser 3` / `Three.js` / `No preference — help me decide`
+  Options: `Godot` / `Unity` / `Unreal Engine 5` / `Phaser 3` / `Three.js` / `libGDX` / `No preference — help me decide`
   - If they pick an engine → record it as their preference and move on. Do NOT second-guess it.
   - If "No preference" → tell them: "Run `/setup-engine` after this session — it will walk you through the full decision based on your concept and platform target." Do not make a recommendation here.
 - **Art pipeline**: What's the art style and how labor-intensive is it?
@@ -357,3 +357,9 @@ After the game concept is written, follow the pre-production pipeline in order:
 5. `/create-architecture` — produce the master architecture blueprint
 6. `/architecture-review` — bootstrap TR registry and Requirements Traceability Matrix
 7. `/gate-check pre-production` — validate readiness before committing to production
+
+For a code-first Java/Kotlin preference, include libGDX in the engine comparison.
+Record editor/authoring needs, actual backend targets and Kotlin/KTX choice; use
+`/setup-engine libgdx` for verified pins and five-role routing. The Java starter
+does not certify mobile, GWT, ECS or Kotlin execution. Preserve the chosen
+full/lean/solo feasibility gates above.

@@ -1,6 +1,13 @@
 ---
 paths:
   - "tests/**"
+  - "core/src/test/**"
+  - "headless/src/test/**"
+  - "lwjgl3/src/test/**"
+  - "desktop/src/test/**"
+  - "android/src/test/**"
+  - "ios/src/test/**"
+  - "html/src/test/**"
 ---
 
 # Test Standards

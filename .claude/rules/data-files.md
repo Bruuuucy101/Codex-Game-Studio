@@ -1,6 +1,9 @@
 ---
 paths:
   - "assets/data/**"
+  - "core/assets/data/**"
+  - "android/assets/data/**"
+  - "core/src/main/resources/data/**"
 ---
 
 # Data File Rules

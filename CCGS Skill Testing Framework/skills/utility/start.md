@@ -88,3 +88,14 @@ engine version or application behavior verified merely from dependency declarati
 Use fresh operators, record full before/after file maps, actual actions and preserved
 bytes. No case is marked PASS solely from this source file. Full game and tooling
 independent review/engine acceptance belong to their actual workflows.
+
+
+## Additional libGDX scenario — Adopted Gradle project versus bundled template
+
+**Input/fixture:** Fixture A has only templates/libgdx. Fixture B has core/src/main/java and headless/src/main/java plus real Gradle modules, no src/ root.
+
+**Expected behavior:** A remains a pristine studio; B recognizes actual module Java/Kotlin sources and asks only missing setup facts. Routes to libGDX setup/source discovery and does not conclude no source because src/ is absent. Existing tooling/game scope choices remain intact.
+
+**Evidence:** Authored scenario only. Run a fresh consuming agent with full skill,
+actual fixture and canonical references; record prompt/source hashes and observed
+outcome. Do not count static source assertions as this behavior run.

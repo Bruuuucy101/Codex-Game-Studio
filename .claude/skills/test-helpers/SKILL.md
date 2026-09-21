@@ -51,7 +51,9 @@ If engine is not configured: "Engine not configured. Run `/setup-engine` first."
 Scan the test directory for patterns already in use:
 
 ```
-Glob pattern="tests/**/*_test.*" (all test files)
+Glob pattern="tests/**/*_test.*" (root test files)
+For libGDX also inspect core/src/test/**/*Test.java, headless/src/test/**/*Test.java
+and configured Kotlin test sourceSets; use actual Gradle discovery, not name alone.
 ```
 
 For a representative sample (up to 5 files), read the test files and extract:
@@ -326,6 +328,19 @@ for an arbitrary duration. Keep each browser context and app state independent;
 exercise real restart twice, focus clearing and resize. A deterministic test seam
 may supplement real input but must not add arbitrary mutation APIs to production.
 Mocked Phaser Scenes/Three.js renderers are unit doubles, never engine acceptance.
+
+### libGDX (JUnit and actual HeadlessApplication)
+
+Read `.claude/docs/libgdx-development.md`. Pure helpers construct immutable config
+and fresh simulation state with injected inputs/time. Keep assertion values
+independent of production calculations. Use core/src/test/java or configured Kotlin
+roots. For lifecycle/integration reuse the accepted headless module's bounded
+runner; serialize tests, capture callback exceptions, exit/join the backend and
+restore Gdx only after termination. Do not mock a backend and call it integration.
+Provide fixtures for collect/reset/bounds, failure cleanup and repeated application
+lifecycle. GPU layout, shaders, sound and optional native physics need their real
+backend tests; do not add unselected Ashley/Box2D/KTX dependencies as helpers.
+
 
 ## 5. Generate System-Specific Helpers
 

@@ -98,3 +98,13 @@
 - **Implementation**: game-pipeline-developer via lead-programmer
 - **Review**: Fresh lead/pipeline/QA instances; applicable engine specialist
 - **Acceptance**: [Contract tests, actual evidence and remaining gaps]
+
+
+## Build and Source Roots
+
+<!-- Populated only for the actual adopted project by setup-engine. -->
+- **Source Roots**: [TO BE CONFIGURED — actual root/module paths; exclude bundled templates]
+- **Selected Backends**: [TO BE CONFIGURED — include only actual platform modules]
+- **Build Runtime**: [TO BE CONFIGURED — verified JDK/Node/etc. version]
+- **Build Tool and Lockfiles**: [TO BE CONFIGURED — wrapper/tool version and lock paths]
+- **Build/Test Commands**: [TO BE CONFIGURED — commands plus separately observed evidence]

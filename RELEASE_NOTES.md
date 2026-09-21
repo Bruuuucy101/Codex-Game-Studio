@@ -1,3 +1,14 @@
+## Additional libGDX support — 2026-09-21
+
+Five libGDX specialists and version references now support Java/Kotlin-aware
+workflow routing and Gradle module paths. The preview-first starter copier ships
+an official checksum-pinned wrapper, strict dependency locks, a data-driven Java
+collect game, actual headless lifecycle tests and a desktop distribution build.
+Current inventory: 74 workflows and 57 roles, retaining all original 73/49 identities.
+GPU/device playtests and optional Kotlin/KTX/mobile/GWT/ECS/physics remain separate
+validation. The records below describe their original release scope; current
+acceptance and limitations are in docs/codex-adapter/validation.md.
+
 # v0.1.1-beta
 
 Reviewed upstream issue fixes for the community Codex adaptation of [Claude Code Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios) by Donchitos. All 73 workflows, 49 roles, engine branches and review modes remain available.

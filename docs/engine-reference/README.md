@@ -7,7 +7,7 @@ has a cutoff date** and game engines update frequently.
 ## Why This Exists
 
 Model knowledge is not release verification. Engines/libraries
-like Godot, Unity, Unreal, Phaser 3 and Three.js ship updates that introduce breaking API changes,
+like Godot, Unity, Unreal, Phaser 3, Three.js and libGDX ship updates that introduce breaking API changes,
 new features, and deprecated patterns. Without these reference files, agents will
 suggest outdated code.
 
@@ -71,4 +71,12 @@ Engine-specialist agents are instructed to:
 These source-checked curated references do not configure the framework or prove
 runtime behavior. Preserve adopted project pins. Full web references are retained
 regardless of model cutoff because lifecycle/ownership errors remain possible.
-Runnable scaffolds and browser acceptance are forthcoming in Task 2.
+Runnable web scaffolds and actual browser evidence are documented in the current validation report.
+
+
+## libGDX reference candidate
+
+[libGDX 1.14.2](libgdx/VERSION.md): lead plus four domain specialists, Java
+core/lwjgl3/headless starter, separate actual headless and desktop build checks.
+Kotlin/KTX, Ashley/Box2D and Android/iOS/GWT are explicit optional choices with
+separate version/toolchain/runtime evidence. Existing project pins always win.

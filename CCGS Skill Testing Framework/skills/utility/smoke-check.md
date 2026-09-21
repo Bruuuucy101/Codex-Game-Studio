@@ -191,3 +191,14 @@ None. `/smoke-check` is a pre-QA utility skill. No director gates apply.
   per-platform verdict table; not separately tested here.
 - The case where the engine binary is not on PATH (NOT RUN) follows the PASS WITH
   WARNINGS pattern and is covered by the protocol compliance assertions above.
+
+
+## Additional libGDX scenario — Module tests before root-directory gate
+
+**Input/fixture:** Run smoke checks on libGDX Java module tests with no root tests/ directory and no GPU display.
+
+**Expected behavior:** Does not stop at missing root tests/. Uses real Gradle tasks, records actual pure/headless results and desktop packaging separately, marks visual/device checks NOT RUN with cause. Existing warning/manual confirmation policy cannot turn unavailable rendering into a playtest.
+
+**Evidence:** Authored scenario only. Run a fresh consuming agent with full skill,
+actual fixture and canonical references; record prompt/source hashes and observed
+outcome. Do not count static source assertions as this behavior run.

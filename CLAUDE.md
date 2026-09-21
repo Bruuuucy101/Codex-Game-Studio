@@ -1,12 +1,12 @@
 # Claude Code Game Studios -- Game Studio Agent Architecture
 
-Indie game development managed through 52 coordinated Claude Code subagents (49 original roles plus Phaser 3, Three.js and game-pipeline-developer).
+Indie game development managed through 57 coordinated Claude Code subagents (49 original roles plus Phaser 3, Three.js, game-pipeline-developer and five libGDX roles).
 Each agent owns a specific domain, enforcing separation of concerns and quality.
 
 ## Technology Stack
 
-- **Engine**: [CHOOSE: Godot 4 / Unity / Unreal Engine 5 / Phaser 3 / Three.js]
-- **Language**: [CHOOSE: GDScript / C# / C++ / Blueprint / TypeScript / JavaScript]
+- **Engine**: [CHOOSE: Godot 4 / Unity / Unreal Engine 5 / Phaser 3 / Three.js / libGDX]
+- **Language**: [CHOOSE: GDScript / C# / C++ / Blueprint / TypeScript / JavaScript / Java / Kotlin]
 - **Version Control**: Git with trunk-based development
 - **Build System**: [SPECIFY after choosing engine]
 - **Asset Pipeline**: [SPECIFY after choosing engine]
@@ -14,7 +14,9 @@ Each agent owns a specific domain, enforcing separation of concerns and quality.
 > **Note**: Engine-specialist agents exist for Godot, Unity, and Unreal with
 > dedicated sub-specialists, plus Phaser 3 and Three.js leads that reuse existing
 > programmer/UI/art roles. Use the set matching your engine; see
-> `.claude/docs/web-game-development.md` for staged web support and evidence limits.
+> `.claude/docs/web-game-development.md` for web support and evidence limits.
+> libGDX has a lead and four specialists; see `.claude/docs/libgdx-development.md`
+> for Java/Kotlin choices, module roots and separate headless/desktop evidence.
 
 ## Project Structure
 

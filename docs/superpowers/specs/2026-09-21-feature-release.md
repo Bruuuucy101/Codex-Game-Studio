@@ -1,14 +1,14 @@
 # v0.2.0-beta release acceptance
 
-The user authorized updating and publishing the existing community Codex Game Studio repository after staged tests. This release combines the separately reviewed web-engine, tooling, board-sync and libGDX plans. It retains all upstream capability surfaces and accurate attribution; it does not claim upstream issue closure or official endorsement.
+The user authorized updating and publishing the existing community Codex Game Studio repository after staged tests. This release combines the separately reviewed web-engine, tooling and libGDX plans. It retains all upstream capability surfaces and accurate attribution; it does not claim upstream issue closure or official endorsement.
 
 ## Binding release contract
 
 - Version/tag is `v0.2.0-beta`, archive `Codex-Game-Studio-v0.2.0-beta.zip` with prefix `Codex-Game-Studio/`, checksum file `SHA256SUMS.txt`. Existing releases/tags remain unchanged.
-- Complete selected source feature inventory is 75 workflows and 57 roles: original 73/49 plus setup-tool, board-sync, two web specialists, game-pipeline-developer and five libGDX specialists. Assert identities, not counts alone; derive all other counts from actual files. Original 417-file lock bytes stay unchanged.
+- Complete selected source feature inventory is 74 workflows and 57 roles: original 73/49 plus setup-tool, two web specialists, game-pipeline-developer and five libGDX specialists. Assert identities, not counts alone; derive all other counts from actual files. Original 417-file lock bytes stay unchanged.
 - Local unit, real filesystem, sampled agent behavior, browser/headless-engine, CI and release artifact verification are separate evidence. Report actual environment/commands/source hashes and explicit unverified platforms/providers. Do not turn skipped or contract-only tests into live integration claims.
-- GitHub release must wait for Python 3.10/3.12, web matrix, board contract and libGDX headless/build jobs for the actual published revision. A PR/feature branch never publishes a release. Repeated release execution is idempotent and does not replace an existing tag/asset.
-- Upstream #62/#22/#19/#105 can be described only at the actual completed scope. #82 has real API implementation and stateful contract tests, with live account verification separately unverified if credentials remain unavailable. #40 creative MCP, #23 paid vendor backends and #14 NPC TTS remain deferred external integrations; no automatic installation, fabricated synthesis/import evidence or paid calls.
+- GitHub release must wait for Python 3.10/3.12, web matrix and libGDX headless/build jobs for the actual published revision. A PR/feature branch never publishes a release. Repeated release execution is idempotent and does not replace an existing tag/asset.
+- Upstream #62/#22/#19/#105 can be described only at the actual completed scope. #82 board synchronization remains a planned, unimplemented feature for a subsequent release; neither its local snapshot nor remote setup/sync commands ship in this version. The separate design is retained for later staged implementation and recovery testing. #40 creative MCP, #23 paid vendor backends and #14 NPC TTS remain deferred external integrations; no automatic installation, fabricated synthesis/import evidence or paid calls.
 - Preserve original LICENSE/attribution. Document third-party wrapper/dependency licensing and source without presenting external dependencies as relicensed MIT code. No personal filesystem paths, secrets, runtime caches, browser profiles, generated build output or SDD scratch in published source.
 
 ## Documentation and validation

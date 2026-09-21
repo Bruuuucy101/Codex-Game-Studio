@@ -5,11 +5,11 @@
   "verification_contract": "Source coverage is not runtime or behavioral certification. See validation.md.",
   "counts": {
     "skills": 74,
-    "agents": 52,
+    "agents": 57,
     "rules": 11,
     "hooks": 12,
     "templates": 41,
-    "behavior_specs": 130
+    "behavior_specs": 135
   },
   "surfaces": {
     "skills": [
@@ -110,7 +110,7 @@
       {
         "name": "brainstorm",
         "source": ".claude/skills/brainstorm/SKILL.md",
-        "sha256": "58ee07f10ee554f6163c0b4be8d69eb5e0d94fe0ae90f4bf13d55fbb8f77a555",
+        "sha256": "91e6725014a3cd7b6e1b89ed62084f3d5e698d9773982d4fc5a2a2ddd7266987",
         "metadata": {
           "name": "brainstorm",
           "description": "Guided game concept ideation — from zero idea to a structured game concept document. Uses professional studio ideation techniques, player psychology frameworks, and structured creative exploration.",
@@ -163,7 +163,7 @@
       {
         "name": "code-review",
         "source": ".claude/skills/code-review/SKILL.md",
-        "sha256": "c39317612b3afbba78d111598c5e95920d516373f89ab8d7666bfd265ccc6a51",
+        "sha256": "d3457eb85b297be9f86f7f0252df9c626908c8d73ea21571e58238e4812289e9",
         "metadata": {
           "name": "code-review",
           "description": "Performs an architectural and quality code review on a specified file or set of files. Checks for coding standard compliance, architectural pattern adherence, SOLID principles, testability, and performance concerns.",
@@ -299,7 +299,7 @@
       {
         "name": "dev-story",
         "source": ".claude/skills/dev-story/SKILL.md",
-        "sha256": "376890e5639a2a4265263090cd6ce4f076f42e2fa7f9ac9b5fe67bb65f8465f3",
+        "sha256": "9632567ba271290dac9304a0f7138ce9615e9d4d865798f13789f2cfd51a1997",
         "metadata": {
           "name": "dev-story",
           "description": "Read a story file and implement it. Loads the full context (story, GDD requirement, ADR guidelines, control manifest), routes to the right programmer agent for the system and engine, implements the code and test, and confirms each acceptance criterion. The core implementation skill — run after /story-readiness, before /code-review and /story-done.",
@@ -472,7 +472,7 @@
       {
         "name": "project-stage-detect",
         "source": ".claude/skills/project-stage-detect/SKILL.md",
-        "sha256": "e7f922916e79761eef58e20cd05adb28724a053263a2a13a801885d7c2f1e7ee",
+        "sha256": "5242ec0cbae988a3419295fa81e99baeeb2caac5ab957dd53e3917a6d528e21e",
         "metadata": {
           "name": "project-stage-detect",
           "description": "Automatically analyze project state, detect stage, identify gaps, and recommend next steps based on existing artifacts. Use when user asks 'where are we in development', 'what stage are we in', 'full project audit'.",
@@ -633,7 +633,7 @@
       {
         "name": "setup-engine",
         "source": ".claude/skills/setup-engine/SKILL.md",
-        "sha256": "8eb7392872bfdebb5c408b452143d4ed2d5cbf68c1adbe739bd6f239456300af",
+        "sha256": "fd9838aeacfb8cce2149f091e254a4003b5ad302b03b7bb81974592e06c21cf1",
         "metadata": {
           "name": "setup-engine",
           "description": "Configure the project's game engine and version. Pins the engine in CLAUDE.md, detects knowledge gaps, and populates engine reference docs via WebSearch when the version is beyond the LLM's training data.",
@@ -685,7 +685,7 @@
       {
         "name": "smoke-check",
         "source": ".claude/skills/smoke-check/SKILL.md",
-        "sha256": "43f7e3b462e62a173ba5c58cd94e8ffd92d4bd13b6d6a3e6d8b3a1c4b53c4301",
+        "sha256": "a8d915f1358e0779d15c7685c71ae6d059a272fa66e2ae18ea887e2a191dfde7",
         "metadata": {
           "name": "smoke-check",
           "description": "Run the critical path smoke test gate before QA hand-off. Executes the automated test suite, verifies core functionality, and produces a PASS/FAIL report. Run after a sprint's stories are implemented and before manual QA begins. A failed smoke check means the build is not ready for QA.",
@@ -738,7 +738,7 @@
       {
         "name": "start",
         "source": ".claude/skills/start/SKILL.md",
-        "sha256": "13b567dacb994c436598111fb7a0b7c57b8ae179c8f5f3ab81edf89414ec833e",
+        "sha256": "8646e74036d9bfd7a76a9d6f326137ab61dcb6f5bacba3004494e8a213202953",
         "metadata": {
           "name": "start",
           "description": "First-time onboarding — asks where you are, then guides you to the right workflow. No assumptions.",
@@ -934,7 +934,7 @@
       {
         "name": "test-helpers",
         "source": ".claude/skills/test-helpers/SKILL.md",
-        "sha256": "707a387b7bb41fd17a1915af940963692c62ad41f89dd00e9521ee7e0e9a97f9",
+        "sha256": "a719865847be891b27288c2c95a50d8ed70ca83b91f8d624b07ae18925023305",
         "metadata": {
           "name": "test-helpers",
           "description": "Generate engine-specific test helper libraries for the project's test suite. Reads existing test patterns and produces tests/helpers/ with assertion utilities, factory functions, and mock objects tailored to the project's systems. Reduces boilerplate in new test files.",
@@ -947,7 +947,7 @@
       {
         "name": "test-setup",
         "source": ".claude/skills/test-setup/SKILL.md",
-        "sha256": "29adacdd800e504424fd4a74dd2a9193f2a2ddce88471d61005e8c15e39e0ead",
+        "sha256": "1291a2de41f34cf38147ad80a764443777ce1842f5e2336377ec19aafe67964a",
         "metadata": {
           "name": "test-setup",
           "description": "Scaffold the test framework and CI/CD pipeline for the project's engine. Creates the tests/ directory structure, engine-specific test runner configuration, and GitHub Actions workflow. Run once during Technical Setup phase before the first sprint begins.",
@@ -1269,6 +1269,66 @@
           "maxTurns": "20",
           "disallowedTools": "Bash",
           "memory": "project"
+        }
+      },
+      {
+        "name": "libgdx-ashley-specialist",
+        "source": ".claude/agents/libgdx-ashley-specialist.md",
+        "sha256": "700e3e3e5fb7d51c750792ef603d7f43d08578f3f88f2f1c95898cc457909d32",
+        "metadata": {
+          "name": "libgdx-ashley-specialist",
+          "description": "Optional Ashley composition/system ordering and Box2D simulation/contact ownership.",
+          "tools": "Read, Glob, Grep, Write, Edit, Bash, Task",
+          "model": "sonnet",
+          "maxTurns": "20"
+        }
+      },
+      {
+        "name": "libgdx-core-specialist",
+        "source": ".claude/agents/libgdx-core-specialist.md",
+        "sha256": "b32c59bc46774e21f59fa2d68876a8b15784c72c9e3cdd6d1117ebe02d52f652",
+        "metadata": {
+          "name": "libgdx-core-specialist",
+          "description": "Application lifecycle, shared assets, files/input/audio/net and Gradle/backend integration.",
+          "tools": "Read, Glob, Grep, Write, Edit, Bash, Task",
+          "model": "sonnet",
+          "maxTurns": "20"
+        }
+      },
+      {
+        "name": "libgdx-graphics-specialist",
+        "source": ".claude/agents/libgdx-graphics-specialist.md",
+        "sha256": "72744879d264afd41d6183fa44e4474d5d6e3019e6fe2fd8fac6ac8baa87516d",
+        "metadata": {
+          "name": "libgdx-graphics-specialist",
+          "description": "2D/3D batching, shaders, framebuffer state and GPU resource lifetimes.",
+          "tools": "Read, Glob, Grep, Write, Edit, Bash, Task",
+          "model": "sonnet",
+          "maxTurns": "20"
+        }
+      },
+      {
+        "name": "libgdx-scene2d-specialist",
+        "source": ".claude/agents/libgdx-scene2d-specialist.md",
+        "sha256": "01708150cc762ba4a477de2553103f83a74e365cef06254cbe06bfa054448bd3",
+        "metadata": {
+          "name": "libgdx-scene2d-specialist",
+          "description": "Scene graph, Scene2D.ui layouts, skins, actions, focus and input routing.",
+          "tools": "Read, Glob, Grep, Write, Edit, Bash, Task",
+          "model": "sonnet",
+          "maxTurns": "20"
+        }
+      },
+      {
+        "name": "libgdx-specialist",
+        "source": ".claude/agents/libgdx-specialist.md",
+        "sha256": "c791d574ff4c7c7bcb773d699fe6250fe6f066385b2349a52cfbb100d5b76b7d",
+        "metadata": {
+          "name": "libgdx-specialist",
+          "description": "Engine architecture, Java/Kotlin choices, backend boundaries and five-role coordination.",
+          "tools": "Read, Glob, Grep, Write, Edit, Bash, Task",
+          "model": "sonnet",
+          "maxTurns": "20"
         }
       },
       {
@@ -1694,20 +1754,30 @@
       {
         "name": "ai-code",
         "source": ".claude/rules/ai-code.md",
-        "sha256": "0b2ed79ed959c24262ca1b7ae353a78d574019d64eca040293753e165c5adb21",
+        "sha256": "403fcd5b60e89c754ce1280af251643560f3669bcc114e77273bd600e78224c0",
         "metadata": {
           "paths": [
-            "src/ai/**"
+            "src/ai/**",
+            "core/src/main/**/ai/**",
+            "lwjgl3/src/main/**/ai/**",
+            "headless/src/main/**/ai/**",
+            "desktop/src/main/**/ai/**",
+            "android/src/main/**/ai/**",
+            "ios/src/main/**/ai/**",
+            "html/src/main/**/ai/**"
           ]
         }
       },
       {
         "name": "data-files",
         "source": ".claude/rules/data-files.md",
-        "sha256": "bbc65708e00a98e18278c8331fd4f69ad261a6fdc15cbbb3a96815d0800dab9d",
+        "sha256": "e22038ba706e992e7dbe563b08bf427d003269b40ab3a630b86c98c5897f98b8",
         "metadata": {
           "paths": [
-            "assets/data/**"
+            "assets/data/**",
+            "core/assets/data/**",
+            "android/assets/data/**",
+            "core/src/main/resources/data/**"
           ]
         }
       },
@@ -1724,20 +1794,40 @@
       {
         "name": "engine-code",
         "source": ".claude/rules/engine-code.md",
-        "sha256": "24e3bc62c96ef2840843721d047ea375726fc57a5ba816faa0432007c23d98f7",
+        "sha256": "0fb556f02ceff18dfc1c6d197496eed1a5306bf629cc9174e7a15033a9d52246",
         "metadata": {
           "paths": [
-            "src/core/**"
+            "src/core/**",
+            "core/src/main/**/core/**",
+            "lwjgl3/src/main/**/core/**",
+            "headless/src/main/**/core/**",
+            "desktop/src/main/**/core/**",
+            "android/src/main/**/core/**",
+            "ios/src/main/**/core/**",
+            "html/src/main/**/core/**",
+            "lwjgl3/src/main/**",
+            "desktop/src/main/**",
+            "headless/src/main/**",
+            "android/src/main/**",
+            "ios/src/main/**",
+            "html/src/main/**"
           ]
         }
       },
       {
         "name": "gameplay-code",
         "source": ".claude/rules/gameplay-code.md",
-        "sha256": "94030c94f9f39c669f9292a0e1ab57a8d6fd53d1353485202713c2465098606c",
+        "sha256": "c797fc6a1f02caacc6ed6b760a4aac90f4099a24ff5e033404ebd02c5d262ad8",
         "metadata": {
           "paths": [
-            "src/gameplay/**"
+            "src/gameplay/**",
+            "core/src/main/**/gameplay/**",
+            "lwjgl3/src/main/**/gameplay/**",
+            "headless/src/main/**/gameplay/**",
+            "desktop/src/main/**/gameplay/**",
+            "android/src/main/**/gameplay/**",
+            "ios/src/main/**/gameplay/**",
+            "html/src/main/**/gameplay/**"
           ]
         }
       },
@@ -1754,10 +1844,17 @@
       {
         "name": "network-code",
         "source": ".claude/rules/network-code.md",
-        "sha256": "e75454f6ea2e3892521ab6500865190fe74b28ce90b604e78a7d74a6c08e675e",
+        "sha256": "9301f9bb62a9f877673bbdad01d14b67c8d855091dd8faaadcdd82987c771fed",
         "metadata": {
           "paths": [
-            "src/networking/**"
+            "src/networking/**",
+            "core/src/main/**/networking/**",
+            "lwjgl3/src/main/**/networking/**",
+            "headless/src/main/**/networking/**",
+            "desktop/src/main/**/networking/**",
+            "android/src/main/**/networking/**",
+            "ios/src/main/**/networking/**",
+            "html/src/main/**/networking/**"
           ]
         }
       },
@@ -1774,30 +1871,47 @@
       {
         "name": "shader-code",
         "source": ".claude/rules/shader-code.md",
-        "sha256": "a5e08163d84fae945bc38ef9e998d03120c14bb4f8d630e9bc44514839b3ec3c",
+        "sha256": "46924cdf21c074f5f1a61bb75208e68e3dbb6ba2097218bc91af851c607e579e",
         "metadata": {
           "paths": [
-            "assets/shaders/**"
+            "assets/shaders/**",
+            "core/assets/shaders/**",
+            "android/assets/shaders/**",
+            "core/src/main/resources/shaders/**"
           ]
         }
       },
       {
         "name": "test-standards",
         "source": ".claude/rules/test-standards.md",
-        "sha256": "78c642a6f22a815a990aca02e677d5d7f676524dff59a9a8034f1c7d69b42597",
+        "sha256": "01140da3ebc963f55972c798cf6fb4e98bf112c2a27218fc5fae5d2bc5f04769",
         "metadata": {
           "paths": [
-            "tests/**"
+            "tests/**",
+            "core/src/test/**",
+            "headless/src/test/**",
+            "lwjgl3/src/test/**",
+            "desktop/src/test/**",
+            "android/src/test/**",
+            "ios/src/test/**",
+            "html/src/test/**"
           ]
         }
       },
       {
         "name": "ui-code",
         "source": ".claude/rules/ui-code.md",
-        "sha256": "be45904c33e72c717ac56ba2ee760d5a5ec1435a3b84ad4365ca513c91a7a68b",
+        "sha256": "bf786b6f1d30092bac7454db5a32320d057fd0e91911683ffe1ad91cfb458d51",
         "metadata": {
           "paths": [
-            "src/ui/**"
+            "src/ui/**",
+            "core/src/main/**/ui/**",
+            "lwjgl3/src/main/**/ui/**",
+            "headless/src/main/**/ui/**",
+            "desktop/src/main/**/ui/**",
+            "android/src/main/**/ui/**",
+            "ios/src/main/**/ui/**",
+            "html/src/main/**/ui/**"
           ]
         }
       }
@@ -1806,7 +1920,7 @@
       {
         "name": "detect-gaps",
         "source": ".claude/hooks/detect-gaps.sh",
-        "sha256": "85f019106cf1ca46be58129f21b75ab9a4298afb06ebbb36577371739e90e320",
+        "sha256": "8cb1b44a6b8a03e02895004ce17b952624ac071f35183be764d563567ebe87e6",
         "metadata": {}
       },
       {
@@ -2189,6 +2303,36 @@
         "name": "godot-specialist",
         "source": "CCGS Skill Testing Framework/agents/engine/godot/godot-specialist.md",
         "sha256": "e2f1f001122082002f9e51802936d087de3ea6eff800dec9c77f9942876f3179",
+        "metadata": {}
+      },
+      {
+        "name": "libgdx-ashley-specialist",
+        "source": "CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-ashley-specialist.md",
+        "sha256": "cf6254e5fb191fe13972bf8d18521b90356f60f7636d7fe86f3d597abbab3371",
+        "metadata": {}
+      },
+      {
+        "name": "libgdx-core-specialist",
+        "source": "CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-core-specialist.md",
+        "sha256": "86458e2f1148af0b981018cbee681eff748f1ee5d3a50bd2620beb13336fc10c",
+        "metadata": {}
+      },
+      {
+        "name": "libgdx-graphics-specialist",
+        "source": "CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-graphics-specialist.md",
+        "sha256": "81096b9bca34d208b8c9ee8951f398414e40f8b60f499428ae884623e0b4b633",
+        "metadata": {}
+      },
+      {
+        "name": "libgdx-scene2d-specialist",
+        "source": "CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-scene2d-specialist.md",
+        "sha256": "cac9a1c646c8e5bd5828ab6f70419775853c0229529cfec145fa5e6c3b4536f2",
+        "metadata": {}
+      },
+      {
+        "name": "libgdx-specialist",
+        "source": "CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-specialist.md",
+        "sha256": "f314c3e77aca2cae455e7380677aeecb45997df1f33795e9a8ea1735d445e847",
         "metadata": {}
       },
       {
@@ -2806,7 +2950,7 @@
       {
         "name": "project-stage-detect",
         "source": "CCGS Skill Testing Framework/skills/utility/project-stage-detect.md",
-        "sha256": "0acfee11394a2c1ceec67e7d9ea0890f95ed41c0b9b81501acbdbd55534f0c2c",
+        "sha256": "1bcc55743a6f58882add06bd2e46aad4f3f7f6b5a6da8922921b7aa3cf947400",
         "metadata": {}
       },
       {
@@ -2842,7 +2986,7 @@
       {
         "name": "setup-engine",
         "source": "CCGS Skill Testing Framework/skills/utility/setup-engine.md",
-        "sha256": "7c63597991aaca2310d9466ca8d71c94d8bd7ea03246962a48db84c076f12129",
+        "sha256": "975ed076a655a13d263aab2dbde5e0367a2b5777c484f329ebb5097e370860ac",
         "metadata": {}
       },
       {
@@ -2866,7 +3010,7 @@
       {
         "name": "smoke-check",
         "source": "CCGS Skill Testing Framework/skills/utility/smoke-check.md",
-        "sha256": "520db193e66067e3436d88279457e23c433f231ff4fa7e298683a7adf780fce3",
+        "sha256": "0acaaa04b4d6ed9503847c485624ab3167e84184d58dd35c90f2732cf6c5a763",
         "metadata": {}
       },
       {
@@ -2878,7 +3022,7 @@
       {
         "name": "start",
         "source": "CCGS Skill Testing Framework/skills/utility/start.md",
-        "sha256": "9b6517a3e2e3ba9873607c7525dbc07649a77d805f35b60d59ba05e60c233378",
+        "sha256": "f9ace548d70d43a87ce196f505a17409c61d42bf6efa87e4e600e813e0e433a3",
         "metadata": {}
       },
       {
@@ -2890,7 +3034,7 @@
       {
         "name": "test-setup",
         "source": "CCGS Skill Testing Framework/skills/utility/test-setup.md",
-        "sha256": "55a9f48140b082650096aff7e9dfd12439fe66362bcead6a4a889f353ff3246b",
+        "sha256": "38f531fbe37094cf139f423b26ff6c5bd438e583acb1cb9e4e9923d17a643089",
         "metadata": {}
       },
       {

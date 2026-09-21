@@ -6,7 +6,7 @@ description: "Configure the project's game engine and version. Pins the engine i
 # CCGS Codex entry: setup-engine
 
 Source: `.claude/skills/setup-engine/SKILL.md` (relative to the project root).
-SHA256: `8eb7392872bfdebb5c408b452143d4ed2d5cbf68c1adbe739bd6f239456300af`
+SHA256: `fd9838aeacfb8cce2149f091e254a4003b5ad302b03b7bb81974592e06c21cf1`
 Original metadata: {"name": "setup-engine", "description": "Configure the project's game engine and version. Pins the engine in CLAUDE.md, detects knowledge gaps, and populates engine reference docs via WebSearch when the version is beyond the LLM's training data.", "argument-hint": "[engine] | [engine version] | refresh | upgrade [old-version] [new-version] | no args for guided selection", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Edit, WebSearch, WebFetch, Task, AskUserQuestion", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

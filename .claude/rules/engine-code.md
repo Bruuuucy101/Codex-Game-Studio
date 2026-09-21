@@ -1,14 +1,27 @@
 ---
 paths:
   - "src/core/**"
+  - "core/src/main/**/core/**"
+  - "lwjgl3/src/main/**/core/**"
+  - "headless/src/main/**/core/**"
+  - "desktop/src/main/**/core/**"
+  - "android/src/main/**/core/**"
+  - "ios/src/main/**/core/**"
+  - "html/src/main/**/core/**"
+  - "lwjgl3/src/main/**"
+  - "desktop/src/main/**"
+  - "headless/src/main/**"
+  - "android/src/main/**"
+  - "ios/src/main/**"
+  - "html/src/main/**"
 ---
 
 # Engine Code Rules
 
-- ZERO allocations in hot paths (update loops, rendering, physics) — pre-allocate, pool, reuse
+- Minimize avoidable allocations in measured hot paths (update loops, rendering, physics). Pre-allocate/reuse where profiling justifies it; pooling needs explicit ownership/reset tests, not a blanket mandate.
 - All engine APIs must be thread-safe OR explicitly documented as single-thread-only
 - Profile before AND after every optimization — document the measured numbers
-- Engine code must NEVER depend on gameplay code (strict dependency direction: engine <- gameplay)
+- Low-level engine systems must NEVER depend on gameplay code (strict dependency direction: engine <- gameplay). Platform launchers are composition roots and may wire the shared game and backend together; keep game rules in the gameplay layer.
 - Every public API must have usage examples in its doc comment
 - Changes to public interfaces require a deprecation period and migration guide
 - Use RAII / deterministic cleanup for all resources

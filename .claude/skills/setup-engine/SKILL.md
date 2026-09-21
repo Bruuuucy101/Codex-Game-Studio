@@ -19,6 +19,12 @@ Read existing package.json/lockfile and configured preferences first; package ev
 is a candidate, not authorization to overwrite engine configuration. Bundled templates
 and reference directories are not evidence that this project uses either engine.
 
+For `libgdx` (case-insensitive), read `.claude/docs/libgdx-development.md` and
+`docs/engine-reference/libgdx/VERSION.md`. `libktx` normalizes to `libgdx` with a
+requested Kotlin/KTX choice; confirm and verify that stack, never create a libktx
+engine directory or silently install guessed versions. Inspect the real Gradle
+modules/locks/wrapper; bundled templates alone are not configured project evidence.
+
 Five modes:
 
 - **Full spec**: `/setup-engine godot 4.6` — engine and version provided
@@ -45,7 +51,7 @@ If no engine is specified, run an interactive engine selection process:
 
 **Question 1 — Prior experience** (ask this first, always, via `AskUserQuestion`):
 - Prompt: "Have you worked in any of these engines before?"
-- Options: `Godot` / `Unity` / `Unreal Engine 5` / `Phaser 3` / `Three.js` / `Multiple — I'll explain` / `None of them`
+- Options: `Godot` / `Unity` / `Unreal Engine 5` / `Phaser 3` / `Three.js` / `libGDX` / `Multiple — I'll explain` / `None of them`
 - If they pick a specific engine → recommend that engine. Prior experience outweighs all other factors. Confirm with them and skip the matrix.
 - If "None" or "Multiple" → continue to the questions below.
 
@@ -64,7 +70,7 @@ If no engine is specified, run an interactive engine selection process:
 1. **What kind of game?** (2D, 3D, or both?)
 2. **Primary input method?** (keyboard/mouse, gamepad, touch, or mixed?)
 3. **Team size and experience?** (solo beginner, solo experienced, small team?)
-4. **Any strong language preferences?** (GDScript, C#, C++, JavaScript/TypeScript, visual scripting?)
+4. **Any strong language preferences?** (GDScript, C#, C++, JavaScript/TypeScript, Java/Kotlin, visual scripting?)
 5. **Budget for engine licensing?** (free only, or commercial licenses OK?)
 
 ### Produce a recommendation
@@ -98,6 +104,15 @@ Do NOT use a simple scoring matrix that eliminates engines. Instead, reason thro
 **Three.js**
 - Code-first 3D browser rendering with WebGL2. Application code owns gameplay, physics choices, DOM UI and lifecycle. Suitable for teams comfortable building those pieces; not a full editor-driven game engine.
 - Currently MIT licensed. WebGPU and native/mobile packaging need separate acceptance, not an assumption from Chromium.
+
+**libGDX**
+- Code-first Java framework for teams comfortable owning application structure,
+  screen flow and builds; Kotlin/KTX is an explicit separately verified choice.
+- The included Java starter supports desktop compilation and real headless tests.
+  Android/iOS/GWT are optional backend projects with separate toolchain acceptance.
+  No built-in visual editor; assess authoring needs rather than promising parity
+  with Unity/Godot editors. See [official libGDX](https://libgdx.com/) and the local
+  version reference (checked 2026-09-21).
 
 **Genre-specific guidance** (factor this into the recommendation):
 - 2D → Godot for editor-led/native workflows; Phaser 3 for browser-first delivery
@@ -137,6 +152,11 @@ Once the engine is chosen:
 - For `phaser` and `threejs`, installed project pins take precedence. For a new project offer the reference candidate Phaser `3.90.0` or Three.js `0.186.0` / `r186`, not a moving latest version. The staged scaffold pins are documented in `.claude/docs/web-game-development.md`; consult docs/codex-adapter/validation.md for observed runtime acceptance and limitations.
 - An explicit Phaser 4 request requires an unsupported/migration discussion; do not write it into a Phaser 3 configuration. Three.js npm/revision and addon/type versions must agree. Keep exact direct dependency versions plus lockfile.
 
+- For `libgdx`, retain installed project pins. The included Java candidate is
+  1.14.2, Gradle 8.14.3, JDK 21, JUnit 5.13.4; using another version requires
+  corresponding official reference/dependency validation. Record concrete build
+  and runtime versions instead of calling any reference candidate "latest".
+
 - If version was provided, use it
 - For the original engine branches, if no version provided, use WebSearch to find the latest stable release:
   - Search: `"[engine] latest stable version [current year]"`
@@ -145,6 +165,20 @@ Once the engine is chosen:
 ---
 
 ## 4. Update CLAUDE.md Technology Stack
+
+### Language Selection and Backends (libGDX)
+
+Record Java or Kotlin explicitly. The shipped starter is Java (release 8 source
+API target, built on JDK 21). Kotlin/KTX needs verified Kotlin plugin, KTX module
+and version, JVM target, and selected backend compatibility; do not copy Java and
+claim a Kotlin setup. Keep existing language choices until migration is accepted.
+Select actual backends: `lwjgl3` desktop and `headless` test/server are separate.
+Android/iOS/GWT require SDK/compiler/native/signing checks before support claims.
+Core is shared code, not a runnable platform. Record Source Roots, Build JDK,
+Gradle/wrapper checksum, Test Framework, Selected Backends and Build/Test Commands
+in technical preferences. Use `core/src`, `lwjgl3/src`, `headless/src` plus only
+actual selected modules; inspect custom sourceSets when adopting an existing game.
+
 
 ### Language Selection (web engines)
 
@@ -200,6 +234,17 @@ For `phaser`, write Engine as `Phaser 3 [version]`; for `threejs`, write
 `Vite + TypeScript` (or the existing JS toolchain), and Asset Pipeline
 `local assets + Vite; Phaser Loader` or `local assets + Vite; Three.js loaders`.
 Use canonical `phaser`/`threejs` directory names for the reference import in Section 8.
+
+### libGDX Technology Stack
+
+Write Engine `libGDX [verified version]`, Language `[Java or verified Kotlin/KTX]`,
+Build System `Gradle [actual version], JDK [actual build version], [selected modules]`,
+and Asset Pipeline `assets/ classpath resources; AssetManager when adopted`.
+Use `@docs/engine-reference/libgdx/VERSION.md` in Section 8. Java/Kotlin classes and
+files use PascalCase, members/functions camelCase, constants UPPER_SNAKE_CASE;
+retain the existing project's accepted conventions. Source target is independent
+from the JDK running Gradle. Do not edit machine-wide JAVA_HOME/configuration.
+
 
 ## 5. Populate Technical Preferences
 
@@ -372,6 +417,29 @@ Also populate the `## Engine Specialists` section in `technical-preferences.md` 
 | General architecture review | threejs-specialist |
 ```
 
+### libgdx routing
+```markdown
+## Engine Specialists
+- **Primary**: libgdx-specialist
+- **Language/Code Specialist**: libgdx-specialist
+- **Shader Specialist**: libgdx-graphics-specialist
+- **UI Specialist**: libgdx-scene2d-specialist
+- **Additional Specialists**: libgdx-ashley-specialist, libgdx-core-specialist
+- **Routing Notes**: Inspect subsystem imports and module/path context; ambiguous Java/Kotlin goes to the lead. Ashley/Box2D are optional. Lead delegates real subs; existing programmer owners implement features and full/lean/solo gates stay selected.
+
+### File Extension Routing
+
+| File Extension / Type | Specialist to Spawn |
+|---|---|
+| Ambiguous game code (.java, .kt) / architecture | libgdx-specialist |
+| Stage / Table / Skin / UI screen input and layout | libgdx-scene2d-specialist |
+| SpriteBatch / ModelBatch / shader (.glsl, .vert, .frag) / FBO | libgdx-graphics-specialist |
+| Ashley components / systems / Box2D contacts and stepping | libgdx-ashley-specialist |
+| Lifecycle / AssetManager / files / input / audio / net | libgdx-core-specialist |
+| Gradle (.gradle, .gradle.kts) / wrapper / backend modules | libgdx-core-specialist |
+```
+
+
 ### Collaborative Step
 Present the filled-in preferences to the user. For Godot, include the chosen language and note where the full naming conventions and routing tables live:
 > "Here are the default technical preferences for [engine] ([language if Godot]). The naming conventions and specialist routing are in Appendix A of this skill — I'll apply the [GDScript/C#/Both] variant. Want to customize any of these, or shall I save the defaults?"
@@ -384,7 +452,7 @@ Wait for approval before writing the file.
 
 ## 6. Determine Knowledge Gap
 
-For web engines, always read the version-specific references and installed package
+For web engines and libGDX, always read the version-specific references and installed package
 metadata. Do not apply the historical model cutoff below as API verification.
 Retain the full curated web reference set even for a known version; update it only
 with checked source evidence. If a role cannot browse, route uncertainty to this
@@ -549,7 +617,7 @@ any "must migrate" items.
 
 ### Step 3 — Pre-Upgrade Audit
 
-Scan `src/` for code that uses APIs known to be deprecated or changed in the
+Scan `src/` and the actual configured module source roots (including Java/Kotlin `core/src` and selected backends) for code that uses APIs known to be deprecated or changed in the
 target version:
 
 - Use Grep to search for deprecated API names extracted from the migration
@@ -647,6 +715,22 @@ Dependency installation and test execution are separate explicit work; capture
 actual npm/typecheck/unit/build/browser results. Configuration completion is not
 runtime acceptance.
 
+## libGDX Scaffold Handoff (after configuration)
+
+Read `.claude/docs/libgdx-development.md`. Delegate preview/copy/build to an
+authorized `tools-programmer` or `libgdx-core-specialist`; setup-engine itself has
+no Bash permission. Interface: `python3 tools/ccgs_codex.py scaffold-libgdx --target PATH [--write]`.
+Default preview returns the exact manifest, binary hashes and modes. `--write`
+never overwrites, follows symlinks, installs dependencies or configures the engine.
+Inspect collisions and merge only accepted missing pieces for an existing game.
+The Java starter is core/lwjgl3/headless; execute its exact pinned wrapper under
+the verified JDK, preserving dependency locks. Capture pure tests, actual backend
+lifecycle and desktop distribution results separately. Missing JDK/network/native
+support is a blocker for that evidence layer, not a reason to fabricate success.
+On Windows use gradlew.bat; macOS desktop needs first-thread setup documented by
+the starter. Optional Kotlin/backends are NOT RUN until separately validated.
+
+
 ## 12. Output Summary
 
 After setup is complete, output:
@@ -655,13 +739,15 @@ After setup is complete, output:
 Engine Setup Complete
 =====================
 Engine:          [name] [version]
-Language:        [GDScript | C# | GDScript + C# | C++ + Blueprint | TypeScript | JavaScript]
+Language:        [GDScript | C# | GDScript + C# | C++ + Blueprint | TypeScript | JavaScript | Java | Kotlin/KTX]
 Knowledge Risk:  [LOW/MEDIUM/HIGH]
 Reference Docs:  [created/skipped]
 CLAUDE.md:       [updated]
 Tech Prefs:      [created/updated]
 Agent Config:    [verified]
-Web Runtime:     [NOT RUN / exact observed results; configuration alone is not runtime verification]
+Web Runtime:     [N/A / NOT RUN / exact observed results]
+libGDX Runtime:  [N/A / pure tests / actual headless / desktop build / GPU playtest separately]
+Backends/Tools:  [actual selected platforms, language, JDK and Gradle versions; optional gaps]
 
 Next Steps:
 1. Review docs/engine-reference/<engine>/VERSION.md

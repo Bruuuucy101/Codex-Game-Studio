@@ -6,7 +6,7 @@ description: "First-time onboarding — asks where you are, then guides you to t
 # CCGS Codex entry: start
 
 Source: `.claude/skills/start/SKILL.md` (relative to the project root).
-SHA256: `13b567dacb994c436598111fb7a0b7c57b8ae179c8f5f3ab81edf89414ec833e`
+SHA256: `8646e74036d9bfd7a76a9d6f326137ab61dcb6f5bacba3004494e8a213202953`
 Original metadata: {"name": "start", "description": "First-time onboarding — asks where you are, then guides you to the right workflow. No assumptions.", "argument-hint": "[no arguments]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Bash, Write, AskUserQuestion", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

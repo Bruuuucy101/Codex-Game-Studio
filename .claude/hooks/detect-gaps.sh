@@ -25,12 +25,18 @@ if [ -f "design/gdd/game-concept.md" ]; then
   FRESH_PROJECT=false
 fi
 
-# Check if source code exists
-if [ -d "src" ]; then
-  SRC_CHECK=$(find src -type f \( -name "*.gd" -o -name "*.cs" -o -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hpp" -o -name "*.rs" -o -name "*.py" -o -name "*.js" -o -name "*.ts" \) 2>/dev/null | head -1)
-  if [ -n "$SRC_CHECK" ]; then
-    FRESH_PROJECT=false
-  fi
+# Inspect only actual source roots; bundled templates/examples and build/test output
+# never make a pristine studio a game. find does not follow symlinks.
+source_files() {
+  for source_root in src core/src lwjgl3/src headless/src desktop/src android/src ios/src html/src; do
+    if [ -d "$source_root" ] && [ ! -L "${source_root%%/*}" ] && [ ! -L "$source_root" ]; then
+      find "$source_root" \( -type d \( -name build -o -name .gradle -o -name vendor -o -name vendored -o -name node_modules -o -name templates -o -name examples -o -name test -o -name tests -o -name generated \) -prune \) -o \( -type f \( -name '*.gd' -o -name '*.cs' -o -name '*.cpp' -o -name '*.c' -o -name '*.h' -o -name '*.hpp' -o -name '*.rs' -o -name '*.py' -o -name '*.js' -o -name '*.ts' -o -name '*.mjs' -o -name '*.java' -o -name '*.kt' \) -print \) 2>/dev/null
+    fi
+  done
+}
+SRC_FILES=$(source_files | wc -l | tr -d ' ')
+if [ "$SRC_FILES" -gt 0 ]; then
+  FRESH_PROJECT=false
 fi
 
 if [ "$FRESH_PROJECT" = true ]; then
@@ -44,12 +50,6 @@ if [ "$FRESH_PROJECT" = true ]; then
 fi
 
 # --- Check 1: Substantial codebase but sparse design docs ---
-if [ -d "src" ]; then
-  # Count source files (cross-platform, handles Windows paths)
-  SRC_FILES=$(find src -type f \( -name "*.gd" -o -name "*.cs" -o -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hpp" -o -name "*.rs" -o -name "*.py" -o -name "*.js" -o -name "*.ts" \) 2>/dev/null | wc -l)
-else
-  SRC_FILES=0
-fi
 
 if [ -d "design/gdd" ]; then
   DESIGN_FILES=$(find design/gdd -type f -name "*.md" 2>/dev/null | wc -l)
@@ -95,7 +95,7 @@ if [ -d "prototypes" ]; then
 fi
 
 # --- Check 3: Core systems without architecture docs ---
-if [ -d "src/core" ] || [ -d "src/engine" ]; then
+if [ -d "src/core" ] || [ -d "src/engine" ] || [ -d "core/src/main" ]; then
   if [ ! -d "docs/architecture" ]; then
     echo "⚠️  GAP: Core engine/systems exist but no docs/architecture/ directory"
     echo "    Suggested action: Create docs/architecture/ and run /architecture-decision"

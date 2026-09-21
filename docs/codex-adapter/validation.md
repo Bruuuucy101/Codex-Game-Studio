@@ -216,3 +216,53 @@ old onboarding's missing canonical tool contract and tooling stage; it already
 respected engine-agnostic and lean requests. New standalone/mixed-game workflow and
 independent-review acceptance remain separate controller gates at this implementation
 checkpoint. Earlier web CI/browser evidence is unchanged; no browser test was rerun.
+
+
+## libGDX Task 1 — 2026-09-21
+
+The current canonical inventory is **74 workflows, 57 roles, 11 rules, 12 hooks,
+41 document templates and 135 behavioral-framework Markdown files**. The original
+73 workflow and 49 role identity sets remain exact subsets; expected additions
+are asserted by identity in adapter tests and CI. Five libGDX roles generate full
+native profiles and reference bodies. The original 417-file lock retains SHA256
+`fb68f5ff2fd503611db210ee6c84e7820865778b4da4275bf5447667a2a72afa`;
+359 baseline paths retain original bytes and 58 have exact reviewed patch hashes.
+
+Local Python3.10 adapter suite: **128 tests passed** (117 prior plus 11 libGDX
+source/filesystem integration tests). Generated output:133 files, all57 role TOML
+profiles and project config parsed; strict provenance/generation and diff whitespace
+checks passed. Behavioral role/workflow scenarios are authored and catalogued;
+these static tests are not their execution. The controller owns independent agent
+behavior/review and public CI acceptance.
+
+The official Gradle8.14.3 wrapper JAR matches SHA256
+`7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172`,
+retains its embedded license and Unix executable script mode. Its distribution
+checksum is pinned, and strict dependency locks cover all resolvable runtime/test
+configurations. The copier preview and collision/symlink/no-overwrite behavior are
+exercised with real files, including binary bytes and mode-failure rollback.
+
+A clean 24-file copy was executed on macOS13.7.8 x86_64 with Temurin21.0.12.1+1,
+Gradle8.14.3, libGDX1.14.2 and JUnit Jupiter5.13.4. Exact source/fixture hashes and
+modes matched. `./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon
+--no-watch-fs --offline` passed without rewriting locks: **7 pure tests +3 actual
+HeadlessApplication tests**, zero failures/errors, and desktop distribution built.
+Headless tests verify collection/reset, create/render/pause/dispose, callback error
+propagation, bounded timeout cleanup and repeated-run Gdx isolation. The actual
+`:headless:run` command also passed and printed `Collected signal; score=1`.
+See [machine-readable receipt](libgdx-evidence.json) for the exact template hashes.
+
+Gradle required a localhost lock socket denied in the worker sandbox; the
+controller executed the exact requested commands under the prepared task-local
+runtime. Initial offline resolution lacked one JUnit API dependency, which the
+controller resolved online before the valid missing-implementation red run.
+Subsequent clean acceptance used the populated cache offline. JDK21 emitted
+obsolete Java8 source/target warnings; no build error remained. No global JDK or
+machine configuration was changed.
+
+Desktop packaging does **not** verify GPU frames, keyboard feel or audio. Desktop
+playtests, mobile/GWT, Kotlin/KTX, Ashley and Box2D are not claimed. The new CI job
+uses JDK21, official wrapper validation, clean copied locked acceptance and test
+artifact retention, and joins prior verify/web jobs as a release dependency.
+Public CI execution is a separate controller gate. Earlier validation sections
+retain their historical counts and limits.

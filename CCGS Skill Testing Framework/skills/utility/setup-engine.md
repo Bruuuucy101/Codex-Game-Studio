@@ -203,3 +203,14 @@ browser acceptance is claimed from configuration or preview manifest alone.
 Repeat original Godot GDScript/C#/Both, Unity and Unreal fixtures after adding
 web sources. Expected: original selected routes and review modes remain intact;
 no unrelated web libraries or reference imports enter those projects.
+
+
+## Additional libGDX scenario — libGDX Java and libktx alias
+
+**Input/fixture:** Configure libGDX 1.14.2 for Java desktop/headless; then ask whether libktx means another engine.
+
+**Expected behavior:** Keeps canonical libgdx, reads actual version/wrapper/locks, records Java/JDK/Gradle/backends/source roots, imports libgdx VERSION and fills all five real routes. Proposes safe preview/copy through an authorized role. Kotlin/KTX is an explicit separately verified choice, not an invented pin or automatic upgrade. No GPU/mobile support claim from configuration.
+
+**Evidence:** Authored scenario only. Run a fresh consuming agent with full skill,
+actual fixture and canonical references; record prompt/source hashes and observed
+outcome. Do not count static source assertions as this behavior run.

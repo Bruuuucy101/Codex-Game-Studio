@@ -1,0 +1,2 @@
+# Preserve the official Windows Gradle wrapper bytes and its native CRLF lines.
+templates/libgdx/gradlew.bat -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

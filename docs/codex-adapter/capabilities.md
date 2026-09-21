@@ -81,7 +81,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | ux-review | `.claude/skills/ux-review/SKILL.md` | ccgs-ux-review |
 | vertical-slice | `.claude/skills/vertical-slice/SKILL.md` | ccgs-vertical-slice |
 
-## agents: 52
+## agents: 57
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -105,6 +105,11 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | godot-specialist | `.claude/agents/godot-specialist.md` | ccgs-godot-specialist |
 | lead-programmer | `.claude/agents/lead-programmer.md` | ccgs-lead-programmer |
 | level-designer | `.claude/agents/level-designer.md` | ccgs-level-designer |
+| libgdx-ashley-specialist | `.claude/agents/libgdx-ashley-specialist.md` | ccgs-libgdx-ashley-specialist |
+| libgdx-core-specialist | `.claude/agents/libgdx-core-specialist.md` | ccgs-libgdx-core-specialist |
+| libgdx-graphics-specialist | `.claude/agents/libgdx-graphics-specialist.md` | ccgs-libgdx-graphics-specialist |
+| libgdx-scene2d-specialist | `.claude/agents/libgdx-scene2d-specialist.md` | ccgs-libgdx-scene2d-specialist |
+| libgdx-specialist | `.claude/agents/libgdx-specialist.md` | ccgs-libgdx-specialist |
 | live-ops-designer | `.claude/agents/live-ops-designer.md` | ccgs-live-ops-designer |
 | localization-lead | `.claude/agents/localization-lead.md` | ccgs-localization-lead |
 | narrative-director | `.claude/agents/narrative-director.md` | ccgs-narrative-director |
@@ -217,7 +222,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | ux-spec | `.claude/docs/templates/ux-spec.md` | original file, preserved |
 | vertical-slice-report | `.claude/docs/templates/vertical-slice-report.md` | original file, preserved |
 
-## behavior_specs: 130
+## behavior_specs: 135
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -232,6 +237,11 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | godot-gdscript-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-gdscript-specialist.md` | original file, preserved |
 | godot-shader-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-shader-specialist.md` | original file, preserved |
 | godot-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-specialist.md` | original file, preserved |
+| libgdx-ashley-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-ashley-specialist.md` | original file, preserved |
+| libgdx-core-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-core-specialist.md` | original file, preserved |
+| libgdx-graphics-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-graphics-specialist.md` | original file, preserved |
+| libgdx-scene2d-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-scene2d-specialist.md` | original file, preserved |
+| libgdx-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-specialist.md` | original file, preserved |
 | phaser-specialist | `CCGS Skill Testing Framework/agents/engine/phaser/phaser-specialist.md` | original file, preserved |
 | threejs-specialist | `CCGS Skill Testing Framework/agents/engine/threejs/threejs-specialist.md` | original file, preserved |
 | unity-addressables-specialist | `CCGS Skill Testing Framework/agents/engine/unity/unity-addressables-specialist.md` | original file, preserved |
