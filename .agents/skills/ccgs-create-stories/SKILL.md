@@ -6,8 +6,10 @@ description: "Break a single epic into implementable story files. Reads the epic
 # CCGS Codex entry: create-stories
 
 Source: `.claude/skills/create-stories/SKILL.md` (relative to the project root).
-SHA256: `f1517b9f5a90317f93149c9915ade684dbf75ab8b00c1ea9bdeaa6f921756b56`
+SHA256: `cd1cd1cebb933f7b34913d3557cf7b7fec11a71f463ca5ea9fa80cd3e59b9a22`
 Original metadata: {"name": "create-stories", "description": "Break a single epic into implementable story files. Reads the epic, its GDD, governing ADRs, and control manifest. Each story embeds its GDD requirement TR-ID, ADR guidance, acceptance criteria, story type, and test evidence path. Run after /create-epics for each epic.", "argument-hint": "[epic-slug | epic-path] [--review full|lean|solo]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Task, AskUserQuestion", "model": "sonnet", "agent": "lead-programmer"}
+Metadata role routing: Dispatch a real `ccgs-lead-programmer` child for the role work, using `.claude/agents/lead-programmer.md` and this complete workflow. The coordinator retains user decisions and AskUserQuestion handling when the role lacks that tool; pause dependent work, return the exact decision request to the coordinator, and resume only with the actual answer. Preserve the role tool restrictions and required nested delegation. Give the child bounded task scope, arguments, source paths, relevant evidence hashes and accepted decisions. Do not copy the full conversation. Use a fresh bounded context where supported. Inherit the parent model and effort unless an explicit validated role mapping applies. If the host cannot dispatch the role, report a blocker; do not simulate it.
+
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.
 2. Read `docs/codex-adapter/runtime.md` before interpreting Claude-specific instructions.

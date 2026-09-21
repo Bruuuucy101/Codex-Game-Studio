@@ -1,6 +1,6 @@
 # Claude Code Game Studios — Codex adapter
 
-This project preserves the complete Donchitos/Claude-Code-Game-Studios source. The Codex entry layer changes the host integration, not the game-development workflows.
+This project retains the complete Donchitos/Claude-Code-Game-Studios source surface and adds Codex host integration. Deliberate workflow corrections are recorded in `.codex/upstream-patches.json`; the original 417-file baseline lock remains unchanged. All workflows, roles, engine branches and review modes remain available.
 
 Before studio work, read `docs/codex-adapter/runtime.md`, then `CLAUDE.md` and the actual files named by its `@` references. Codex does not automatically expand Claude imports. A missing engine VERSION.md is an onboarding requirement, not permission to invent an engine version.
 
@@ -10,7 +10,7 @@ When the original workflow requests a Task or agent team, these project instruct
 
 Before reading or editing role-sensitive files, load all matching `.claude/rules/*.md` (use `python3 tools/ccgs_codex.py rules <path> ...`). Apply these rules also to files written through shells or external tools. The role's original allowlist, disallowed tools, scope and required review gates apply subject to the actual host's higher-priority constraints. Existing user authorization persists: do not repeatedly ask permission for already approved work. Ask for missing design decisions and genuine scope expansion.
 
-Original source files remain canonical. Change original workflows deliberately, then run `python3 tools/ccgs_codex.py generate` and `check`. Do not rewrite generated entry points independently. `check --strict-upstream` compares every original file against the pinned release; project-specific edits may intentionally differ after adoption and must be reviewed rather than silently discarded.
+Original source files remain canonical. Change original workflows deliberately, then run `python3 tools/ccgs_codex.py generate` and `check`. Do not rewrite generated entry points independently. `check --strict-upstream` accepts the pinned bytes or an exact reviewed patch recorded against that baseline; `check --pristine-upstream` requires original byte equality and intentionally reports the reviewed changes in this release. Project-specific edits may intentionally differ after adoption and must be reviewed rather than silently discarded. Follow `docs/codex-adapter/source-maintenance.md`; never reset the original lock to hide drift.
 
 Hooks are project-scoped in `.codex/hooks.json`; the user must review/trust them in the host. Never edit trust databases or bypass approvals to make them run. Startup diagnostics must distinguish code present, configuration discovered, hooks trusted and actual execution verified. Read `docs/codex-adapter/validation.md` for verified scope and platform differences.
 

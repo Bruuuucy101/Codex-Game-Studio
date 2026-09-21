@@ -8,6 +8,8 @@ description: "Audit GDD-specified content counts against implemented content. Id
 Source: `.claude/skills/content-audit/SKILL.md` (relative to the project root).
 SHA256: `6e17272fe8854e93936f55076d88435f3af2226d4e05d0b8b5f987296f00d8ab`
 Original metadata: {"name": "content-audit", "description": "Audit GDD-specified content counts against implemented content. Identifies what's planned vs built.", "argument-hint": "[system-name | --summary | (no arg = full audit)]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write", "model": "sonnet", "agent": "producer"}
+Metadata role routing: Dispatch a real `ccgs-producer` child for the role work, using `.claude/agents/producer.md` and this complete workflow. The coordinator retains user decisions and AskUserQuestion handling when the role lacks that tool; pause dependent work, return the exact decision request to the coordinator, and resume only with the actual answer. Preserve the role tool restrictions and required nested delegation. Give the child bounded task scope, arguments, source paths, relevant evidence hashes and accepted decisions. Do not copy the full conversation. Use a fresh bounded context where supported. Inherit the parent model and effort unless an explicit validated role mapping applies. If the host cannot dispatch the role, report a blocker; do not simulate it.
+
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.
 2. Read `docs/codex-adapter/runtime.md` before interpreting Claude-specific instructions.

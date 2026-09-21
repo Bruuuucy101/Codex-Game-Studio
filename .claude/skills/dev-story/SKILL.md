@@ -41,7 +41,7 @@ If not found, ask: "Which story are we implementing?" Glob
 
 ## Phase 2: Load Full Context
 
-**Before loading any context, verify required files exist.** Extract the ADR path from the story's `ADR Governing Implementation` field, then check:
+**Before loading any context, verify required files exist.** Extract every ADR path from the story's `Governing ADRs` and `ADR Governing Implementation` fields (including secondary references), then check each:
 
 | File | Path | If missing |
 |------|------|------------|
@@ -51,6 +51,10 @@ If not found, ask: "Which story are we implementing?" Glob
 
 If the TR registry or governing ADR is missing, set the story status to **BLOCKED** in the session state and do not spawn any programmer agent.
 
+An explicit `No ADR applies` or `ADR: N/A` with a reason permits skipping ADR
+checks only when there are no referenced ADRs. A blank field is not N/A: stop
+and resolve the missing reference. Never turn a missing referenced file into N/A.
+
 Read all of the following simultaneously — these are independent reads. Do not start implementation until all context is loaded:
 
 ### The story file
@@ -58,6 +62,7 @@ Extract and hold:
 - **Story title, ID, layer, type** (Logic / Integration / Visual/Feel / UI / Config/Data)
 - **TR-ID** — the GDD requirement identifier
 - **Governing ADR** reference
+- **ADR Source SHA256** — one `project-relative path = 64-character hash` entry per governing ADR
 - **Manifest Version** embedded in story header
 - **Acceptance Criteria** — every checkbox item, verbatim
 - **Implementation Notes** — the ADR guidance section in the story
@@ -71,11 +76,36 @@ Read the current `requirement` text — this is the source of truth for what the
 GDD requires now. Do not rely on any inline text in the story file (may be stale).
 
 ### The governing ADR
-Read `docs/architecture/[adr-file].md`. Extract:
-- The full Decision section
-- The Implementation Guidelines section (this is what the programmer follows)
-- The Engine Compatibility section (post-cutoff APIs, known risks)
-- The ADR Dependencies section
+For every referenced ADR, first use the read-only reader through permitted
+file-access transport:
+`python3 tools/ccgs_codex.py adr-context docs/architecture/[adr-file].md --metadata-only`.
+Verify existence, current `status_state: known`, `status: Accepted`, and raw-file
+`sha256` against that ADR's embedded `ADR Source SHA256` line. Proposed,
+superseded, deprecated, missing or ambiguous status is **BLOCKED**: do not spawn
+a programmer or implement until acceptance is resolved.
+
+If every hash matches and the story's Decision Summary, Implementation Notes,
+engine notes and dependencies are clear and sufficient, reuse that embedded
+guidance. A matching hash proves provenance, not completeness: unclear notes
+still require targeted reads. Manifest dates do not prove ADR freshness.
+
+Hash mismatch or missing provenance (including legacy stories) requires fresh
+targeted reads: select Decision, Implementation Guidelines, Engine Compatibility,
+Engine Notes, and ADR Dependencies / Dependencies as relevant using repeatable
+`--section "Decision" --section "Implementation Guidelines"` and the section
+index. Use `--limit 8000 --expected-sha256 [current hash]`, following
+`next_offset` with `--offset` and the same selection/hash until `more` is false.
+Nested sections and all amendment sections are included; inspect amendment
+status and reconcile every applicable active constraint. Missing required
+sections are gaps to resolve, not a reason for whole-file retries. These are
+character bounds, not a fixed token assumption.
+
+Reconcile changed guidance with the story before implementation: refresh its
+decision summary, notes, engine risks, dependencies and per-ADR hashes within
+authorized story scope. Surface substantive conflicts for a user decision; do
+not silently keep stale guidance or merely replace hashes. If the source changes
+during pagination, restart metadata and targeted reads. Retain source paths,
+hashes and section references for the Phase 4 child brief.
 
 ### The control manifest
 Read `docs/architecture/control-manifest.md`. Extract the rules for this story's layer:
@@ -180,7 +210,7 @@ Brief the agent with file paths and targeted reading instructions — do not ser
 
 1. **Story file**: `[story-path]` — read in full
 2. **GDD requirement**: look up TR-ID `[TR-XXX-NNN]` in `docs/architecture/tr-registry.yaml` — use the `requirement` field as source of truth
-3. **ADR**: `docs/architecture/[adr-file].md` — read the **Decision** and **Implementation Guidelines** sections only
+3. **ADR evidence**: list every project-relative ADR path and verified SHA256 from Phase 2. Recheck current metadata before use; if all sources remain Accepted with matching hashes, use the story's hash-validated embedded Decision Summary and Implementation Notes, including engine risks, dependencies and active amendments. Do not reread the whole ADR or repeat already validated section reads. If evidence changes or guidance is unclear, stop dependent implementation, return the gap to the coordinator, and obtain fresh bounded targeted sections using `adr-context --section ... --expected-sha256 ...` and pagination before continuing. Never silently trust stale notes.
 4. **Control manifest**: `docs/architecture/control-manifest.md` — read rules for the **[layer]** layer only
 5. **Engine preferences**: `.claude/docs/technical-preferences.md` — read naming conventions and performance budgets
 6. **Test file path**: `[path from story's Test Evidence section]` — this file must be created as part of implementation

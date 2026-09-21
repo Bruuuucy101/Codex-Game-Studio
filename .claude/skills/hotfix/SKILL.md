@@ -85,7 +85,32 @@ Only run `git checkout -b hotfix/[short-name] [base-ref]` if user selects [A]. I
 
 ---
 
-## Phase 4: Investigate and Implement
+## Phase 4: Investigate and Propose
+
+Investigate the root cause using read-only inspection. Do not edit code or spawn implementation agents during investigation; any delegated investigation must carry the same read-only restriction.
+
+Present the proposed minimal fix in conversation: root cause and evidence, affected files and systems, planned code changes, targeted and adjacent-system tests, risks, and rollback plan. Keep the proposal separate from the eventual implementation and test results.
+
+---
+
+## Phase 4a: Authorize Implementation
+
+Obtain approval for the proposed scope before any code edits or implementation agent spawns. Use `AskUserQuestion`:
+- Prompt: "May I implement this hotfix within the proposed files and scope, using the test and rollback plan above?"
+- Options:
+  - `[A] Approve — implement the proposed fix`
+  - `[B] Revise — adjust the proposal before implementation`
+  - `[C] Stop — do not implement this hotfix`
+
+If [A]: record the approved scope and proceed to Phase 4b. If [B]: revise the proposal and present it again for approval; remain in Phase 4a. If [C], or the user declines or cancels approval: stop dependent work, record that implementation was not authorized, and return **BLOCKED**. A missing answer is not approval.
+
+Prior explicit user authorization that covers this exact implementation scope satisfies this permission; cite it in the hotfix record instead of asking again. Approval to create the record or branch alone does not authorize code changes. Do not infer authorization for additional files or broader scope; return to this checkpoint if the scope expands. User permission does not replace the actual specialist sign-offs in Phase 5 or the QA re-entry gate in Phase 5b.
+
+---
+
+## Phase 4b: Implement and Test
+
+Only after Phase 4a is satisfied, implement the approved scope. Any implementation agent must receive the approved proposal and its scope limits.
 
 Focus on the minimal change that resolves the issue. Do NOT refactor, clean up, or add features alongside the hotfix.
 
@@ -103,7 +128,7 @@ Use the Task tool to request sign-off in parallel:
 - `subagent_type: qa-tester` — Run targeted regression tests on the affected system
 - `subagent_type: producer` — Approve deployment timing and communication plan
 
-All three must return APPROVE before proceeding. If any returns CONCERNS or REJECT, do not deploy — surface the issue and resolve it first.
+All three must return APPROVE before proceeding. If any returns CONCERNS or REJECT, do not deploy or merge — surface the issue, resolve it, and obtain new sign-off on the final fix before proceeding. Never invent or mark an approval complete without the corresponding specialist's actual verdict. Missing or blocked reviewers leave release blocked.
 
 ---
 

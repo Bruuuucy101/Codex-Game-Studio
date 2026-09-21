@@ -1,3 +1,21 @@
+# v0.1.1-beta
+
+Reviewed upstream issue fixes for the community Codex adaptation of [Claude Code Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios) by Donchitos. All 73 workflows, 49 roles, engine branches and review modes remain available.
+
+- Correct hotfix authorization order, narrative approval checkpoint, sprint review-mode consistency and the architecture skill heading.
+- Read large ADRs in bounded sections; validate current Accepted status and per-file SHA256 before reusing story summaries. Explicit role routing keeps decisions with the coordinator and uses real delegation.
+- Audit runnable sprint prerequisites and capacity, document selective baseline-aware updates, and align two inherited behavior specifications with the actual implementation/review lifecycle.
+- Preserve all 417 original paths: 407 unchanged and 10 explicitly reviewed source corrections. The original source lock and license remain unchanged. Strict checks accept only baseline bytes or exact recorded patches.
+- Record dispositions for all 34 open upstream issues. New engine/vendor integrations remain separate feature requests. No claim is made that upstream issues were closed.
+
+Local acceptance: **73 deterministic adapter tests**, **six real Git update fixtures**, and **three isolated fresh-agent samples** (denied hotfix implementation, stale summary with a 420,571-character current ADR, and missing runnable-demo prerequisites). These are separate evidence layers; see the [validation report](docs/codex-adapter/validation.md) and [issue audit](docs/codex-adapter/upstream-issues-2026-09-21.md).
+
+This remains a beta. Native role selection, automatic trusted hook execution, all-workflow reliability and actual game-engine builds are not certified. CI and release publication are verified separately in [GitHub Actions](https://github.com/Bruuuucy101/Codex-Game-Studio/actions); these local results do not claim that a release job has already succeeded. The release workflow creates this version only if absent and leaves the earlier beta unchanged.
+
+Use Python 3.10+, Git, Bash and a Codex host supporting the selected model. Open the cloned repository root and follow the [Chinese quickstart](README-CODEX.zh-CN.md) or [English guide](.github/README.md). Original copyright and MIT license: Donchitos. Adaptation additions under MIT: Bruuuucy101.
+
+## Previous release record
+
 # v0.1.0-beta
 
 First public beta of the community Codex adaptation of [Claude Code Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios) by Donchitos.

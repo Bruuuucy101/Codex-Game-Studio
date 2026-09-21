@@ -30,7 +30,7 @@
       {
         "name": "architecture-decision",
         "source": ".claude/skills/architecture-decision/SKILL.md",
-        "sha256": "94a2299ae4ff370062e15d37680abdb13c1fc2dc05b916dcb65f46088d12b854",
+        "sha256": "ee273bcb3f84e2131d1222bd2e4691a218c5620c993ee74814daeafde95bbea5",
         "metadata": {
           "name": "architecture-decision",
           "description": "Creates an Architecture Decision Record (ADR) documenting a significant technical decision, its context, alternatives considered, and consequences. Every major technical choice should have an ADR.",
@@ -246,7 +246,7 @@
       {
         "name": "create-stories",
         "source": ".claude/skills/create-stories/SKILL.md",
-        "sha256": "f1517b9f5a90317f93149c9915ade684dbf75ab8b00c1ea9bdeaa6f921756b56",
+        "sha256": "cd1cd1cebb933f7b34913d3557cf7b7fec11a71f463ca5ea9fa80cd3e59b9a22",
         "metadata": {
           "name": "create-stories",
           "description": "Break a single epic into implementable story files. Reads the epic, its GDD, governing ADRs, and control manifest. Each story embeds its GDD requirement TR-ID, ADR guidance, acceptance criteria, story type, and test evidence path. Run after /create-epics for each epic.",
@@ -299,7 +299,7 @@
       {
         "name": "dev-story",
         "source": ".claude/skills/dev-story/SKILL.md",
-        "sha256": "ddada36350af8d121b63159e79eb72e3d5a1482b74e88f547f556ca92efd2b04",
+        "sha256": "bdb0c97315e675263727562da6dc28727093b891761a7067398b4b0a8c07a7ff",
         "metadata": {
           "name": "dev-story",
           "description": "Read a story file and implement it. Loads the full context (story, GDD requirement, ADR guidelines, control manifest), routes to the right programmer agent for the system and engine, implements the code and test, and confirms each acceptance criterion. The core implementation skill — run after /story-readiness, before /code-review and /story-done.",
@@ -352,7 +352,7 @@
       {
         "name": "hotfix",
         "source": ".claude/skills/hotfix/SKILL.md",
-        "sha256": "6d99a79bce373cd9f8fe02b1db2933c9121ac0a79c778d588dd03b5f337c4bf9",
+        "sha256": "baebc008e93dd3b7df113cbf9fa67a4a2b6d1ad3f5fa6fedea5d2ba34cb91bea",
         "metadata": {
           "name": "hotfix",
           "description": "Emergency fix workflow that bypasses normal sprint processes with a full audit trail. Creates hotfix branch, tracks approvals, and ensures the fix is backported correctly.",
@@ -698,7 +698,7 @@
       {
         "name": "sprint-plan",
         "source": ".claude/skills/sprint-plan/SKILL.md",
-        "sha256": "d402a9f276f81663c8b07f6c4fd2b19a3fa9d4ee9411e3d57e6868daa095ee42",
+        "sha256": "ce83ed57dc7c2aaaeac81a23133a26ccfbb6193200c22a405bb18accd1cbd378",
         "metadata": {
           "name": "sprint-plan",
           "description": "Generates a new sprint plan or updates an existing one based on the current milestone, completed work, and available capacity. Pulls context from production documents and design backlogs.",
@@ -751,7 +751,7 @@
       {
         "name": "story-readiness",
         "source": ".claude/skills/story-readiness/SKILL.md",
-        "sha256": "f1fc25f80f811fd38c53144c305706488c031974a5f0925cdf18986467de90eb",
+        "sha256": "345abd019dc7aaa798935dc2c962955ba6c5ffd84f2035f66c169221e9b971e2",
         "metadata": {
           "name": "story-readiness",
           "description": "Validate that a story file is implementation-ready. Checks for embedded GDD requirements, ADR references, engine notes, clear acceptance criteria, and no open design questions. Produces READY / NEEDS WORK / BLOCKED verdict with specific gaps. Use when user says 'is this story ready', 'can I start on this story', 'is story X ready to implement'.",
@@ -816,7 +816,7 @@
       {
         "name": "team-narrative",
         "source": ".claude/skills/team-narrative/SKILL.md",
-        "sha256": "9959626482ed8607f8a93a7fcf2c3d03546621592784d56a22b70cfe387ca0d4",
+        "sha256": "24413cfa54fc11878728395b2e735d72bc72f750c98bbef937141be247089f5b",
         "metadata": {
           "name": "team-narrative",
           "description": "Orchestrate the narrative team: coordinates narrative-director, writer, world-builder, and level-designer to create cohesive story content, world lore, and narrative-driven level design.",
@@ -2522,7 +2522,7 @@
       {
         "name": "dev-story",
         "source": "CCGS Skill Testing Framework/skills/pipeline/dev-story.md",
-        "sha256": "a6e30fe4f49f81b837d63bf49d3b3c1d5fab851e3ac8d8f41f422c92e471571d",
+        "sha256": "8caf62ec550fdff2b8da1b725e7ae6f6b821d376a5f0a94d4cccf0718ce87894",
         "metadata": {}
       },
       {
@@ -2702,7 +2702,7 @@
       {
         "name": "hotfix",
         "source": "CCGS Skill Testing Framework/skills/utility/hotfix.md",
-        "sha256": "16c1cfa8faf7c9ef1c12bcf960435dda0ea023c17588be4e38b1792600c290df",
+        "sha256": "392f90860f603f84f7ba4a704a5ece4de53e0cfa073d36e0c0cbb3065a8f1540",
         "metadata": {}
       },
       {

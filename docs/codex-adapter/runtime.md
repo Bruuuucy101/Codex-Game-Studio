@@ -8,6 +8,53 @@ Read `CLAUDE.md` and explicitly read its `@path` references. Read the selected c
 
 Original `.claude/...` paths stay valid and must NOT be mechanically renamed to `.codex/...`. Paths are relative to the game project root. Missing game-specific files cause the exact original STOP/WARN behavior. Do not fabricate GDDs, accepted ADRs, engine references or test results to pass a gate.
 
+### Current, bounded ADR context (#63 / #64)
+
+Use `python3 tools/ccgs_codex.py adr-context docs/architecture/adr-name.md --metadata-only`
+to inspect a current ADR without loading its prose into model context. This is
+permitted narrow read-only file transport for roles allowed to Read; it grants
+no general Bash permission. Paths must be canonical project-relative paths;
+symlinks, traversal and outside files are rejected. The helper reads UTF-8 with
+Python 3.10+ standard library and hashes exact raw bytes. It indexes ATX headings,
+including numbered and nested headings, ignoring backtick/tilde fenced examples.
+This is a conservative Markdown reader, not a complete CommonMark parser.
+
+JSON includes `source`, `sha256`, `status`, `status_state`, short
+`status_declarations`, `sections` (title, level, inclusive one-based line range
+and half-open zero-based character range), `missing_sections`, `selected_ranges`,
+`content`, `offset`, `limit`, `total_chars`, `more`, and `next_offset`.
+`## Status` plus its first value and formatted inline `Status:` are supported.
+Missing, conflicting or unrecognized status is explicit and never Accepted by
+default. Amendment-local statuses do not replace the ADR's current status.
+Non-Accepted statuses retain their actual source value. Metadata returns no section
+body; its index size grows with heading count and title lengths. Status evidence
+is limited to 200 characters; longer declarations are explicitly unrecognized.
+
+Select repeated `--section "Decision" --section "Implementation Guidelines"`
+using names from the index (case and leading numbers are ignored). Every matching
+section includes its descendants. All amendment sections are additionally
+included conservatively; reviewers must identify applicable active constraints.
+The deduplicated selection is concatenated in source order. No selection means
+the entire source is paginated, never returned without a content bound.
+Use `--limit 8000` (default; hard maximum 12000 Unicode characters). Follow
+`next_offset` via `--offset`, keeping identical selections and
+`--expected-sha256 [hash from metadata]`. A changed hash fails with `ADR_CHANGED`;
+restart metadata and targeted reads. Missing sections are explicit gaps, not a
+reason for an unbounded retry. The bound is on content characters, not tokens,
+JSON serialization size or the in-process file read; no fixed context capacity
+is assumed. Metadata-only responses set `more: false` and `next_offset: null`;
+start a content request at offset 0 when needed.
+
+Story provenance format is one `**ADR Source SHA256**: \`docs/architecture/path.md\` = \`<64 hex>\``
+line per governing ADR, with ordered project-relative paths in `**Governing ADRs**`.
+Reuse embedded decision/implementation/engine/dependency guidance only after
+every current referenced source exists, is unambiguously Accepted, matches its
+own hash, and has sufficient notes. Otherwise read fresh targeted sections and
+reconcile. Story-readiness reports gaps without writing; dev-story refreshes
+authorized story evidence before implementation and passes verified paths/hashes
+to its children. Missing referenced ADRs remain blocking; explicit N/A with a
+reason applies only when there are no ADR references.
+
 ## Tool and command translation
 
 | Original construct | Codex execution |
@@ -26,6 +73,14 @@ Original `.claude/...` paths stay valid and must NOT be mechanically renamed to 
 | `isolation: worktree` | Use a separate checkout/worktree for required writes, keeping source refs and user changes; if unavailable, stop that isolated operation and explain the constraint. |
 
 ## Actual team execution
+
+For workflow `agent:` metadata, the generated entry explicitly dispatches the
+named role (#72 Codex adaptation). The coordinator retains interactive user
+decisions whenever that role lacks AskUserQuestion, passing the exact request
+and returning the actual answer before dependent work resumes. Do not expand
+the role's tool permissions or copy Claude fork metadata mechanically. Use a
+small fresh task brief with paths, scope, arguments, evidence and accepted
+decisions; avoid inheriting the full conversation where the host permits.
 
 The selected workflow and these instructions explicitly request delegation whenever the original calls for it. Use the host's callable subagent API, not a guessed syntax. Custom agent names are `ccgs-<original-role>`. If the host lacks a custom-role argument, spawn a child with a bounded task and the exact role-file paths, instructing it to read the full role and this contract before working. The command `python3 tools/ccgs_codex.py role <original-role>` prints the complete composed role instructions if inline context is needed.
 

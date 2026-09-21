@@ -3,11 +3,22 @@
 This guide covers upgrading your existing game project repo from one version
 of the template to the next.
 
-**Find your current version** in your git log:
-```bash
-git log --oneline | grep -i "release\|setup"
-```
-Or check `README.md` for the version badge.
+**Safety rule for every version section below:** historical labels such as
+“Safe to Overwrite” and “no user content” apply only after comparing each local
+path with the **exact adopted baseline**. Directory names do not prove a file is
+unmodified. Customized paths always require a reviewed merge, including skills,
+agents, hooks and other `.claude` infrastructure. Never replace a customized
+`.claude` directory wholesale. New paths may also collide with your own files;
+review deletions and renames for local content before applying them.
+
+Identify your adopted template commit/tag from your adoption record, Git history
+or saved original archive. A README version badge is a clue, not proof of exact
+file ancestry. If the baseline is unknown, stop automated import and use the
+manual comparison strategy below.
+
+For **Codex Game Studio**, distinguish updating the adapter from importing
+upstream source changes. Read [source maintenance](docs/codex-adapter/source-maintenance.md)
+first: preserve the original lock, reviewed patch ledger and local adapters.
 
 ---
 
@@ -25,59 +36,128 @@ Or check `README.md` for the version badge.
 
 ## Upgrade Strategies
 
-There are three ways to pull in template updates. Choose based on how your
-repo is set up.
+Choose the path matching your history. First save a backup of tracked changes
+and untracked/ignored game assets outside the checkout. Inspect `git status
+--short`; deliberately commit or stash only the intended local work. Do not
+continue with uncommitted changes, and do not assume a Git branch backs up
+untracked assets. Keep the original checkout available during validation.
 
-### Strategy A — Git Remote Merge (recommended)
+### Strategy A — Ordinary shared-history branch update
 
-Best when: you cloned the template and have your own commits on top of it.
-
-```bash
-# Add the template as a remote (one-time setup)
-git remote add template https://github.com/Donchitos/Claude-Code-Game-Studios.git
-
-# Fetch the new version
-git fetch template main
-
-# Merge into your branch
-git merge template/main --allow-unrelated-histories
-```
-
-Git will flag conflicts only in files that both the template *and* you have
-changed. Resolve each one — your game content goes in, structural improvements
-come along for the ride. Then commit the merge.
-
-**Tip:** The files most likely to conflict are `CLAUDE.md` and
-`.claude/docs/technical-preferences.md`, because you've filled them in with
-your engine and project settings. Keep your content; accept the structural changes.
-
----
-
-### Strategy B — Cherry-pick specific commits
-
-Best when: you only want one specific feature (e.g., just the new skill, not
-the full update).
+Use this only when updating the same repository/adapter branch and you want its
+whole reviewed change set. Fetch the configured remote, inspect its URL and
+choose a verified target commit. Check that histories actually share an ancestor:
 
 ```bash
-git remote add template https://github.com/Donchitos/Claude-Code-Game-Studios.git
-git fetch template main
-
-# Cherry-pick the specific commit(s) you want
-git cherry-pick <commit-sha>
+git remote -v
+git fetch origin
+# Replace this value with the reviewed commit from your own configured remote.
+update_target=REVIEWED_TARGET_COMMIT
+git merge-base HEAD "$update_target"
+git log --oneline HEAD.."$update_target"
+git diff --stat HEAD "$update_target"
+git branch backup/before-studio-update
+git worktree add -b review/studio-update ../studio-update-review HEAD
+cd ../studio-update-review
+git merge --ff-only "$update_target"
 ```
 
-Commit SHAs for each version are listed in the version sections below.
+Stop if there is no common ancestor. If `--ff-only` refuses because your branch
+has diverged, inspect both sides and, only when the whole merge is intended,
+use `git merge --no-commit --no-ff "$update_target"` in the review worktree.
+Resolve conflicts using the local and incoming changes, then test before
+committing. Use `git merge --abort` to abandon a conflicted/in-progress merge.
+A fast-forward is already a commit update: validate before promoting the review
+branch. Do not use an unrelated-history override for a template import.
 
----
+### Strategy B — Selective baseline-aware template import
 
-### Strategy C — Manual file copy
+Use this for selected upstream fixes, including projects created from a ZIP or
+GitHub template with unrelated histories. This creates a patch from the exact
+adopted upstream baseline to a reviewed upstream target; it does not merge the
+upstream repository into your game history.
 
-Best when: you didn't use git to set up the template (just downloaded a zip).
+After the clean-worktree/backup preparation above, use a new branch/worktree
+name if the example names already exist. Check an existing `template` remote's
+URL instead of replacing it; add it only if absent:
 
-1. Download or clone the new version alongside your repo.
-2. Copy the files listed under **"Safe to overwrite"** directly.
-3. For files under **"Merge carefully"**, open both versions side-by-side
-   and manually merge the structural changes while keeping your content.
+```bash
+git remote -v
+git remote add template https://github.com/Donchitos/Claude-Code-Game-Studios.git
+git fetch template
+# Choose immutable commits after reviewing the release/source changes.
+template_base=EXACT_ADOPTED_BASELINE_COMMIT
+template_target=REVIEWED_UPSTREAM_TARGET_COMMIT
+git rev-parse --verify "$template_base^{commit}"
+git rev-parse --verify "$template_target^{commit}"
+git diff --name-status "$template_base" "$template_target"
+git branch backup/before-template-import
+git worktree add -b review/template-import ../template-import-review HEAD
+cd ../template-import-review
+
+# Example allowlist: review dependencies before choosing the actual paths.
+git diff "$template_base" HEAD -- .claude/skills/sprint-plan/SKILL.md
+git diff "$template_base" "$template_target" -- .claude/skills/sprint-plan/SKILL.md
+update_patch=$(mktemp)
+git diff --binary --full-index "$template_base" "$template_target" -- .claude/skills/sprint-plan/SKILL.md > "$update_patch"
+git apply --check "$update_patch"
+# Run this only when the check succeeds and the diff is approved:
+git apply "$update_patch"
+git diff --check
+git diff -- .claude/skills/sprint-plan/SKILL.md
+```
+
+The baseline-to-HEAD diff reveals local customizations, even without shared
+history. Inspect the complete patch, dependencies, renames and deletions before
+applying; a clean application can still be semantically wrong. Keep adapter
+wrappers, `.codex` configuration, project instructions and game content outside
+the source import allowlist. Never run an upstream checkout/copy over all files.
+
+If `git apply --check` fails, it has changed nothing: **stop that sequence**.
+With the original upstream blobs available from the fetch, try
+`git apply --3way "$update_patch"` only in the clean review worktree. This updates
+the index as well as files and may leave conflicts; it does not guarantee a safe
+merge. Inspect `git status --short`, `git ls-files -u`, and each conflict. Preserve
+local requirements and integrate the reviewed upstream correction, remove
+conflict markers, then `git add` only the resolved allowlisted paths. Inspect
+both `git diff` and `git diff --cached` and run the project checks. If base blobs
+are unavailable or the baseline cannot be verified, use manual comparison.
+
+To abandon an apply attempt, keep the original checkout untouched. In the
+initially clean disposable review worktree, restore only the attempted tracked
+paths from its pre-import `HEAD`, for example:
+
+```bash
+git restore --source=HEAD --staged --worktree -- .claude/skills/sprint-plan/SKILL.md
+```
+
+Review and remove only new files created by that attempt if any; do not run a
+blanket clean/reset. Unlike `git merge`, `git apply` has no `--abort` command.
+
+Once checks pass, commit the selected source changes with the baseline/target
+IDs and test evidence. For Codex source changes, also review the patch ledger
+and regenerate adapters as described in source maintenance. Inspect and test
+those generated changes separately before committing. Promote the reviewed
+commit into your clean original branch with a fast-forward if possible; if
+that branch changed meanwhile, re-review its integration. Keep the backup until
+the game and adapter checks pass. Delete the temporary patch when finished.
+
+A cherry-pick is another option only after reviewing the exact commit and all
+of its paths/dependencies. Use a disposable review worktree; on conflict,
+resolve and test before `git cherry-pick --continue`, or abandon with
+`git cherry-pick --abort`. Do not cherry-pick broad template reorganizations
+merely to obtain one workflow fix.
+
+### Strategy C — Manual three-version comparison
+
+For archives or an unknown baseline, obtain the original adopted snapshot if
+possible and compare **original**, **your customized file**, and **new file**
+side by side. Apply only understood changes in a backed-up copy or review
+worktree. If the original cannot be recovered, use a careful two-file review
+and record that provenance gap; do not assert the local file is pristine.
+Only replace an individual file after proving it matches the exact adopted
+baseline and reviewing its incoming changes. Preserve local engine settings,
+prompts, hooks and adapters, and test before promoting the update.
 
 ---
 
@@ -123,7 +203,7 @@ UPGRADING.md
 
 ### Files: Merge Carefully
 
-None — all changes are to infrastructure files with no user content.
+No baseline project-content changes are listed; merge any local customizations under the safety rule above.
 
 ---
 
@@ -165,7 +245,7 @@ SECURITY.md
 
 ### Files: Merge Carefully
 
-None — all changes are to infrastructure files with no user content.
+No baseline project-content changes are listed; merge any local customizations under the safety rule above.
 
 ---
 
@@ -224,7 +304,7 @@ UPGRADING.md
 
 ### Files: Merge Carefully
 
-No files require manual merging in this release. All changes are to infrastructure files with no user content.
+No baseline project-content changes are listed; any locally customized infrastructure still requires a reviewed merge.
 
 ---
 
@@ -316,7 +396,7 @@ individual run with `--review [mode]` on any gate-using skill:
 
 ### Files: Merge Carefully
 
-No files require manual merging in this release. All changes are to infrastructure files with no user content.
+No baseline project-content changes are listed; any locally customized infrastructure still requires a reviewed merge.
 
 ---
 
@@ -660,10 +740,9 @@ future sessions without requiring manual file edits.
 
 ### After Upgrading
 
-1. **Delete the old skill directory:**
-   ```bash
-   rm -rf .claude/skills/design-systems/
-   ```
+1. **Review the renamed skill:** compare the old directory with its adopted
+   baseline, migrate custom instructions to `map-systems/`, and only then remove
+   the obsolete tracked files in the review worktree.
 
 2. **Test the status line** by starting a Claude Code session — you should see
    the stage breadcrumb in the terminal footer.
@@ -700,8 +779,8 @@ future sessions without requiring manual file edits.
 
 ### Files: Safe to Overwrite
 
-These are pure infrastructure — you have not customized them. Copy the new
-versions directly with no risk to your project content.
+These are infrastructure candidates. Compare each file to the exact adopted
+baseline; preserve local customizations through a reviewed merge.
 
 **New files to add:**
 ```
@@ -823,8 +902,8 @@ collaborative protocol block at the end of the system prompt.
 
 ### Files: Delete
 
-These files were removed in v0.2.0. If present in your repo, you can safely
-delete them — they're replaced by better-organized alternatives.
+These files were removed in v0.2.0. Review their local changes and migrate any
+custom content to the replacement before deleting an obsolete path.
 
 ```
 docs/IMPROVEMENTS-PROPOSAL.md      → superseded by WORKFLOW-GUIDE.md

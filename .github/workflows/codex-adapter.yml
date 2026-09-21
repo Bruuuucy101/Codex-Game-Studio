@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - name: Verify original files and generated adapters
+      - name: Verify pinned or reviewed source and generated adapters
         run: python3 tools/ccgs_codex.py check --strict-upstream
       - name: Test adapter and real upstream hook scripts
         run: python3 -m unittest discover -s tests/codex_adapter -v
@@ -36,24 +36,24 @@ jobs:
           tomllib.loads(pathlib.Path('.codex/config.toml').read_text())
           PY
 
-  first-beta-release:
+  beta-patch-release:
     needs: verify
     if: github.repository == 'Bruuuucy101/Codex-Game-Studio' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    concurrency: first-beta-release
+    concurrency: beta-patch-release
     steps:
       - uses: actions/checkout@v4
-      - name: Publish first beta if it does not exist
+      - name: Publish v0.1.1-beta if it does not exist
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          if gh release view v0.1.0-beta --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+          if gh release view v0.1.1-beta --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             echo 'The beta release already exists; leaving it unchanged.'
             exit 0
           fi
-          git archive --format=zip --prefix=Codex-Game-Studio/ --output=Codex-Game-Studio-v0.1.0-beta.zip HEAD
-          sha256sum Codex-Game-Studio-v0.1.0-beta.zip > SHA256SUMS.txt
-          gh release create v0.1.0-beta Codex-Game-Studio-v0.1.0-beta.zip SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title 'Codex Game Studios v0.1.0-beta' --notes-file RELEASE_NOTES.md
+          git archive --format=zip --prefix=Codex-Game-Studio/ --output=Codex-Game-Studio-v0.1.1-beta.zip HEAD
+          sha256sum Codex-Game-Studio-v0.1.1-beta.zip > SHA256SUMS.txt
+          gh release create v0.1.1-beta Codex-Game-Studio-v0.1.1-beta.zip SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title 'Codex Game Studios v0.1.1-beta' --notes-file RELEASE_NOTES.md

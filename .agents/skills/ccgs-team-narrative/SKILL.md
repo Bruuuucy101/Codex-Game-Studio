@@ -6,7 +6,7 @@ description: "Orchestrate the narrative team: coordinates narrative-director, wr
 # CCGS Codex entry: team-narrative
 
 Source: `.claude/skills/team-narrative/SKILL.md` (relative to the project root).
-SHA256: `9959626482ed8607f8a93a7fcf2c3d03546621592784d56a22b70cfe387ca0d4`
+SHA256: `24413cfa54fc11878728395b2e735d72bc72f750c98bbef937141be247089f5b`
 Original metadata: {"name": "team-narrative", "description": "Orchestrate the narrative team: coordinates narrative-director, writer, world-builder, and level-designer to create cohesive story content, world lore, and narrative-driven level design.", "argument-hint": "[narrative content description] [--review full|lean|solo]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Edit, Task, AskUserQuestion, TodoWrite", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

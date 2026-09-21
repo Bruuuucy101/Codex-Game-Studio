@@ -2,16 +2,18 @@
 
 ## Skill Summary
 
-`/hotfix` manages an emergency fix workflow: it creates a hotfix branch from
-main, applies a targeted fix to the identified file(s), runs `/smoke-check` to
-validate the fix doesn't introduce regressions, and prompts the user to confirm
-merge back to main. Each code change requires a "May I write to [filepath]?" ask.
-Git operations (branch creation, merge) are presented as Bash commands for user
-confirmation before execution.
+`/hotfix` is an explicitly invoked S1/S2 emergency workflow. It assesses severity,
+writes an authorized hotfix record, offers branch creation from a confirmed base,
+investigates read-only and obtains scope approval before implementation. It then
+implements/tests the minimal fix, collects real lead-programmer/qa-tester/producer
+sign-offs and completes mandatory QA re-entry before deployment readiness.
+Deployment targets both release and development branches; post-deploy verification
+and a post-incident review follow. Do not infer an executed merge from a summary.
 
-The skill is time-sensitive — director review is optional post-hoc, not a
-blocking gate. Verdicts: HOTFIX COMPLETE (fix applied, smoke check passed, merged)
-or HOTFIX BLOCKED (fix introduced regression or user declined).
+Prior explicit user authorization covering the exact implementation scope
+satisfies that checkpoint. Approval for the record or branch does not authorize
+code changes. Expanded scope returns to approval. Missing input and explicit
+denial stop dependent implementation. Permission does not replace review evidence.
 
 ---
 
@@ -20,17 +22,24 @@ or HOTFIX BLOCKED (fix introduced regression or user declined).
 Verified automatically by `/skill-test static` — no fixture needed.
 
 - [ ] Has required frontmatter fields: `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`
-- [ ] Has ≥2 phase headings
-- [ ] Contains verdict keywords: HOTFIX COMPLETE, HOTFIX BLOCKED
-- [ ] Contains "May I write" language for code changes
-- [ ] Has a next-step handoff (e.g., `/bug-report` to document the issue, or version bump)
+- [ ] Has ordered investigation, authorization and implementation phases
+- [ ] Contains BLOCKED and REDIRECTED outcomes and a ready-to-deploy summary
+- [ ] Contains "May I write" for the record and explicit implementation scope approval
+- [ ] Has next-step handoffs: `/bug-report verify`, `/bug-report close`, `/retrospective hotfix`
 
 ---
 
 ## Director Gate Checks
 
-None. Hotfixes are time-critical. Director review may follow separately as a
-post-hoc step. No gate is invoked within this skill.
+All three must return APPROVE: `lead-programmer` reviews correctness/side effects,
+`qa-tester` runs targeted regression tests, and `producer` approves timing and
+communication. CONCERNS, REJECT or missing verdicts mean do not deploy or merge.
+Resolve the finding and obtain new sign-off on the final fix; never fabricate
+approval. These are required hotfix sign-offs, not optional post-hoc review.
+
+Then `qa-lead` chooses QA re-entry: `/smoke-check`, targeted
+`/team-qa [affected-system]`, or full `/team-qa sprint`. The required passing
+verdict must precede deployment. Review mode does not waive this hotfix gate.
 
 ---
 
@@ -39,135 +48,156 @@ post-hoc step. No gate is invoked within this skill.
 ### Case 1: Happy Path — Critical crash bug fixed, smoke check passes
 
 **Fixture:**
-- `main` branch is clean
-- Bug is identified in `src/gameplay/arena.gd` (crash on boss arena entry)
-- Repro steps are provided by user
+- Release/development branches and base ref are known; worktree is clean
+- Crash on boss arena entry is identified in `src/gameplay/arena.gd`
+- Reproduction steps and a matching hotfix scope are provided
 
 **Input:** `/hotfix` (user describes the crash and affected file)
 
 **Expected behavior:**
-1. Skill proposes creating a hotfix branch: `hotfix/boss-arena-crash`
-2. User confirms; Bash command for branch creation is shown and confirmed
-3. Skill identifies the fix location in `arena.gd` and drafts the change
-4. Skill asks "May I write to `src/gameplay/arena.gd`?" and applies fix on approval
-5. Skill runs `/smoke-check` — PASS
-6. Skill presents the merge command and asks user to confirm merge to `main`
-7. User confirms; merge executes; verdict is HOTFIX COMPLETE
+1. Confirm S1/S2 severity; obtain record write permission and create the record
+2. Offer `hotfix/boss-arena-crash` from the confirmed base; create it only with
+   branch authorization, or honor the user's manual branch choice
+3. Investigate read-only; propose root cause, affected files, minimal fix,
+   targeted/adjacent tests, risks and rollback before implementation
+4. Obtain scope approval (or cite matching prior authorization), then implement
+5. Run targeted tests and obtain APPROVE from each of the three specialists
+6. Ask qa-lead for QA scope; when smoke is sufficient, run `/smoke-check` — PASS
+7. Present readiness, real approvals, rollback and both merge destinations;
+   retain any required authorization for actual deployment/merge actions
+8. After actual deployment, verify/close the bug and schedule post-incident review
 
 **Assertions:**
-- [ ] Hotfix branch is created before any code changes
-- [ ] "May I write" is asked before modifying any source file
-- [ ] `/smoke-check` runs after the fix is applied
-- [ ] Merge requires explicit user confirmation (not automatic)
-- [ ] Verdict is HOTFIX COMPLETE after successful merge
+- [ ] Branch handling precedes code edits; skip/manual branch choice is honored
+- [ ] No implementation or implementation agent spawn precedes scope approval
+- [ ] All specialist verdicts and QA re-entry evidence are real
+- [ ] `/smoke-check` runs when selected by qa-lead, after implementation/sign-offs
+- [ ] Ready-to-deploy output does not claim an unperformed merge or deployment
 
 ---
 
-### Case 2: Smoke Check Fails — HOTFIX BLOCKED
+### Case 2: Smoke Check Fails — Release blocked
 
 **Fixture:**
-- Fix has been applied to `src/gameplay/arena.gd`
-- `/smoke-check` returns FAIL: "Player health clamping regression detected"
+- Approved fix applied to `src/gameplay/arena.gd`; all three sign-offs exist
+- qa-lead selects smoke; `/smoke-check` fails with health-clamping regression
 
-**Input:** `/hotfix`
+**Input:** continue `/hotfix` through QA re-entry
 
 **Expected behavior:**
-1. Skill applies the fix and runs `/smoke-check`
-2. Smoke check returns FAIL with specific regression identified
-3. Skill reports: "HOTFIX BLOCKED — smoke check failed: [regression detail]"
-4. Skill presents options: attempt revised fix, revert changes, or merge with
-   known regression (user acknowledges risk)
-5. No automatic merge occurs when smoke check fails
+1. Show the actual smoke failure and regression detail; report release blocked
+2. Offer a revised minimal fix, rollback, or stop; no option releases a known
+   failing regression merely because the user acknowledges risk
+3. If scope changes, return to implementation authorization
+4. After correction, obtain sign-offs on the final fix and rerun required QA
 
 **Assertions:**
-- [ ] Verdict is HOTFIX BLOCKED
-- [ ] Smoke check failure is shown verbatim to user
-- [ ] Merge is NOT performed automatically when smoke check fails
-- [ ] User is given explicit options for how to proceed
+- [ ] Failure evidence is shown accurately; do not deploy or merge
+- [ ] No passing QA verdict or release completion is invented
+- [ ] Revised fix must satisfy sign-off and QA re-entry again
 
 ---
 
-### Case 3: Fix to Already-Released Build — Version tag noted, patch bump prompted
+### Case 3: Fix to Already-Released Build — Release target and backport retained
 
 **Fixture:**
-- Latest git tag is `v1.2.0`
-- Hotfix targets a bug in the v1.2.0 release
+- User identifies the affected tagged build as `v1.2.0`
+- Release branch/base and development branch are known
 
-**Input:** `/hotfix`
+**Input:** `/hotfix` for the v1.2.0 release
 
 **Expected behavior:**
-1. Skill detects that the current HEAD is a tagged release (v1.2.0)
-2. Skill notes: "Hotfix targeting tagged release v1.2.0"
-3. After smoke check passes, skill prompts: "Should version be bumped to v1.2.1?"
-4. If user confirms version bump: skill asks "May I write to VERSION or equivalent?"
-5. After version update and merge: verdict is HOTFIX COMPLETE with version noted
+1. Use supplied release context to confirm the branch base
+2. Document minimum scope, rollback and both backport destinations
+3. Complete authorization, specialist sign-offs and QA re-entry
+4. If a version bump is requested, include its affected file in approved scope;
+   do not invent automatic tag detection, version-file edits or release publishing
+5. Present readiness, then verify deployed results only after actual deployment
 
 **Assertions:**
-- [ ] Version tag context is detected and surfaced to user
-- [ ] Patch version bump is suggested (not required) after merge
-- [ ] Version bump requires its own "May I write" confirmation
-- [ ] Verdict is HOTFIX COMPLETE
+- [ ] Release branch AND development branch are recorded
+- [ ] Version-file changes require authorization covering that scope
+- [ ] No readiness claim precedes real sign-offs and the selected QA pass
 
 ---
 
 ### Case 4: No Repro Steps — Skill Asks Before Applying Fix
 
 **Fixture:**
-- User invokes `/hotfix` with a vague description: "something is broken on level 3"
-- No repro steps provided
+- Vague user description: "something is broken on level 3"
+- No reproducible symptom or affected system is available
 
 **Input:** `/hotfix` (vague description)
 
 **Expected behavior:**
-1. Skill detects insufficient information to identify the fix location
-2. Skill asks: "Please provide reproduction steps and the affected file or system"
-3. Skill does NOT create a branch or modify any file until repro steps are provided
-4. After user provides repro steps: normal hotfix flow begins
+1. Request missing severity/reproduction/system information before assuming a fix
+2. Do not invent a root cause, implement code or spawn an implementation agent
+3. A record or approved branch alone cannot authorize an unknown fix
+4. Once enough evidence exists, propose scope and follow the normal checkpoints
 
 **Assertions:**
-- [ ] No branch is created without repro steps
-- [ ] No code changes are made without a clearly identified fix location
-- [ ] Repro step request is specific (not a generic "please provide more info")
-- [ ] Normal hotfix flow resumes after user provides repro steps
+- [ ] Missing information is surfaced specifically
+- [ ] No code changes occur without a diagnosed proposal and authorized scope
+- [ ] Normal flow resumes only when its prerequisites are satisfied
 
 ---
 
-### Case 5: Director Gate Check — No gate; hotfixes are time-critical
+### Case 5: Required Sign-offs and Expanded QA Scope
 
 **Fixture:**
-- Critical bug with repro steps identified
+- Approved S1 fix touches a core system
+- Test variants: one reviewer returns CONCERNS, REJECT, or is unavailable;
+  all approve but qa-lead requires targeted QA; all approve but full QA is needed
 
 **Input:** `/hotfix`
 
 **Expected behavior:**
-1. Skill completes the hotfix workflow
-2. No director agents are spawned during execution
-3. No gate IDs appear in output
-4. Post-hoc director review (if needed) is a manual follow-up, not invoked here
+1. Request lead-programmer, qa-tester and producer verdicts after implementation
+2. Any missing/non-APPROVE sign-off blocks release pending resolution/new sign-off
+3. Only after all approve, have qa-lead select smoke/targeted/full QA
+4. Run the selected scope and require its passing/approved verdict
+5. Preserve this sequence even if the project uses lean or solo mode
 
 **Assertions:**
-- [ ] No director gate is invoked
-- [ ] No gate skip messages appear
-- [ ] Verdict is HOTFIX COMPLETE or HOTFIX BLOCKED — no gate verdict
+- [ ] Mandatory sign-offs are not treated as optional post-hoc director feedback
+- [ ] qa-lead receives changed systems, callers and regression results
+- [ ] Targeted/full QA is not replaced with a smoke-only claim
+- [ ] No release when a required reviewer or QA result is blocked/missing
+
+---
+
+### Case 6: Authorization Boundary — Prior approval, revision and explicit denial
+
+**Fixture:**
+- Investigation produces a minimal fix proposal with affected files and rollback
+- Variants: record/branch approval only; exact prior implementation authorization;
+  user requests revised scope; user says stop; no answer arrives
+
+**Expected behavior / assertions:**
+- [ ] Record/branch permission alone does not authorize code changes
+- [ ] Exact prior authorization is cited and not needlessly requested again
+- [ ] Revision returns to the proposal/checkpoint before implementation
+- [ ] Explicit denial/cancellation stops code edits and implementation spawns
+- [ ] Missing answer is not approval; report BLOCKED without fictional test results
+- [ ] Broader scope requires renewed authorization and never bypasses actual QA
 
 ---
 
 ## Protocol Compliance
 
-- [ ] Creates hotfix branch before making any code changes
-- [ ] Asks "May I write" before modifying any source files
-- [ ] Runs `/smoke-check` after applying the fix
-- [ ] Requires explicit user confirmation before merging
-- [ ] HOTFIX BLOCKED when smoke check fails — no automatic merge
-- [ ] Verdict is HOTFIX COMPLETE or HOTFIX BLOCKED
+- [ ] Explicit invocation, severity confirmation and S3 redirect are retained
+- [ ] Read-only investigation precedes authorized minimal implementation
+- [ ] Real three-way specialist approval and QA re-entry precede release
+- [ ] Backport both branches; keep rollback and post-deploy bug verification
+- [ ] Report readiness, blockers and actual execution results distinctly
 
 ---
 
 ## Coverage Notes
 
-- The case where multiple files need to be modified for one fix follows the same
-  "May I write" per-file pattern and is not separately tested.
-- The post-hotfix steps (create bug report, update changelog) are suggested in
-  the handoff but not tested as part of this skill's execution.
-- Conflict resolution during the merge (if main has diverged) is not tested;
-  the skill would surface the conflict and ask the user to resolve it manually.
+- Multi-file fixes use one clearly bounded approved scope; approval for only one
+  file does not implicitly cover unrelated files.
+- Git merge conflict handling and actual engine/deployment execution require
+  environment-specific fixtures and are not certified by these instructions.
+- Post-incident review timing and deployed bug verification require observed
+  execution evidence; listing a next step is not proof it happened.

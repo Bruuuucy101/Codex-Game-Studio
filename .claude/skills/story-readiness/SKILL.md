@@ -66,9 +66,12 @@ Before checking any stories, load reference documents once (not per-story):
   validate TR-IDs in stories. If the file does not exist, note it once; TR-ID
   checks will auto-pass for all stories (registry predates stories, so missing
   registry means stories are from before TR tracking was introduced).
-- All ADR status fields — for each unique ADR referenced across the stories being
-  checked, read the ADR file and note its `Status:` field. Cache these so you
-  don't re-read the same ADR for every story.
+- All current ADR metadata — for each unique ADR referenced across the stories,
+  use the read-only reader through permitted file-access transport:
+  `python3 tools/ccgs_codex.py adr-context docs/architecture/[adr-file].md --metadata-only`.
+  Cache project-relative source, `sha256`, `status`, `status_state`, and section
+  index for this validation run. Recheck metadata before the final verdict if
+  work continues or a source may have changed; do not reuse another run's cache.
 - The current sprint file (if scope is `sprint`) — to identify Must Have /
   Should Have priority for escalation decisions
 
@@ -104,16 +107,34 @@ items pass or are explicitly marked N/A with a stated reason.
 ### Architecture Completeness
 
 - [ ] **ADR referenced or N/A stated**: The story references at least one ADR,
-  OR explicitly states "No ADR applies" with a brief reason.
+  OR explicitly states "No ADR applies" / `ADR: N/A` with a brief reason.
   A story with no ADR reference and no explicit N/A note fails this check.
 - [ ] **ADR is Accepted (not Proposed)**: For each referenced ADR, check its
-  `Status:` field using the cached ADR statuses loaded in Section 2.
-  - If `Status: Accepted` → pass.
+  current metadata using the cached evidence loaded in Section 2.
+  - If `status_state: known` and `Status: Accepted` → pass.
   - If `Status: Proposed` → **BLOCKED**: the ADR may change before it is accepted,
     and the story's implementation guidance could be wrong.
     Fix: `BLOCKED: ADR-NNNN is Proposed — wait for acceptance before implementing.`
   - If the ADR file does not exist → **BLOCKED**: referenced ADR is missing.
-  - Auto-pass if story has an explicit "No ADR applies" N/A note.
+  - Any other non-Accepted, missing or ambiguous current status → **BLOCKED**;
+    name the actual status or ambiguity and resolve acceptance before implementation.
+  - Auto-pass only if the story has an explicit "No ADR applies" / `ADR: N/A`
+    reason and no referenced ADR; N/A never excuses a missing referenced file.
+- [ ] **ADR guidance is current and sufficient**: Match every governing ADR
+  (including secondary references) to its own `ADR Source SHA256` line and
+  compare the current source hash. Clear notes with matching Accepted sources
+  can be reused without re-reading ADR prose. Missing provenance or a hash mismatch
+  is **NEEDS WORK**, even if a manifest date matches. Unclear or incomplete
+  notes also require reconciliation. Inspect fresh relevant Decision,
+  Implementation Guidelines, Engine Compatibility / Engine Notes, Dependencies
+  and amendment sections using repeatable `--section` selections, `--limit 8000`
+  and `--expected-sha256 [current hash]`. Follow `next_offset` with `--offset`
+  and the same selection/hash until `more` is false; restart on a changed hash.
+  The reader includes nested sections and all amendments; retain applicable
+  active constraints and report missing required sections explicitly. Never
+  fall back to whole-file reads. Report the exact stale/missing evidence and
+  needed reconciliation; never rewrite story hashes or notes in this read-only
+  workflow. A justified N/A with no ADR references skips this check.
 - [ ] **TR-ID is valid and active**: If the story contains a `TR-[system]-NNN`
   reference, look it up in the TR registry loaded in Section 2.
   - If the ID exists and `status: active` → pass.
@@ -211,7 +232,8 @@ exist and are not DRAFT. The story can be fixed before assignment.
 
 **BLOCKED** — One or more dependency stories are missing or in DRAFT state,
 OR a critical design question (flagged UNRESOLVED in a criterion or rule) has
-no owner. The story cannot be assigned until the blocker is resolved. Note:
+no owner, OR a referenced ADR is missing or not unambiguously Accepted.
+The story cannot be assigned until the blocker is resolved. Note:
 a story that is BLOCKED may also have NEEDS WORK items — list both.
 
 ---

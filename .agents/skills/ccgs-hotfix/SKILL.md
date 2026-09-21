@@ -6,7 +6,7 @@ description: "Emergency fix workflow that bypasses normal sprint processes with 
 # CCGS Codex entry: hotfix
 
 Source: `.claude/skills/hotfix/SKILL.md` (relative to the project root).
-SHA256: `6d99a79bce373cd9f8fe02b1db2933c9121ac0a79c778d588dd03b5f337c4bf9`
+SHA256: `baebc008e93dd3b7df113cbf9fa67a4a2b6d1ad3f5fa6fedea5d2ba34cb91bea`
 Original metadata: {"name": "hotfix", "description": "Emergency fix workflow that bypasses normal sprint processes with a full audit trail. Creates hotfix branch, tracks approvals, and ensures the fix is backported correctly.", "argument-hint": "[bug-id or description]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Edit, Bash, Task, AskUserQuestion", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

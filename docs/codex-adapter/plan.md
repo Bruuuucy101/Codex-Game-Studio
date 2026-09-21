@@ -1,5 +1,7 @@
 # Complete CCGS Codex Adapter Implementation Plan
 
+> Historical v0.1.0-beta migration record (2026-09-18). Its unchanged-source requirement and original observations describe that release. For v0.1.1-beta reviewed source corrections and current evidence, see [source maintenance](source-maintenance.md), [issue audit](upstream-issues-2026-09-21.md) and [validation](validation.md).
+
 > For agentic workers: use superpowers:subagent-driven-development for the independent hook task and review. Preserve the full source contract in the spec.
 
 Goal: carry the full upstream studio surface into a traceable Codex project.

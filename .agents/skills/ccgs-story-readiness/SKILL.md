@@ -6,7 +6,7 @@ description: "Validate that a story file is implementation-ready. Checks for emb
 # CCGS Codex entry: story-readiness
 
 Source: `.claude/skills/story-readiness/SKILL.md` (relative to the project root).
-SHA256: `f1fc25f80f811fd38c53144c305706488c031974a5f0925cdf18986467de90eb`
+SHA256: `345abd019dc7aaa798935dc2c962955ba6c5ffd84f2035f66c169221e9b971e2`
 Original metadata: {"name": "story-readiness", "description": "Validate that a story file is implementation-ready. Checks for embedded GDD requirements, ADR references, engine notes, clear acceptance criteria, and no open design questions. Produces READY / NEEDS WORK / BLOCKED verdict with specific gaps. Use when user says 'is this story ready', 'can I start on this story', 'is story X ready to implement'.", "argument-hint": "[story-file-path or 'all' or 'sprint']", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, AskUserQuestion, Task", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

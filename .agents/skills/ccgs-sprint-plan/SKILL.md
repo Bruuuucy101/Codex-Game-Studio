@@ -6,7 +6,7 @@ description: "Generates a new sprint plan or updates an existing one based on th
 # CCGS Codex entry: sprint-plan
 
 Source: `.claude/skills/sprint-plan/SKILL.md` (relative to the project root).
-SHA256: `d402a9f276f81663c8b07f6c4fd2b19a3fa9d4ee9411e3d57e6868daa095ee42`
+SHA256: `ce83ed57dc7c2aaaeac81a23133a26ccfbb6193200c22a405bb18accd1cbd378`
 Original metadata: {"name": "sprint-plan", "description": "Generates a new sprint plan or updates an existing one based on the current milestone, completed work, and available capacity. Pulls context from production documents and design backlogs.", "argument-hint": "[new|update|status] [--review full|lean|solo]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Edit, Task, AskUserQuestion", "model": "sonnet", "context": "!ls production/sprints/ 2>/dev/null\n"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

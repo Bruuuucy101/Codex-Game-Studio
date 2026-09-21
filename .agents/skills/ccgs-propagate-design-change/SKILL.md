@@ -8,6 +8,8 @@ description: "When a GDD is revised, scans all ADRs and the traceability index t
 Source: `.claude/skills/propagate-design-change/SKILL.md` (relative to the project root).
 SHA256: `eba7901d3875f81946ab8803f458d142427102c438296fae83e3f4c4101115ed`
 Original metadata: {"name": "propagate-design-change", "description": "When a GDD is revised, scans all ADRs and the traceability index to identify which architectural decisions are now potentially stale. Produces a change impact report and guides the user through resolution.", "argument-hint": "[path/to/changed-gdd.md]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Bash, Task", "model": "sonnet", "agent": "technical-director"}
+Metadata role routing: Dispatch a real `ccgs-technical-director` child for the role work, using `.claude/agents/technical-director.md` and this complete workflow. The coordinator retains user decisions and AskUserQuestion handling when the role lacks that tool; pause dependent work, return the exact decision request to the coordinator, and resume only with the actual answer. Preserve the role tool restrictions and required nested delegation. Give the child bounded task scope, arguments, source paths, relevant evidence hashes and accepted decisions. Do not copy the full conversation. Use a fresh bounded context where supported. Inherit the parent model and effort unless an explicit validated role mapping applies. If the host cannot dispatch the role, report a blocker; do not simulate it.
+
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.
 2. Read `docs/codex-adapter/runtime.md` before interpreting Claude-specific instructions.

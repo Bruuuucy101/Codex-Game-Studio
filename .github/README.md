@@ -4,13 +4,13 @@
 
 73 workflow skills, 49 specialist roles, and the original studio's design, implementation, review and QA processes, with a project-local Codex compatibility layer.
 
-**Status: v0.1.0-beta.** Original source coverage is verified; complete runtime equivalence across every workflow, host and game engine is not. This is not an official release from Donchitos, Anthropic or OpenAI.
+**Version: v0.1.1-beta.** Original source coverage is verified; complete runtime equivalence across every workflow, host and game engine is not. This is not an official release from Donchitos, Anthropic or OpenAI.
 
 [中文使用指南](../README-CODEX.zh-CN.md) · [Capability inventory](../docs/codex-adapter/capabilities.md) · [Validation report](../docs/codex-adapter/validation.md) · [Release notes](../RELEASE_NOTES.md)
 
 ## What is preserved
 
-The baseline is upstream commit [`984023d`](https://github.com/Donchitos/Claude-Code-Game-Studios/tree/984023ddac0d5e27624f2baacde6105e45de375f). All 417 baseline files, including the MIT license, remain byte-for-byte intact. The original README remains at the repository root; this GitHub landing page describes the Codex adaptation.
+The baseline is upstream commit [`984023d`](https://github.com/Donchitos/Claude-Code-Game-Studios/tree/984023ddac0d5e27624f2baacde6105e45de375f). All 417 baseline files are retained: 407 remain byte-for-byte intact, and 10 have explicit reviewed corrections recorded in the [patch ledger](../.codex/upstream-patches.json). The original lock and MIT license are unchanged. The original README remains at the repository root; this GitHub landing page describes the Codex adaptation.
 
 | Original capability | Codex adaptation |
 |---|---|
@@ -43,12 +43,14 @@ python3 tools/ccgs_codex.py check --strict-upstream
 python3 -m unittest discover -s tests/codex_adapter -v
 ```
 
-The initial delivery passed 34 deterministic tests and three sampled workflow scenarios. A real CLI child agent also loaded the original technical-director role. These results do not certify all workflows or engine builds. Once you fill in game-specific original templates, strict baseline checks will report those deliberate changes; review the differences.
+The current update passes 73 deterministic adapter tests and six real Git update fixtures. Three fresh-agent samples observed hotfix refusal, current bounded ADR reconciliation and missing demo-prerequisite planning. The initial beta separately exercised real CLI role delegation. See the [34-issue audit](../docs/codex-adapter/upstream-issues-2026-09-21.md) and [validation report](../docs/codex-adapter/validation.md) for scope and limits.
+
+Strict verification accepts pinned bytes or exact reviewed patches; `check --pristine-upstream` intentionally reports this release’s 10 reviewed corrections. Game-specific edits may produce additional drift: review it using the [source maintenance guide](../docs/codex-adapter/source-maintenance.md). Local passing checks do not certify engine builds or imply a published CI result.
 
 ## Compatibility boundaries
 
 - Custom-role selection depends on the Codex host. Where unavailable, required work is delegated to real child agents that load the complete source role. No simulated team is substituted.
-- Models inherit the user's Codex selection. Claude model tiers, tool restrictions, turn budgets and memory flags are preserved as metadata/instructions, with documented host differences.
+- Role profiles omit model/effort overrides by default, so host spawn defaults and then the parent model apply. Explicit configured overrides take precedence. Claude model tiers, tool restrictions, turn budgets and memory flags are preserved as metadata/instructions, with documented host differences.
 - Notification events and the original status-line UI have no identical mapping. Native Windows registration is not validated.
 - Automatic checks require trusted hooks. External editors and arbitrary shell writes are not universally covered by file-edit events.
 - No complete Godot, Unity or Unreal game has been certified through this adapter yet.

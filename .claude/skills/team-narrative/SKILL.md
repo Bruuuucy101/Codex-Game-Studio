@@ -65,6 +65,15 @@ Delegate in parallel — issue all three Task calls simultaneously before waitin
 - **writer**: Draft character dialogue using voice profiles. Ensure all lines are under 120 characters, use named placeholders for variables, and are localization-ready.
 - **art-director**: Define character visual design direction for key characters appearing in this content (silhouette, visual archetype, distinguishing features). Specify environmental visual storytelling elements for each key space (prop composition, lighting notes, spatial arrangement). Define tone palette and cinematic direction for any cutscenes or scripted sequences.
 
+**Phase 2 decision checkpoint:** Wait for all required Phase 2 outputs, then present the lore, dialogue, and visual proposals and any contradictions in conversation. Use `AskUserQuestion` before Phase 3:
+- Prompt: "Approve this world foundation for level narrative integration?"
+- Options:
+  - `[A] Approve — continue to level narrative integration`
+  - `[B] Revise — adjust the lore, dialogue, or visual direction`
+  - `[C] Stop — keep the current outputs and stop here`
+
+If [A]: pass the approved foundation to Phase 3. If [B]: send the requested changes to the affected Phase 2 agents, then present the revised outputs and repeat this checkpoint. If [C], approval is declined, or the question is cancelled: stop dependent work and provide a partial report. Do not spawn the level-designer until approval is received; no answer is not approval. Apply this user decision checkpoint in every review mode; skipping a director gate does not skip it. If a required output is blocked, follow the Error Recovery Protocol before requesting approval.
+
 ### Phase 3: Level Narrative Integration
 Delegate to **level-designer**:
 - Review the narrative brief and lore foundation

@@ -53,6 +53,27 @@ class CatalogTests(unittest.TestCase):
             self.assertIn(f".claude/agent-memory/{role['name']}/MEMORY.md", instructions)
             self.assertNotIn('model = "opus"', text)
 
+    def test_metadata_roles_are_explicitly_dispatched_with_question_handoff(self):
+        catalog, generate = self.api()
+        files = generate.render(self.root)
+        for row in catalog.inventory(self.root)['skills']:
+            if row['metadata'].get('agent'):
+                role = row['metadata']['agent']
+                entry = files[f".agents/skills/ccgs-{row['name']}/SKILL.md"]
+                self.assertIn(f'Dispatch a real `ccgs-{role}` child', entry)
+                self.assertIn(f'.claude/agents/{role}.md', entry)
+                self.assertIn('coordinator retains user decisions', entry)
+                self.assertIn('Do not copy the full conversation', entry)
+                self.assertNotIn('context: fork', entry)
+        self.assertNotIn('Dispatch a real', files['.agents/skills/ccgs-dev-story/SKILL.md'])
+
+    def test_unknown_metadata_role_cannot_silently_be_simulated(self):
+        _, generate = self.api()
+        source = self.root / '.claude/skills/create-stories/SKILL.md'
+        source.write_text(source.read_text().replace('agent: lead-programmer', 'agent: nonexistent-role'))
+        with self.assertRaisesRegex(ValueError, 'Unknown workflow agent'):
+            generate.render(self.root)
+
     def test_missing_runtime_contract_cannot_be_regenerated_as_success(self):
         _, generate = self.api()
         generate.write(self.root)

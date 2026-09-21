@@ -8,6 +8,8 @@ description: "Validates a UX spec, HUD design, or interaction pattern library fo
 Source: `.claude/skills/ux-review/SKILL.md` (relative to the project root).
 SHA256: `1dd5a719efd1ad5c2d831c046f9e257e9c7cff067cc9d1a99e67181e1b0f4bc0`
 Original metadata: {"name": "ux-review", "description": "Validates a UX spec, HUD design, or interaction pattern library for completeness, accessibility compliance, GDD alignment, and implementation readiness. Produces APPROVED / NEEDS REVISION / MAJOR REVISION NEEDED verdict with specific gaps.", "argument-hint": "[file-path or 'all' or 'hud' or 'patterns']", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep", "model": "sonnet", "agent": "ux-designer"}
+Metadata role routing: Dispatch a real `ccgs-ux-designer` child for the role work, using `.claude/agents/ux-designer.md` and this complete workflow. The coordinator retains user decisions and AskUserQuestion handling when the role lacks that tool; pause dependent work, return the exact decision request to the coordinator, and resume only with the actual answer. Preserve the role tool restrictions and required nested delegation. Give the child bounded task scope, arguments, source paths, relevant evidence hashes and accepted decisions. Do not copy the full conversation. Use a fresh bounded context where supported. Inherit the parent model and effort unless an explicit validated role mapping applies. If the host cannot dispatch the role, report a blocker; do not simulate it.
+
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.
 2. Read `docs/codex-adapter/runtime.md` before interpreting Claude-specific instructions.

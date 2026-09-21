@@ -8,6 +8,8 @@ description: "Generate player-facing patch notes from git history, sprint data, 
 Source: `.claude/skills/patch-notes/SKILL.md` (relative to the project root).
 SHA256: `ffb34d12e0d3fe21d31e6406a77b6db77b16a8185358ee8183b08de584498d30`
 Original metadata: {"name": "patch-notes", "description": "Generate player-facing patch notes from git history, sprint data, and internal changelogs. Translates developer language into clear, engaging player communication.", "argument-hint": "[version] [--style brief|detailed|full]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Bash", "model": "haiku", "agent": "community-manager"}
+Metadata role routing: Dispatch a real `ccgs-community-manager` child for the role work, using `.claude/agents/community-manager.md` and this complete workflow. The coordinator retains user decisions and AskUserQuestion handling when the role lacks that tool; pause dependent work, return the exact decision request to the coordinator, and resume only with the actual answer. Preserve the role tool restrictions and required nested delegation. Give the child bounded task scope, arguments, source paths, relevant evidence hashes and accepted decisions. Do not copy the full conversation. Use a fresh bounded context where supported. Inherit the parent model and effort unless an explicit validated role mapping applies. If the host cannot dispatch the role, report a blocker; do not simulate it.
+
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.
 2. Read `docs/codex-adapter/runtime.md` before interpreting Claude-specific instructions.

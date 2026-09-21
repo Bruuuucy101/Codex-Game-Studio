@@ -39,9 +39,22 @@ def render(root):
         if settings.get('model_reasoning_effort') not in ('low', 'medium', 'high', 'xhigh', 'max', 'ultra'):
             raise ValueError('Model mapping needs an explicit supported reasoning effort')
     out = {}
+    roles = {row['name'] for row in rows['agents']}
     for row in rows['skills']:
         name, source = row['name'], row['source']
         description = row['metadata']['description']
+        role = row['metadata'].get('agent')
+        if role and role not in roles:
+            raise ValueError('Unknown workflow agent: ' + str(role))
+        routing = (f'\nMetadata role routing: Dispatch a real `ccgs-{role}` child for the role work, '
+                   f'using `.claude/agents/{role}.md` and this complete workflow. '
+                   'The coordinator retains user decisions and AskUserQuestion handling when the role lacks that tool; '
+                   'pause dependent work, return the exact decision request to the coordinator, and resume only with the actual answer. '
+                   'Preserve the role tool restrictions and required nested delegation. '
+                   'Give the child bounded task scope, arguments, source paths, relevant evidence hashes and accepted decisions. '
+                   'Do not copy the full conversation. Use a fresh bounded context where supported. '
+                   'Inherit the parent model and effort unless an explicit validated role mapping applies. '
+                   'If the host cannot dispatch the role, report a blocker; do not simulate it.\n') if role else ''
         out[f'.agents/skills/ccgs-{name}/SKILL.md'] = f'''---
 name: ccgs-{name}
 description: {encode(description)}
@@ -51,7 +64,7 @@ description: {encode(description)}
 
 Source: `{source}` (relative to the project root).
 SHA256: `{row['sha256']}`
-Original metadata: {encode(row['metadata'])}
+Original metadata: {encode(row['metadata'])}{routing}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.
 2. Read `{RUNTIME}` before interpreting Claude-specific instructions.
@@ -81,7 +94,7 @@ Respect the original tool allowlist and disallowedTools as role policy. Read req
 COMPLETE ORIGINAL ROLE BODY (not summarized)
 {body}'''
         out[f'.codex/agents/ccgs-{name}.toml'] = '\n'.join([
-            '# Generated from unchanged CCGS source. Model deliberately inherited.',
+            '# Generated from canonical CCGS source. Model inherited unless explicitly mapped.',
             f'name = {encode("ccgs-" + name)}',
             f'description = {encode(meta["description"])}',
             *[f'{key} = {encode(value)}' for key, value in model_map.get(meta['model'], {}).items()],

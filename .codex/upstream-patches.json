@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "984023ddac0d5e27624f2baacde6105e45de375f",
+  "patches": [
+    {
+      "path": ".claude/skills/architecture-decision/SKILL.md",
+      "original_sha256": "94a2299ae4ff370062e15d37680abdb13c1fc2dc05b916dcb65f46088d12b854",
+      "patched_sha256": "ee273bcb3f84e2131d1222bd2e4691a218c5620c993ee74814daeafde95bbea5",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/83"
+      ],
+      "rationale": "Add the skill-level H1 outside the unchanged ADR template; preserve retrofit, engine and review branches. Reviewed against the issue snapshot and complete workflow diff; covered by tests/codex_adapter/test_upstream_workflows.py source-contract regressions."
+    },
+    {
+      "path": ".claude/skills/hotfix/SKILL.md",
+      "original_sha256": "6d99a79bce373cd9f8fe02b1db2933c9121ac0a79c778d588dd03b5f337c4bf9",
+      "patched_sha256": "baebc008e93dd3b7df113cbf9fa67a4a2b6d1ad3f5fa6fedea5d2ba34cb91bea",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/69",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/81"
+      ],
+      "rationale": "Separate read-only diagnosis, scoped implementation authorization, and implementation; preserve actual specialist sign-offs and mandatory QA re-entry before release. Reviewed against the issue snapshot and complete workflow diff; covered by tests/codex_adapter/test_upstream_workflows.py source-contract regressions."
+    },
+    {
+      "path": ".claude/skills/sprint-plan/SKILL.md",
+      "original_sha256": "d402a9f276f81663c8b07f6c4fd2b19a3fa9d4ee9411e3d57e6868daa095ee42",
+      "patched_sha256": "ce83ed57dc7c2aaaeac81a23133a26ccfbb6193200c22a405bb18accd1cbd378",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/88",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/58"
+      ],
+      "rationale": "Resolve review mode once; retain full producer and lean/solo coordinator feasibility, paired-file approval and first-run mode choice. Add runnable goal-to-demonstration prerequisite audit before story selection, with evidence, ordered in-sprint costs and missing/deferred/blocked handling. Align final mode summary with director-gates and preserve QA requirements. Reviewed complete source/diff; source-contract regressions in tests/codex_adapter/test_upstream_workflows.py."
+    },
+    {
+      "path": ".claude/skills/team-narrative/SKILL.md",
+      "original_sha256": "9959626482ed8607f8a93a7fcf2c3d03546621592784d56a22b70cfe387ca0d4",
+      "patched_sha256": "24413cfa54fc11878728395b2e735d72bc72f750c98bbef937141be247089f5b",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/86"
+      ],
+      "rationale": "Restore the Phase 2 to Phase 3 user decision checkpoint with approve, revise, and stop outcomes before level-designer delegation. Reviewed against the issue snapshot and complete workflow diff; covered by tests/codex_adapter/test_upstream_workflows.py source-contract regressions."
+    },
+    {
+      "path": ".claude/skills/create-stories/SKILL.md",
+      "original_sha256": "f1517b9f5a90317f93149c9915ade684dbf75ab8b00c1ea9bdeaa6f921756b56",
+      "patched_sha256": "cd1cd1cebb933f7b34913d3557cf7b7fec11a71f463ca5ea9fa80cd3e59b9a22",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/63",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/64"
+      ],
+      "rationale": "Use bounded current ADR sections, raw-file per-ADR SHA256 provenance, explicit acceptance evidence and active amendments; preserve missing-file STOP, reasoned N/A, story lifecycle, engine routing and all review modes. Reviewed against complete workflow source and research notes; tested reader edge cases and source contracts in tests/codex_adapter/test_adr.py. Codex metadata role routing for issue #72 is handled in the generator/runtime without adding Claude fork metadata."
+    },
+    {
+      "path": ".claude/skills/dev-story/SKILL.md",
+      "original_sha256": "ddada36350af8d121b63159e79eb72e3d5a1482b74e88f547f556ca92efd2b04",
+      "patched_sha256": "bdb0c97315e675263727562da6dc28727093b891761a7067398b4b0a8c07a7ff",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/63",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/64"
+      ],
+      "rationale": "Use bounded current ADR sections, raw-file per-ADR SHA256 provenance, explicit acceptance evidence and active amendments; preserve missing-file STOP, reasoned N/A, story lifecycle, engine routing and all review modes. Reviewed against complete workflow source and research notes; tested reader edge cases and source contracts in tests/codex_adapter/test_adr.py. Codex metadata role routing for issue #72 is handled in the generator/runtime without adding Claude fork metadata."
+    },
+    {
+      "path": ".claude/skills/story-readiness/SKILL.md",
+      "original_sha256": "f1fc25f80f811fd38c53144c305706488c031974a5f0925cdf18986467de90eb",
+      "patched_sha256": "345abd019dc7aaa798935dc2c962955ba6c5ffd84f2035f66c169221e9b971e2",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/63",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/64"
+      ],
+      "rationale": "Use bounded current ADR sections, raw-file per-ADR SHA256 provenance, explicit acceptance evidence and active amendments; preserve missing-file STOP, reasoned N/A, story lifecycle, engine routing and all review modes. Reviewed against complete workflow source and research notes; tested reader edge cases and source contracts in tests/codex_adapter/test_adr.py. Codex metadata role routing for issue #72 is handled in the generator/runtime without adding Claude fork metadata."
+    },
+    {
+      "path": "UPGRADING.md",
+      "original_sha256": "f502c533d1eb6d7916667b9f7b72a7eabd7e1259eb6f615efa70c8d2df607f66",
+      "patched_sha256": "2ce84f12ffd203ea708e170edee80aa800ba3bb476bcee52d4a80626e390870b",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/70"
+      ],
+      "rationale": "Replace blanket unrelated-history merges and blind copying with backed-up clean review worktrees, exact adopted baseline comparisons and allowlisted imports. Preserve customized infrastructure and distinguish Codex release updates from Claude source imports; retain historical release guidance under a global baseline rule. Reviewed source diff; exercised six local Git fixtures including shared/unrelated history, customized source, wrapper/config sentinels, conflicts, restore and merge abort."
+    },
+    {
+      "path": "CCGS Skill Testing Framework/skills/utility/hotfix.md",
+      "original_sha256": "16c1cfa8faf7c9ef1c12bcf960435dda0ea023c17588be4e38b1792600c290df",
+      "patched_sha256": "392f90860f603f84f7ba4a704a5ece4de53e0cfa073d36e0c0cbb3065a8f1540",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/69",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/81"
+      ],
+      "rationale": "Align inherited behavior specification with canonical hotfix scope approval before implementation, prior authorization and denial, required actual LP/QA/producer sign-offs and QA re-entry. Correct known-regression release and fictional executed-merge expectations while retaining crash, smoke failure, released build and missing-repro scenarios. Reviewed against complete hotfix source; covered by focused source-contract regressions."
+    },
+    {
+      "path": "CCGS Skill Testing Framework/skills/pipeline/dev-story.md",
+      "original_sha256": "a6e30fe4f49f81b837d63bf49d3b3c1d5fab851e3ac8d8f41f422c92e471571d",
+      "patched_sha256": "8caf62ec550fdff2b8da1b725e7ae6f6b821d376a5f0a94d4cccf0718ce87894",
+      "issue_urls": [
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/63",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/64"
+      ],
+      "rationale": "Repair inherited behavior specification to keep implementation/tests separate from code-review and story-done closure, and retain Config/Data inline exception. Preserve existing missing/Proposed/ambiguous-context scenarios and add fresh/stale per-ADR SHA256, bounded sections, amendments and pagination cases. Reviewed against complete canonical dev-story source; covered by focused source-contract regressions."
+    }
+  ]
+}

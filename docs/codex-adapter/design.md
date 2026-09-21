@@ -1,6 +1,8 @@
 # Full-surface Codex adapter design
 
-Approved direction: original upstream plus a thin, owned adapter; user requires the complete studio capability set. This is an architectural migration. The existing approval covers implementation, local tests and a reviewable local deliverable. No publishing or global installation is needed.
+> Historical v0.1.0-beta migration record (2026-09-18). Its unchanged-source requirement and original observations describe that release. For v0.1.1-beta reviewed source corrections and current evidence, see [source maintenance](source-maintenance.md), [issue audit](upstream-issues-2026-09-21.md) and [validation](validation.md).
+
+Migration direction: original upstream plus a thin, owned adapter preserving the complete studio capability set. The initial migration scope was implementation, local tests and a reviewable local deliverable, without global installation.
 
 ## Baseline and invariants
 

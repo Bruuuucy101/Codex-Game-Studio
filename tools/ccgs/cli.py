@@ -5,7 +5,8 @@ from pathlib import Path
 import platform
 import shutil
 import sys
-from . import catalog, generate
+from . import adr, catalog, generate
+from .provenance import verify_upstream
 
 
 def emit(value):
@@ -13,19 +14,7 @@ def emit(value):
 
 
 def upstream_drift(root):
-    lock = root / '.codex/upstream-lock.json'
-    if not lock.exists():
-        return ['MISSING .codex/upstream-lock.json']
-    errors = []
-    for name, digest in json.loads(lock.read_text())['files'].items():
-        path = root / name
-        if not path.resolve().is_relative_to(root.resolve()):
-            errors.append('INVALID_BASELINE_PATH ' + name)
-        elif not path.is_file():
-            errors.append('UPSTREAM_MISSING ' + name)
-        elif catalog.sha256(path.read_bytes()) != digest:
-            errors.append('UPSTREAM_CHANGED ' + name)
-    return errors
+    return verify_upstream(root)
 
 
 def status(root):
@@ -44,7 +33,8 @@ def main(argv=None):
     sub = parser.add_subparsers(dest='command', required=True)
     sub.add_parser('generate', help='Regenerate owned adapters after deliberate source changes.')
     check = sub.add_parser('check', help='Reject stale/missing generated entry points.')
-    check.add_argument('--strict-upstream', action='store_true', help='Require all original files to match the pinned baseline.')
+    check.add_argument('--strict-upstream', action='store_true', help='Require pinned upstream bytes or exact recorded reviewed patches.')
+    check.add_argument('--pristine-upstream', action='store_true', help='Require every baseline source file to remain byte-identical to upstream.')
     sub.add_parser('doctor', help='Inspect files/dependencies; does not certify live hook trust or model behavior.')
     sub.add_parser('status', help='Show actual original project state.')
     rules = sub.add_parser('rules', help='Print complete original rules applicable to paths.')
@@ -53,15 +43,28 @@ def main(argv=None):
     role.add_argument('name')
     workflow = sub.add_parser('workflow', help='Print a complete original workflow with runtime contract.')
     workflow.add_argument('name')
+    context = sub.add_parser('adr-context', help='Read current ADR metadata or bounded, hash-pinned section pages.')
+    context.add_argument('path')
+    context.add_argument('--metadata-only', action='store_true')
+    context.add_argument('--section', action='append', default=[])
+    context.add_argument('--offset', type=int, default=0)
+    context.add_argument('--limit', type=int, default=adr.DEFAULT_LIMIT)
+    context.add_argument('--expected-sha256')
     args = parser.parse_args(argv)
     root = args.root.resolve()
     try:
-        if args.command == 'generate':
+        if args.command == 'adr-context':
+            emit(adr.read_context(root, args.path, sections=args.section,
+                                  metadata_only=args.metadata_only, offset=args.offset,
+                                  limit=args.limit, expected_sha256=args.expected_sha256))
+        elif args.command == 'generate':
             files = generate.write(root)
             emit({'generated': len(files), 'check': generate.check(root)})
         elif args.command == 'check':
             errors = generate.check(root)
-            if args.strict_upstream:
+            if args.pristine_upstream:
+                errors += verify_upstream(root, pristine=True)
+            elif args.strict_upstream:
                 errors += upstream_drift(root)
             emit({'status': 'FAIL' if errors else 'PASS', 'errors': errors,
                   'scope': 'source and adapter integrity only'})
@@ -75,7 +78,10 @@ def main(argv=None):
             problems = errors + ['MISSING_DEPENDENCY ' + x for x in missing] + ['MISSING ' + x for x in missing_files]
             emit({'status': 'FAIL' if problems else 'STRUCTURAL_PASS_RUNTIME_UNVERIFIED',
                   'counts': {k: len(v) for k, v in rows.items()}, 'errors': problems,
-                  'upstream_drift': upstream_drift(root), 'dependencies': dependencies,
+                  'upstream_drift': upstream_drift(root),
+                  'upstream_pristine_drift': verify_upstream(root, pristine=True),
+                  'upstream_scope': 'reported separately: pinned or reviewed source integrity; pristine upstream byte equality',
+                  'dependencies': dependencies,
                   'host': platform.system(), 'python': platform.python_version(),
                   'runtime': {'hook_trust': 'not verified', 'native_role_loading': 'not verified',
                               'game_engine_behavior': 'not verified'},

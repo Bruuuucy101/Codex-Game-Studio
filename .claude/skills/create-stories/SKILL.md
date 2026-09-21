@@ -42,11 +42,11 @@ before every gate invocation.
 
 ## 2. Load Everything for This Epic
 
-Read in full:
+Load these inputs (use bounded ADR reads below):
 
 - `production/epics/[epic-slug]/EPIC.md` — epic overview, governing ADRs, GDD requirements table
 - The epic's GDD (`design/gdd/[filename].md`) — read all 8 sections, especially Acceptance Criteria, Formulas, and Edge Cases
-- All governing ADRs listed in the epic — read the Decision, Implementation Guidelines, Engine Compatibility, and Engine Notes sections
+- All governing ADRs listed in the epic — verify current metadata, then read the Decision, Implementation Guidelines, Engine Compatibility, Engine Notes, ADR Dependencies / Dependencies, and amendment sections in bounded pages
 - `docs/architecture/control-manifest.md` — extract rules for this epic's layer; note the Manifest Version date from the header
 - `docs/architecture/tr-registry.yaml` — load all TR-IDs for this system
 
@@ -57,6 +57,30 @@ Read in full:
 > to create it. Cannot create stories until all referenced ADR files are present."
 
 Do not proceed to Step 3 until all referenced ADR files are confirmed present.
+
+For each ADR, use the project's read-only reader through permitted file-access
+transport: `python3 tools/ccgs_codex.py adr-context docs/architecture/[adr-file].md --metadata-only`.
+Keep its project-relative `source`, raw-file `sha256`, current `status` and
+`status_state`, and section index. Only an unambiguous `Accepted` status permits
+Ready stories. Proposed, superseded, deprecated, missing or ambiguous status
+means **BLOCKED**; do not invent acceptance. An explicit `No ADR applies` or
+`ADR: N/A` with a reason is valid only when no ADR is referenced, never as a
+substitute for a missing file.
+
+Read required sections with repeatable `--section "Decision" --section
+"Implementation Guidelines"` (and the other relevant section names from the
+index), `--limit 8000`, and `--expected-sha256 [current hash]`. The reader includes
+nested subsections and all amendment sections conservatively; inspect amendment
+status and retain every applicable active constraint. Follow `next_offset` using
+`--offset` with the same section selection and hash until `more` is false.
+If the hash changes, restart metadata and the targeted reads. Missing sections
+are explicit gaps: clarify required guidance; do not retry the whole file or
+silently omit later sections. These are character limits, not token estimates.
+
+Derive the decision summary, implementation notes, engine risks and dependencies
+from this current evidence. Store one `ADR Source SHA256` line per governing
+ADR in every resulting story; a manifest date is not ADR provenance. Before
+writing, recheck metadata and refresh affected notes if any source changed.
 
 Report: "Loaded epic [name], GDD [filename], [N] governing ADRs (all confirmed present), control manifest v[date]."
 
@@ -96,6 +120,7 @@ For each story, determine:
 - **Governing ADR**: which ADR governs how to implement this?
   - `Status: Accepted` → embed normally
   - `Status: Proposed` → set story `Status: Blocked` with note: "BLOCKED: ADR-NNNN is Proposed — run `/architecture-decision` to advance it"
+  - Any other non-Accepted, missing or ambiguous current status → set story `Status: Blocked` and name the source fact that must be resolved; never stamp Ready automatically
   - **Multiple ADRs apply**: List all governing ADRs in the story's `Governing ADRs:` field. Designate the one most directly controlling the implementation pattern as primary (first in the list). Others are listed as secondary references.
   - **No ADR applies at all**: Write `ADR: N/A — [brief reason, e.g. "pure data configuration, no architectural pattern required"]` in the story's ADR field. Do NOT leave the field blank — a blank ADR field means "not checked", not "not applicable".
 - **Story Type**: from Step 3 classification
@@ -199,6 +224,10 @@ For each story, write `production/epics/[epic-slug]/story-[NNN]-[slug].md`:
 *(Requirement text lives in `docs/architecture/tr-registry.yaml` — read fresh at review time)*
 
 **ADR Governing Implementation**: [ADR-NNNN: title]
+**Governing ADRs**: `[project-relative primary ADR path]`, `[project-relative secondary ADR path, if any]`
+**ADR Source SHA256**: `docs/architecture/[adr-file].md` = `[64-character SHA256 of this exact ADR source]`
+*(Repeat the ADR Source SHA256 line for every governing ADR. For a justified
+No ADR applies / ADR: N/A story, omit hashes and state the reason instead.)*
 **ADR Decision Summary**: [1-2 sentence summary of what the ADR decided]
 
 **Engine**: [name + version] | **Risk**: [LOW / MEDIUM / HIGH]
@@ -226,7 +255,9 @@ For each story, write `production/epics/[epic-slug]/story-[NNN]-[slug].md`:
 *Derived from ADR-NNNN Implementation Guidelines:*
 
 [Specific, actionable guidance from the ADR. Do not paraphrase in ways that
-change meaning. This is what the programmer reads instead of the ADR.]
+change meaning. Include applicable active amendments, engine constraints and
+dependencies with source section references. The programmer can reuse these
+notes only after every current ADR is Accepted and its source hash matches.]
 
 ---
 

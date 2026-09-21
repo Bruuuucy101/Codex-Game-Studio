@@ -6,7 +6,7 @@ description: "Read a story file and implement it. Loads the full context (story,
 # CCGS Codex entry: dev-story
 
 Source: `.claude/skills/dev-story/SKILL.md` (relative to the project root).
-SHA256: `ddada36350af8d121b63159e79eb72e3d5a1482b74e88f547f556ca92efd2b04`
+SHA256: `bdb0c97315e675263727562da6dc28727093b891761a7067398b4b0a8c07a7ff`
 Original metadata: {"name": "dev-story", "description": "Read a story file and implement it. Loads the full context (story, GDD requirement, ADR guidelines, control manifest), routes to the right programmer agent for the system and engine, implements the code and test, and confirms each acceptance criterion. The core implementation skill — run after /story-readiness, before /code-review and /story-done.", "argument-hint": "[story-path]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Bash, Task, AskUserQuestion", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.
