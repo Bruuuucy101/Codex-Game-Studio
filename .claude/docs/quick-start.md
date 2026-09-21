@@ -3,7 +3,7 @@
 ## What Is This?
 
 This is a complete Claude Code agent architecture for game development. It
-organizes 49 specialized AI agents into a studio hierarchy that mirrors
+organizes 51 specialized AI agents into a studio hierarchy that mirrors
 real game development teams, with defined responsibilities, delegation
 rules, and coordination protocols. It includes engine-specialist agents
 for Godot, Unity, and Unreal — each with dedicated sub-specialists for
@@ -56,6 +56,8 @@ Ask yourself: "What department would handle this in a real studio?"
 | Get Unreal Engine advice | `unreal-specialist` |
 | Get Unity advice | `unity-specialist` |
 | Get Godot advice | `godot-specialist` |
+| Get Phaser 3 advice | `phaser-specialist` |
+| Get Three.js advice | `threejs-specialist` |
 | Design GAS abilities/effects | `ue-gas-specialist` |
 | Define BP/C++ boundaries | `ue-blueprint-specialist` |
 | Implement UE replication | `ue-replication-specialist` |
@@ -273,7 +275,7 @@ If you have design docs, prototypes, or code already:
 CLAUDE.md                          -- Master config (read this first, ~60 lines)
 .claude/
   settings.json                    -- Claude Code hooks and project settings
-  agents/                          -- 49 agent definitions (YAML frontmatter)
+  agents/                          -- 51 agent definitions (YAML frontmatter)
   skills/                          -- 73 slash command definitions (YAML frontmatter)
   hooks/                           -- 12 hook scripts (.sh) wired by settings.json
   rules/                           -- 11 path-specific rule files
@@ -289,3 +291,12 @@ CLAUDE.md                          -- Master config (read this first, ~60 lines)
     settings-local-template.md     -- Personal settings.local.json guide
     templates/                     -- 41 document templates
 ```
+
+## Web engine choices
+
+Phaser 3 and Three.js bring the current inventory to 51 roles (49 original plus
+two web leads). `/setup-engine phaser` / `/setup-engine threejs` configure the
+matching language, shader and UI routes; aliases phaser3, three and three.js are
+accepted. Web leads reuse existing programmers and technical artists.
+Read [web development](web-game-development.md): runnable scaffold and browser
+acceptance are forthcoming in Task 2, not implied by configuration completion.

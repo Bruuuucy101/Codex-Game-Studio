@@ -171,3 +171,11 @@ point this skill runs.
   concern outside the skill boundary.
 - Solo vs. lean mode behavior is not applicable — this skill has no gates and
   mode selection is irrelevant.
+
+## Web source evidence case (not yet behaviorally executed)
+
+Fixture A: framework templates/web and node_modules only, placeholder technical
+preferences. Expected: still unconfigured; installed examples are not game code.
+Fixture B: configured Phaser 3/Three.js plus real src/core/*.ts and engine adapter.
+Expected: recognize actual JS/TS source and respect the selected engine; use the
+existing onboarding path, never force Godot because its bundled reference exists.

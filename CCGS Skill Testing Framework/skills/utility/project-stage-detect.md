@@ -181,3 +181,11 @@ gates apply.
 - The Polish and Release stages are not fixture-tested here; they follow the
   same high-confidence (stage.txt present) or inference logic.
 - Confidence levels are advisory — the skill does not gate any actions on them.
+
+## Web source roots case (not yet behaviorally executed)
+
+Fixture: 30 template/vendor TS files but only 3 actual src/ game files; engine
+configured. Expected: count 3 and remain Pre-Production under existing heuristics.
+With 10 actual game source files and active development, Production is eligible.
+Package dependency alone is not configuration. Explicit production/stage.txt
+wins in both fixtures. Monorepo roots/uncertainty are reported, not guessed.

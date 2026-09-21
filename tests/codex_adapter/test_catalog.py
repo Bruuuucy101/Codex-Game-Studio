@@ -43,7 +43,11 @@ class CatalogTests(unittest.TestCase):
         catalog, generate = self.api()
         files = generate.render(self.root)
         roles = catalog.inventory(self.root)['agents']
-        self.assertEqual(len(roles), 49)
+        baseline = json.loads((ROOT / '.codex/upstream-lock.json').read_text())['files']
+        original = {Path(p).stem for p in baseline if p.startswith('.claude/agents/') and p.endswith('.md')}
+        actual = {role['name'] for role in roles}
+        self.assertTrue(original <= actual)
+        self.assertEqual(actual - original, {'phaser-specialist', 'threejs-specialist'})
         for role in roles:
             text = files[f".codex/agents/ccgs-{role['name']}.toml"]
             line = next(x for x in text.splitlines() if x.startswith('developer_instructions = '))

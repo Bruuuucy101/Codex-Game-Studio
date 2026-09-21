@@ -28,16 +28,63 @@ jobs:
         if: matrix.python == '3.12'
         run: |
           python3 - <<'PY'
-          import pathlib, tomllib
+          import json, pathlib, tomllib
           roles = list(pathlib.Path('.codex/agents').glob('*.toml'))
-          assert len(roles) == 49
+          baseline = json.loads(pathlib.Path('.codex/upstream-lock.json').read_text())['files']
+          original = {pathlib.Path(p).stem for p in baseline if p.startswith('.claude/agents/') and p.endswith('.md')}
+          canonical = {p.stem for p in pathlib.Path('.claude/agents').glob('*.md')}
+          assert original <= canonical
+          assert canonical - original == {'phaser-specialist', 'threejs-specialist'}
+          assert {p.stem.removeprefix('ccgs-') for p in roles} == canonical
           for role in roles:
               tomllib.loads(role.read_text())
           tomllib.loads(pathlib.Path('.codex/config.toml').read_text())
           PY
 
+  web:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [phaser, threejs]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+      - name: Copy exact release template into a clean fixture
+        run: python3 tools/ccgs_codex.py scaffold-web ${{ matrix.engine }} --target "$RUNNER_TEMP/web-game" --write
+      - name: Install exact lock and verify unit/build behavior
+        working-directory: ${{ runner.temp }}/web-game
+        run: |
+          node --version
+          npm --version
+          npm ci
+          npm run typecheck
+          npm test
+          npm run build
+      - name: Install matching Chromium and exercise real browser input
+        working-directory: ${{ runner.temp }}/web-game
+        run: |
+          npx playwright --version
+          npx playwright install --with-deps chromium
+          npm run test:browser
+      - name: Retain browser screenshots and traces for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-${{ matrix.engine }}-browser-evidence
+          path: |
+            ${{ runner.temp }}/web-game/test-results/
+            ${{ runner.temp }}/web-game/playwright-report/
+          if-no-files-found: warn
+          retention-days: 14
+
   beta-patch-release:
-    needs: verify
+    needs: [verify, web]
     if: github.repository == 'Bruuuucy101/Codex-Game-Studio' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:

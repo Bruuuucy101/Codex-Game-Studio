@@ -104,6 +104,15 @@ If an engine is configured, determine which specialist applies to each file and 
 
 Also spawn the **Primary Specialist** for any file touching engine architecture (scene structure, node hierarchy, lifecycle hooks).
 
+For `phaser` / `threejs`, `.js`/`.ts`/`.mjs` game code routes to the
+configured language specialist. GLSL (`.glsl`, `.vert`, `.frag`) needs
+`technical-artist` plus primary-engine consultation for renderer compatibility.
+HTML/CSS and DOM UI modules route to `ui-programmer`; Phaser canvas UI lifecycle
+still needs `phaser-specialist`. Use file responsibility as well as extension.
+Always consult the primary for loop, scene/restart, resources and asset loading.
+Review ownership cleanup, focus clearing, exact pins, data-driven state and
+separate Vitest/Playwright discovery. Keep the selected review mode and all gates.
+
 ### QA Testability Review
 
 For Logic and Integration stories, also spawn `qa-tester` via Task in parallel with the engine specialists. Pass:

@@ -2,16 +2,16 @@
 
 这是基于 [Donchitos/Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios) 制作的项目级适配，不是官方 Codex 移植版。目标是完整保留原工作室的内容、流程和质量关卡，并适配 Codex 的工具与协作机制。
 
-基线为原版 v1.0.0，提交 `984023ddac0d5e27624f2baacde6105e45de375f`。原版 417 个受版本控制的文件全部保留：407 个逐字节不变，10 个包含有明确记录的修正，原 LICENSE 和基线锁均未改动。修正的原始与当前哈希、问题链接及原因见[补丁记录](.codex/upstream-patches.json)。公开版是可追溯到该上游提交的源码快照；不声称保留上游 Git 历史。可以继续在同一项目使用原版 Claude Code 入口。
+基线为原版 v1.0.0，提交 `984023ddac0d5e27624f2baacde6105e45de375f`。原版 417 个受版本控制的文件全部保留：原始字节或逐项记录的修正均可验证，原 LICENSE 和基线锁均未改动。修正的原始与当前哈希、问题链接及原因见[补丁记录](.codex/upstream-patches.json)。公开版是可追溯到该上游提交的源码快照；不声称保留上游 Git 历史。可以继续在同一项目使用原版 Claude Code 入口。
 
-**当前版本 v0.1.1-beta：完整保留工作流与角色范围，并修正已确认的继承问题；73 项确定性测试、6 个真实 Git 更新场景和本轮 3 个行为抽测已通过。尚不能称为所有引擎、所有工作流都已验证的 100% 运行等价版本。** 详细证据见 [验证报告](docs/codex-adapter/validation.md)。
+**此前 v0.1.1-beta 验收记录：完整保留工作流与角色范围，并修正已确认的继承问题；73 项确定性测试、6 个真实 Git 更新场景和本轮 3 个行为抽测已通过。尚不能称为所有引擎、所有工作流都已验证的 100% 运行等价版本。** 详细证据见 [验证报告](docs/codex-adapter/validation.md)。
 
 ## 保留了什么
 
 | 原版内容 | Codex 接入方式 |
 |---|---|
 | 73 个工作流技能 | 73 个 `ccgs-*` 入口，每次读取完整原工作流；没有用摘要替代 |
-| 49 个角色 | 49 个角色配置，嵌入完整原指令；支持真实子代理加载原角色的兼容方式 |
+| 49 个原角色 + 2 个 Web 引擎负责人 | 当前 51 个角色配置，嵌入完整规范；原 49 个身份保留 |
 | 11 组路径规则 | 保留原文与适用路径；编辑前加载，受支持的工具事件额外自动注入 |
 | 12 个钩子脚本 | 全部保留；11 个脚本接入事件桥接，通知脚本有明确平台差异 |
 | 40 个模板文件 | 包括嵌套目录，按实际文件清点；原 README 的数字不是此处验收依据 |
@@ -59,7 +59,7 @@ python3 tools/ccgs_codex.py check --strict-upstream
 python3 -m unittest discover -s tests/codex_adapter -v
 ```
 
-`doctor` 会区分结构、已审阅补丁、原始字节一致性和运行验证范围。`--strict-upstream` 接受原始字节或补丁记录中的精确哈希；额外的 `check --pristine-upstream` 要求完全等于原版，因此会按预期报告本版的 10 个修正文件。开始游戏后填写文档、状态或偏好，也会产生需要审阅的差异，不能直接丢弃。更新方法见[源码维护](docs/codex-adapter/source-maintenance.md)，本轮处理范围见[全部 34 个问题的审计](docs/codex-adapter/upstream-issues-2026-09-21.md)。
+`doctor` 会区分结构、已审阅补丁、原始字节一致性和运行验证范围。`--strict-upstream` 接受原始字节或补丁记录中的精确哈希；额外的 `check --pristine-upstream` 要求完全等于原版，因此会按预期报告补丁记录中的修正文件。开始游戏后填写文档、状态或偏好，也会产生需要审阅的差异，不能直接丢弃。更新方法见[源码维护](docs/codex-adapter/source-maintenance.md)，本轮处理范围见[全部 34 个问题的审计](docs/codex-adapter/upstream-issues-2026-09-21.md)。
 
 修改原技能、角色、规则或运行时适配说明后执行：
 
@@ -77,3 +77,15 @@ python3 tools/ccgs_codex.py check
 ## 进一步验收
 
 建议在你实际选定的引擎上，走完一个小功能的完整流程：需求 → ADR → 故事 → 实现与测试 → 独立审查 → 结案 → 阶段 QA。之后使用保留的 `ccgs-skill-test` 测试规范扩大覆盖。通过这一轮才有依据评价你的实际开发环境，而不仅是适配层本身。
+
+## Web 引擎扩展
+
+现可选择 Phaser 3（phaser/phaser3）和 Three.js（threejs/three/three.js），
+使用新增的两个引擎角色和完整的配置、审查、测试路由。原 73 个工作流、49 个角色身份和
+Godot 三种语言模式、Unity、Unreal 分支保留；当前共 51 个角色。
+
+`templates/web/` 提供收集小游戏、锁定依赖和复制工具。先用
+`python3 tools/ccgs_codex.py scaffold-web phaser --target "你的项目目录"` 预览，
+确认清单后加 `--write` 复制；工具不会覆盖文件或安装依赖。浏览器验收与构建结果分别
+记录在 [验证说明](docs/codex-adapter/validation.md)，不能把角色或配置存在当作运行验证通过。版本为 Phaser 3.90.0 和
+Three.js 0.186.0/r186，已有项目的锁定版本优先。参见 [Web 开发说明](.claude/docs/web-game-development.md)。

@@ -6,7 +6,7 @@ description: "Scaffold the test framework and CI/CD pipeline for the project's e
 # CCGS Codex entry: test-setup
 
 Source: `.claude/skills/test-setup/SKILL.md` (relative to the project root).
-SHA256: `bf3477f58af77fdeabed42e9c15f1b7bd41d6837c1ddff0450922cee694c628d`
+SHA256: `98f68bb7b9d13adaefc57774e1caa2da8e8cc8d32479b923d98060820c6d3df5`
 Original metadata: {"name": "test-setup", "description": "Scaffold the test framework and CI/CD pipeline for the project's engine. Creates the tests/ directory structure, engine-specific test runner configuration, and GitHub Actions workflow. Run once during Technical Setup phase before the first sprint begins.", "argument-hint": "[force]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Bash, Write", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

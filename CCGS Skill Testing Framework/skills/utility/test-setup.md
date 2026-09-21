@@ -171,3 +171,13 @@ None. `/test-setup` is a scaffolding utility. No director gates apply.
 - The case where tests/ exists but is from a different engine (e.g., Unity tests
   in a now-Godot project) is not tested; the skill would detect the mismatch
   and offer to reconcile.
+
+## Web extension case (not yet behaviorally executed)
+
+Fixture: configured Phaser 3 or Three.js with an existing package/lockfile,
+Vitest unit config, Playwright integration config and a custom CI job.
+Input: `/test-setup force` with authorization to fill missing test pieces.
+Expected: retain existing files/custom scripts, propose authorized merges,
+separate unit and browser discovery, use exact installed pins and production
+preview with actual input/rendering checks. No latest install, overwritten
+lockfile, fabricated browser run or skipped failing job. Missing browser is NOT RUN.

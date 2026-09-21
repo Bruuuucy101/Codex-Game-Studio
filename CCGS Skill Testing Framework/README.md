@@ -15,7 +15,7 @@ Tests the skills and agents themselves — not any game built with them.
 CCGS Skill Testing Framework/
 ├── README.md              ← you are here
 ├── CLAUDE.md              ← tells Claude how to use this framework
-├── catalog.yaml           ← master registry: all 73 skills + 49 agents, coverage tracking
+├── catalog.yaml           ← master registry: all 73 skills + 51 agents (49 original + 2 web leads), coverage tracking
 ├── quality-rubric.md      ← category-specific pass/fail metrics for /skill-test category
 │
 ├── skills/                ← behavioral spec files for skills (one per skill)

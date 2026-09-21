@@ -1,8 +1,8 @@
 # Codex adapter validation
 
-Current local acceptance: **v0.1.1-beta, 2026-09-21**. Original baseline: `984023ddac0d5e27624f2baacde6105e45de375f`. This report separates file integrity, deterministic checks, real Git fixtures and sampled model behavior. None certifies full runtime equivalence or actual game-engine readiness. The historical v0.1.0 evidence is retained below with its original date and scope.
+Prior local acceptance: **v0.1.1-beta, 2026-09-21**. Original baseline: `984023ddac0d5e27624f2baacde6105e45de375f`. This report separates file integrity, deterministic checks, real Git fixtures and sampled model behavior. None certifies full runtime equivalence or actual game-engine readiness. The historical v0.1.0 evidence is retained below with its original date and scope.
 
-| Evidence layer | Current observed result | Limit |
+| Evidence layer | Prior v0.1.1 observed result | Limit |
 |---|---|---|
 | Source integrity | All 417 baseline paths retained; 407 match original SHA256 and 10 match explicit reviewed patches; original lock unchanged | Reviewed corrections deliberately differ from upstream bytes |
 | Capability inventory | 73 skills, 49 roles, 11 rules, 12 hook scripts, 40 recursive templates, 126 behavior-framework Markdown files retained | Inventory is not workflow execution |
@@ -114,3 +114,66 @@ The latter fixes were preceded by five observed failing assertions (four new tes
 ## Remaining acceptance work
 
 Open this directory as the actual Codex project, review/trust its hooks, and observe live lifecycle and validation events. Select the real engine/version and run one complete feature through implementation, passing tests, independent review, closure and stage QA. Expand the original skill-testing framework across the desired workflows and full/lean/solo modes. Native Windows registration, all-engine behavior, complex nested teams, hard role-policy equivalence, notification equivalence and user-scoped memory remain unverified or documented host differences.
+
+## Web-engine Task 1 extension — 2026-09-21
+
+Canonical workflow support adds phaser-specialist and threejs-specialist while
+preserving the original lock and 73 workflow/49 role identity sets. Current
+inventory is 51 roles. Source-contract tests cover identity preservation,
+canonical/generated bodies, routing targets and reference/spec resolution.
+These are deterministic structural checks, not executed behavioral scenarios.
+On Python 3.10.0, `python3 -m unittest discover -s tests/codex_adapter -v`
+passed 77 tests after regeneration. `check --strict-upstream` passed; 417 baseline
+paths remain (382 original hashes, 35 reviewed hashes), and the original lock
+SHA256 above is unchanged. The generator produced 126 files; 51 role profiles
+and project config parsed with the local pip-vendored tomli. `git diff --check`
+passed. Python 3.12 CI and remote CI execution were not run locally.
+
+Scaffold implementation, package installation, typecheck/unit/build/browser runs
+and screenshot acceptance are forthcoming in Task 2. New behavioral catalog
+entries intentionally have blank execution fields. No browser, Safari, mobile,
+WebGPU or native hardware verification is claimed by this phase. Earlier counts
+and observed runs above retain their historical scope.
+
+## Web scaffold implementation — 2026-09-21
+
+The `scaffold-web` command now previews/copies explicit manifests for Phaser 3
+and Three.js without npm, network access, overwrites or engine-state changes.
+Its filesystem tests cover both exact byte/hash manifests, dry-run, aliases,
+invalid/traversal/protected paths, all output collision positions, symlinks,
+repeat invocation, existing studio files and rollback after a mid-write failure.
+
+Exact game pins remain Phaser 3.90.0 and Three.js/@types/three 0.186.0. The
+initial Vite 7.3.1/Vitest 4.1.9 candidate passed build/unit checks but npm audit
+reported development-server advisories. The reviewed baseline was refreshed to
+Vite 7.3.6 and Vitest 4.1.11; TypeScript 5.9.3 and Playwright 1.58.2 remain pinned.
+The compatible transitive esbuild resolved to 0.28.2; final `npm audit --json`
+reported zero vulnerabilities for both locks on this date. Lock generation used
+task-local npm 11.6.2 after npm 10.9.2's initial dependency
+resolver threw an internal `edgesOut` error. The resulting lockfiles install
+with normal npm 10.9.2 on Node 22.14.0 using `npm ci`; no global npm change or
+peer-dependency bypass is required.
+
+The clean-fixture acceptance commands are `npm ci`, `npm run typecheck`,
+`npm test`, `npm run build`, `npx playwright install chromium`, then
+`npm run test:browser`. Fresh copies of both final templates passed all four install/type/unit/build
+commands on Node 22.14.0/npm 10.9.2. Each simulation passed five unit tests.
+Matching Chromium installation and discovery of two browser scenarios per
+template succeeded; discovery did not execute them. Unit discovery is
+`tests/web-unit/**/*_test.ts`; browser discovery is `tests/browser`. The engine
+bundles currently trigger Vite's 500 kB chunk warning (approximately 1.21 MB
+Phaser / 530 kB Three.js uncompressed JS); these are starter templates, not
+optimized download budgets.
+
+Browser acceptance remains **NOT VERIFIED locally**: downloaded Chromium 145
+and its matching headless shell abort before page creation in this macOS host's
+application registration path. Type/unit/build checks and Playwright discovery
+are separate evidence and do not prove canvas output. The release-blocking Linux
+web CI matrix runs real keyboard/pointer, two collection/reset cycles, focus
+clearing, resize, teardown and actual Three WebGL2 checks against owned production
+preview. It uploads screenshots/traces for inspection, including failure artifacts.
+Until that CI run and visual inspection are recorded, browser acceptance is open.
+The full Python adapter suite passed 87 tests; strict provenance and generated
+integrity checks passed with the original lock unchanged.
+Safari, mobile, WebGPU, native GPU performance and behavioral-agent adherence
+remain unverified. The historical Task 1 counts/results above are unchanged.

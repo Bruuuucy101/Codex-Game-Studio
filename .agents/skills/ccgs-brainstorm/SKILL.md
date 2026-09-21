@@ -6,7 +6,7 @@ description: "Guided game concept ideation — from zero idea to a structured ga
 # CCGS Codex entry: brainstorm
 
 Source: `.claude/skills/brainstorm/SKILL.md` (relative to the project root).
-SHA256: `3afbcc808948bd507486d2d84787236cbac516b67d207b6b4737ab0d7f2cd9ad`
+SHA256: `58ee07f10ee554f6163c0b4be8d69eb5e0d94fe0ae90f4bf13d55fbb8f77a555`
 Original metadata: {"name": "brainstorm", "description": "Guided game concept ideation — from zero idea to a structured game concept document. Uses professional studio ideation techniques, player psychology frameworks, and structured creative exploration.", "argument-hint": "[genre or theme hint, or 'open'] [--review full|lean|solo]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, WebSearch, Task, AskUserQuestion", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

@@ -34,7 +34,9 @@ Analyze project structure and content:
 - Count level designs in `design/levels/`
 
 **Source Code** (`src/`):
-- Count source files (language-agnostic)
+- Count actual source files (language-agnostic, including `.js`, `.ts`, `.mjs` web modules) under `src/` or explicit adopted source roots.
+- Exclude `templates/`, `.claude/docs/templates/`, `node_modules/`, `dist/`, generated output, caches and test trees from game-code evidence, even if they contain nested `src/`. Installing bundled templates never promotes stage.
+- For web projects compare configured technical preferences with package/lockfile evidence. Dependencies alone are an engine candidate, not a configured engine. Report source roots and uncertainty for monorepos; retain `production/stage.txt` as the explicit override.
 - Identify major systems (directories with 5+ files)
 - Check for core/, gameplay/, ai/, networking/, ui/ directories
 - Estimate lines of code (rough scale)

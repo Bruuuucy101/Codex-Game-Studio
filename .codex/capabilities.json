@@ -5,11 +5,11 @@
   "verification_contract": "Source coverage is not runtime or behavioral certification. See validation.md.",
   "counts": {
     "skills": 73,
-    "agents": 49,
+    "agents": 51,
     "rules": 11,
     "hooks": 12,
     "templates": 40,
-    "behavior_specs": 126
+    "behavior_specs": 128
   },
   "surfaces": {
     "skills": [
@@ -110,7 +110,7 @@
       {
         "name": "brainstorm",
         "source": ".claude/skills/brainstorm/SKILL.md",
-        "sha256": "3afbcc808948bd507486d2d84787236cbac516b67d207b6b4737ab0d7f2cd9ad",
+        "sha256": "58ee07f10ee554f6163c0b4be8d69eb5e0d94fe0ae90f4bf13d55fbb8f77a555",
         "metadata": {
           "name": "brainstorm",
           "description": "Guided game concept ideation — from zero idea to a structured game concept document. Uses professional studio ideation techniques, player psychology frameworks, and structured creative exploration.",
@@ -163,7 +163,7 @@
       {
         "name": "code-review",
         "source": ".claude/skills/code-review/SKILL.md",
-        "sha256": "e0abfa89a0a22bb3cfb9042941efc8f7ffb2a73b4f92884ef8eaba670366ca53",
+        "sha256": "5e9c0cac63bc5d0c9ca0a1a444ae4277792ce5da312d9a5927934d57781bd0a3",
         "metadata": {
           "name": "code-review",
           "description": "Performs an architectural and quality code review on a specified file or set of files. Checks for coding standard compliance, architectural pattern adherence, SOLID principles, testability, and performance concerns.",
@@ -299,7 +299,7 @@
       {
         "name": "dev-story",
         "source": ".claude/skills/dev-story/SKILL.md",
-        "sha256": "bdb0c97315e675263727562da6dc28727093b891761a7067398b4b0a8c07a7ff",
+        "sha256": "376890e5639a2a4265263090cd6ce4f076f42e2fa7f9ac9b5fe67bb65f8465f3",
         "metadata": {
           "name": "dev-story",
           "description": "Read a story file and implement it. Loads the full context (story, GDD requirement, ADR guidelines, control manifest), routes to the right programmer agent for the system and engine, implements the code and test, and confirms each acceptance criterion. The core implementation skill — run after /story-readiness, before /code-review and /story-done.",
@@ -472,7 +472,7 @@
       {
         "name": "project-stage-detect",
         "source": ".claude/skills/project-stage-detect/SKILL.md",
-        "sha256": "dffa5112b8d3c4ef53bc3ee6bede90d0f3f4b938ad3a00238f1209f0fa0e7e19",
+        "sha256": "791886cbc13c8519559ec5b6c2d7ce764a9d71bbba71554a1589740f599199a5",
         "metadata": {
           "name": "project-stage-detect",
           "description": "Automatically analyze project state, detect stage, identify gaps, and recommend next steps based on existing artifacts. Use when user asks 'where are we in development', 'what stage are we in', 'full project audit'.",
@@ -633,7 +633,7 @@
       {
         "name": "setup-engine",
         "source": ".claude/skills/setup-engine/SKILL.md",
-        "sha256": "7f4bc9868ca4d78ca969174c56b8c719215d68c6f32f0df5be5194e8eb2e2eea",
+        "sha256": "8eb7392872bfdebb5c408b452143d4ed2d5cbf68c1adbe739bd6f239456300af",
         "metadata": {
           "name": "setup-engine",
           "description": "Configure the project's game engine and version. Pins the engine in CLAUDE.md, detects knowledge gaps, and populates engine reference docs via WebSearch when the version is beyond the LLM's training data.",
@@ -672,11 +672,11 @@
       {
         "name": "smoke-check",
         "source": ".claude/skills/smoke-check/SKILL.md",
-        "sha256": "98521191c6dd949bce2df9d4f8d4abeebbc0adf36b665e7a99d7645dc9ed42e3",
+        "sha256": "43f7e3b462e62a173ba5c58cd94e8ffd92d4bd13b6d6a3e6d8b3a1c4b53c4301",
         "metadata": {
           "name": "smoke-check",
           "description": "Run the critical path smoke test gate before QA hand-off. Executes the automated test suite, verifies core functionality, and produces a PASS/FAIL report. Run after a sprint's stories are implemented and before manual QA begins. A failed smoke check means the build is not ready for QA.",
-          "argument-hint": "[sprint | quick | --platform pc|console|mobile|all]",
+          "argument-hint": "[sprint | quick | --platform pc|console|mobile|web|all]",
           "user-invocable": "true",
           "allowed-tools": "Read, Glob, Grep, Bash, Write, AskUserQuestion",
           "model": "sonnet"
@@ -921,7 +921,7 @@
       {
         "name": "test-helpers",
         "source": ".claude/skills/test-helpers/SKILL.md",
-        "sha256": "98494481c7fe0b69611243f9174a1a860622e2b5488499c953a2e539001e3438",
+        "sha256": "707a387b7bb41fd17a1915af940963692c62ad41f89dd00e9521ee7e0e9a97f9",
         "metadata": {
           "name": "test-helpers",
           "description": "Generate engine-specific test helper libraries for the project's test suite. Reads existing test patterns and produces tests/helpers/ with assertion utilities, factory functions, and mock objects tailored to the project's systems. Reduces boilerplate in new test files.",
@@ -934,7 +934,7 @@
       {
         "name": "test-setup",
         "source": ".claude/skills/test-setup/SKILL.md",
-        "sha256": "bf3477f58af77fdeabed42e9c15f1b7bd41d6837c1ddff0450922cee694c628d",
+        "sha256": "98f68bb7b9d13adaefc57774e1caa2da8e8cc8d32479b923d98060820c6d3df5",
         "metadata": {
           "name": "test-setup",
           "description": "Scaffold the test framework and CI/CD pipeline for the project's engine. Creates the tests/ directory structure, engine-specific test runner configuration, and GitHub Actions workflow. Run once during Technical Setup phase before the first sprint begins.",
@@ -1311,6 +1311,18 @@
         }
       },
       {
+        "name": "phaser-specialist",
+        "source": ".claude/agents/phaser-specialist.md",
+        "sha256": "d11519d5d49ed32b959382baf21db32bd4451a1f4963cdafa8264ea04e9f9dcc",
+        "metadata": {
+          "name": "phaser-specialist",
+          "description": "Phaser 3 engine authority for Scene lifecycle, asset loading, input, Arcade/Matter boundaries, rendering and restart-safe browser games. Coordinates implementation with existing programmer roles.",
+          "tools": "Read, Glob, Grep, Write, Edit, Bash, Task",
+          "model": "sonnet",
+          "maxTurns": "20"
+        }
+      },
+      {
         "name": "producer",
         "source": ".claude/agents/producer.md",
         "sha256": "05f8bf426001cbd07ca9ca40dde0348139e208f97af7d87abcfecf8ca84c3257",
@@ -1450,6 +1462,18 @@
           "model": "opus",
           "maxTurns": "30",
           "memory": "user"
+        }
+      },
+      {
+        "name": "threejs-specialist",
+        "source": ".claude/agents/threejs-specialist.md",
+        "sha256": "c69f4723ddbc015e75f00ba2915928eddb03dc743d8e3b5922e2168f0363e716",
+        "metadata": {
+          "name": "threejs-specialist",
+          "description": "Three.js engine authority for scene graphs, cameras, WebGL2 rendering, loaders, animation loops and explicit GPU resource ownership. Coordinates browser game implementation with existing roles.",
+          "tools": "Read, Glob, Grep, Write, Edit, Bash, Task",
+          "model": "sonnet",
+          "maxTurns": "20"
         }
       },
       {
@@ -1836,7 +1860,7 @@
       {
         "name": "architecture-decision-record",
         "source": ".claude/docs/templates/architecture-decision-record.md",
-        "sha256": "a73f51a1d24a579e0c3ccf49fa916a9d1ab73f2b53286d9d134a1887e5794888",
+        "sha256": "2ba0340788621a8783e852c3070e74d0aeeae127d1a6080ed4d5564c8ee1e421",
         "metadata": {}
       },
       {
@@ -1914,7 +1938,7 @@
       {
         "name": "game-concept",
         "source": ".claude/docs/templates/game-concept.md",
-        "sha256": "fa94f05c71decac7183be449c87767acd99db822f05701121f45f5a5e2251156",
+        "sha256": "ea45cb7d6125cacc87d2b0c937e378a2d07edcca098950c5ad1bf9f364f65dec",
         "metadata": {}
       },
       {
@@ -1944,7 +1968,7 @@
       {
         "name": "interaction-pattern-library",
         "source": ".claude/docs/templates/interaction-pattern-library.md",
-        "sha256": "3eaace0e01737a9c248a331393cb618e3ae35aedcae86d0937d216d2daccd7ac",
+        "sha256": "90d9ef1010325fe0b0b1d314f23819c183a9897a695970b0fbd0ca418ee799ec",
         "metadata": {}
       },
       {
@@ -1968,7 +1992,7 @@
       {
         "name": "pitch-document",
         "source": ".claude/docs/templates/pitch-document.md",
-        "sha256": "ed0a544b18032bad4c9dcbe9a79b1154f943e1c5df210d308976f590eb8889b6",
+        "sha256": "174a8d97becb848fa20094831f7b1e83ab48c0b41238173879821814a60260e8",
         "metadata": {}
       },
       {
@@ -2040,7 +2064,7 @@
       {
         "name": "technical-design-document",
         "source": ".claude/docs/templates/technical-design-document.md",
-        "sha256": "252a276128b70c61619ad86f8b7e3eed9dbe859fd3c4873f184b0ae3ca3f5d5c",
+        "sha256": "b18ba64146e4185e5e5122e23c8a808569f0c16b18ade49216d43b8738e071b2",
         "metadata": {}
       },
       {
@@ -2078,7 +2102,7 @@
       {
         "name": "README",
         "source": "CCGS Skill Testing Framework/README.md",
-        "sha256": "1fcd047b79f556e11f947e019dd2c9d2c69b434266fe2b5d62eeff15a0867405",
+        "sha256": "4606170bf85b16a7b0bbfe882c633b82376196df8d0243dd86e5bd71549f8045",
         "metadata": {}
       },
       {
@@ -2133,6 +2157,18 @@
         "name": "godot-specialist",
         "source": "CCGS Skill Testing Framework/agents/engine/godot/godot-specialist.md",
         "sha256": "e2f1f001122082002f9e51802936d087de3ea6eff800dec9c77f9942876f3179",
+        "metadata": {}
+      },
+      {
+        "name": "phaser-specialist",
+        "source": "CCGS Skill Testing Framework/agents/engine/phaser/phaser-specialist.md",
+        "sha256": "3402bb80e1b3bcac277581cb908c3656a359fc04b6e6e8877d7a1fbe7f137686",
+        "metadata": {}
+      },
+      {
+        "name": "threejs-specialist",
+        "source": "CCGS Skill Testing Framework/agents/engine/threejs/threejs-specialist.md",
+        "sha256": "bbb4335b7db054372504161010668381f8f920b4f40d2cc4cc00da16b268da75",
         "metadata": {}
       },
       {
@@ -2732,7 +2768,7 @@
       {
         "name": "project-stage-detect",
         "source": "CCGS Skill Testing Framework/skills/utility/project-stage-detect.md",
-        "sha256": "2ae82ee2162398ade40797fe4bf4b34bed677f4dfcfabec74fc6949b9144bdf7",
+        "sha256": "d97db895c8bfeb98205324cd5e3ced9bdb37205cf6c6f05702cfb45f1b7c5607",
         "metadata": {}
       },
       {
@@ -2768,7 +2804,7 @@
       {
         "name": "setup-engine",
         "source": "CCGS Skill Testing Framework/skills/utility/setup-engine.md",
-        "sha256": "c49af96f733bb9f387532b17fa0230fe51519f8e5ca24ee140cf54366fcfff59",
+        "sha256": "7c63597991aaca2310d9466ca8d71c94d8bd7ea03246962a48db84c076f12129",
         "metadata": {}
       },
       {
@@ -2798,7 +2834,7 @@
       {
         "name": "start",
         "source": "CCGS Skill Testing Framework/skills/utility/start.md",
-        "sha256": "9b6e21f49a4adb576730512c33bfbbe489ae48099cbd44583c4ae417b66fc9bc",
+        "sha256": "b97a75e9eb287e8f0523a59df7e7811bb89a6fa686e1ad405aa7991d47e2e4fb",
         "metadata": {}
       },
       {
@@ -2810,7 +2846,7 @@
       {
         "name": "test-setup",
         "source": "CCGS Skill Testing Framework/skills/utility/test-setup.md",
-        "sha256": "4720ed07187ee2df70e7de707e3526fd9d5497d6d1a69e77e9fe3b7abb5d2213",
+        "sha256": "55a9f48140b082650096aff7e9dfd12439fe66362bcead6a4a889f353ff3246b",
         "metadata": {}
       },
       {

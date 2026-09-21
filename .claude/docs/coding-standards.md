@@ -64,3 +64,19 @@ All stories must have appropriate test evidence before they can be marked Done:
   - **Godot**: `godot --headless --script tests/gdunit4_runner.gd`
   - **Unity**: `game-ci/unity-test-runner@v4` (GitHub Actions)
   - **Unreal**: headless runner with `-nullrhi` flag
+
+## Web engine standards
+
+- Phaser 3/Three.js keep pure fixed-step state separate from engine rendering,
+  browser input and DOM UI; balance comes from the accepted external data source.
+- Pin exact direct dependencies and lockfiles. Keep Phaser 3 distinct from 4 and
+  Three npm versions/revisions/addons consistent. No implicit telemetry/assets.
+- Give every listener, timer, animation loop and GPU resource a cleanup owner;
+  preserve shared ownership across restart/reset and clear input on focus loss.
+- Use Vitest units plus Playwright production-preview integration; run typecheck,
+  test:unit, build and test:browser scripts. Units and browser tests have separate
+  discovery roots. Browser screenshots/real input supplement pure simulation.
+- DOM UI requires keyboard focus, labels and semantics. Canvas presence alone is
+  neither an accessibility guarantee nor successful rendering evidence.
+- Read `.claude/docs/web-game-development.md` and the engine lifecycle reference.
+  Record actual commands/results and NOT RUN gaps; Chromium is not all platforms.

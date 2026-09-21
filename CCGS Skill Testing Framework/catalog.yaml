@@ -1099,3 +1099,17 @@ agents:
     last_spec: ""
     last_spec_result: ""
     category: specialist
+
+  - name: phaser-specialist
+    spec: CCGS Skill Testing Framework/agents/engine/phaser/phaser-specialist.md
+    last_spec: ""
+    last_spec_result: ""
+    priority: high
+    category: engine
+
+  - name: threejs-specialist
+    spec: CCGS Skill Testing Framework/agents/engine/threejs/threejs-specialist.md
+    last_spec: ""
+    last_spec_result: ""
+    priority: high
+    category: engine

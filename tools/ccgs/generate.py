@@ -81,7 +81,7 @@ The original workflow is authoritative for WHAT to do; the runtime contract tran
     for row in rows['agents']:
         name, source, meta = row['name'], row['source'], row['metadata']
         _, body = frontmatter((root / source).read_text())
-        instructions = f'''You are the original CCGS {name} role running in Codex.
+        instructions = f'''You are the canonical CCGS {name} role running in Codex.
 Source: {source}; SHA256: {row['sha256']}.
 Original metadata (preserved; not native Codex configuration): {encode(meta)}
 
@@ -91,7 +91,7 @@ CODEX COMPATIBILITY CONTRACT
 ROLE METADATA CONTRACT
 Respect the original tool allowlist and disallowedTools as role policy. Read required files with the host file tools or narrow read-only shell commands; this transport is not permission to run arbitrary Bash for a role forbidding Bash. If a role needs a disallowed action, return a handoff to the authorized role. Original maxTurns is a bounded-work budget: report progress/blocker before exceeding the budget; the host does not expose identical turn enforcement. For a role with original memory enabled, first load its existing .claude/agent-memory/{name}/MEMORY.md and relevant linked memory files, then its Codex continuation at production/agent-memory/{name}.md. Preserve original memory files; record new durable decisions with source evidence in the Codex continuation when authorized. User-scoped memory remains explicit opt-in. Load the required original skills before work. Original worktree isolation requires a separate checkout if the runtime supports it; otherwise report the isolation blocker before writing. Inherit the parent Codex model; do not try to invoke opus/sonnet/haiku as Codex models.
 
-COMPLETE ORIGINAL ROLE BODY (not summarized)
+COMPLETE CANONICAL ROLE BODY (not summarized)
 {body}'''
         out[f'.codex/agents/ccgs-{name}.toml'] = '\n'.join([
             '# Generated from canonical CCGS source. Model inherited unless explicitly mapped.',
@@ -114,7 +114,7 @@ COMPLETE ORIGINAL ROLE BODY (not summarized)
     index = ['# CCGS complete capability inventory', '',
              'Generated from actual files. Counts prove coverage only; see [validation](validation.md) for execution evidence.', '']
     for category, items in rows.items():
-        index += [f'## {category}: {len(items)}', '', '| Name | Original source | Codex route |', '|---|---|---|']
+        index += [f'## {category}: {len(items)}', '', '| Name | Canonical source | Codex route |', '|---|---|---|']
         for row in items:
             route = ('ccgs-' + row['name']) if category in ('skills', 'agents') else ('event bridge; see hooks.md' if category == 'hooks' else 'original file, preserved')
             if category == 'hooks' and row['name'] == 'notify':

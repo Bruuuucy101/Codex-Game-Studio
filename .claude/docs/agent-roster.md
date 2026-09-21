@@ -60,6 +60,12 @@ domain lead) should delegate to specialists.
 | `unreal-specialist` | Unreal Engine 5 | Sonnet | Blueprint vs C++, GAS overview, UE subsystems, Unreal optimization |
 | `unity-specialist` | Unity | Sonnet | MonoBehaviour vs DOTS, Addressables, URP/HDRP, Unity optimization |
 | `godot-specialist` | Godot 4 | Sonnet | GDScript patterns, node/scene architecture, signals, Godot optimization |
+| `phaser-specialist` | Phaser 3 | Sonnet | Scenes, loading/input, 2D rendering, restart/resource ownership |
+| `threejs-specialist` | Three.js | Sonnet | Scene graph, WebGL2, loaders, one loop and GPU disposal |
+
+Web leads report through lead-programmer to technical-director and reuse existing
+programmer, UI, technical-art, audio, networking and QA roles. There are no
+engine-specific web sub-specialists. Current total: 51 roles; 49 original identities retained.
 
 ### Unreal Engine Sub-Specialists
 

@@ -31,6 +31,9 @@
     community-manager       -- Patch notes, player feedback, crisis comms
 
   Engine Specialists (use the SET matching your engine):
+    phaser-specialist  -- Phaser 3 lead: Scenes, browser input/loading, restart ownership
+    threejs-specialist -- Three.js lead: WebGL2, scene graph, render loop, GPU disposal
+    (Web leads reuse existing programmer/UI/art roles; no dedicated sub-specialists.)
     unreal-specialist  -- UE5 lead: Blueprint/C++, GAS overview, UE subsystems
       ue-gas-specialist         -- GAS: abilities, effects, attributes, tags, prediction
       ue-blueprint-specialist   -- Blueprint: BP/C++ boundary, graph standards, optimization
@@ -73,7 +76,7 @@ art-dir = art-director
 | technical-director | lead-programmer, devops-engineer, performance-analyst, technical-artist (technical decisions) |
 | producer | Any agent (task assignment within their domain only) |
 | game-designer | systems-designer, level-designer, economy-designer |
-| lead-programmer | gameplay-programmer, engine-programmer, ai-programmer, network-programmer, tools-programmer, ui-programmer |
+| lead-programmer | gameplay-programmer, engine-programmer, ai-programmer, network-programmer, tools-programmer, ui-programmer; configured engine specialist for engine consultation |
 | art-director | technical-artist, ux-designer |
 | audio-director | sound-designer |
 | narrative-director | writer, world-builder |
@@ -83,7 +86,8 @@ art-dir = art-director
 | prototyper | (works independently, reports findings to producer and relevant leads) |
 | security-engineer | network-programmer (security review), lead-programmer (secure patterns) |
 | accessibility-specialist | ux-designer (accessible patterns), ui-programmer (implementation), qa-tester (a11y testing) |
-| [engine]-specialist | engine sub-specialists (delegates subsystem-specific work) |
+| [engine]-specialist | engine sub-specialists where defined; phaser-specialist/threejs-specialist coordinate bounded work with existing programmer/UI/art owners through lead-programmer |
+| phaser-specialist / threejs-specialist | gameplay-programmer, engine-programmer, ui-programmer, tools-programmer within delegated scope; consult technical-artist for shaders |
 | [engine] sub-specialists | (advises all programmers on engine subsystem patterns and optimization) |
 | live-ops-designer | economy-designer (live economy), community-manager (event comms), analytics-engineer (engagement metrics) |
 | community-manager | (works with producer for approval, release-manager for patch note timing) |

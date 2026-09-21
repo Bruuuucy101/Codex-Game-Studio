@@ -1,7 +1,7 @@
 ---
 name: smoke-check
 description: "Run the critical path smoke test gate before QA hand-off. Executes the automated test suite, verifies core functionality, and produces a PASS/FAIL report. Run after a sprint's stories are implemented and before manual QA begins. A failed smoke check means the build is not ready for QA."
-argument-hint: "[sprint | quick | --platform pc|console|mobile|all]"
+argument-hint: "[sprint | quick | --platform pc|console|mobile|web|all]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, Write, AskUserQuestion
 model: sonnet
@@ -35,6 +35,7 @@ Arguments can be combined: `/smoke-check sprint --platform console`
   platform certification requirements)
 - `--platform mobile` — add mobile-specific checks (touch, portrait/landscape,
   battery/thermal behaviour)
+- `--platform web` — add browser input/focus, resize, asset loading and renderer checks
 - `--platform all` — add all platform variants; output per-platform verdict table
 
 If `--platform` is provided, Phase 4 adds platform-specific batches and
@@ -109,6 +110,24 @@ ls -t Saved/Logs/ 2>/dev/null | grep -i "test\|automation" | head -5 \
 ```
 If no matching log found: "UE automation tests must be run via the Session
 Frontend or CI pipeline. Please confirm test status manually."
+
+**Phaser 3 (`phaser`) / Three.js (`threejs`):**
+Read package.json scripts, the lockfile, VERSION.md and `.claude/docs/web-game-development.md`.
+Execute the actual configured scripts from the adopted game root. Scaffold defaults:
+```bash
+npm run typecheck
+npm test
+npm run build
+npm run test:browser
+```
+Run each separately, retain exit codes and actual test counts. Browser tests use
+production preview, actual movement/collection/reset twice, focus loss and resize;
+Three.js requires an actual WebGL2 context/nonempty frame. Inspect screenshots and
+console/page errors. Missing dependencies, browser or script means NOT RUN with
+the specific reason; never install implicitly or replace the browser test with a
+mock. This branch does not fall into Unknown engine. Under `--platform web` include
+these checks in Phase 4 and its per-platform report. A warning/manual confirmation
+under the existing gate policy is not evidence that a browser test executed.
 
 **Unknown engine / not configured:**
 "Engine not configured in `.claude/docs/technical-preferences.md`. Run

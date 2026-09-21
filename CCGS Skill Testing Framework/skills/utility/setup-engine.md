@@ -180,3 +180,26 @@ None. `/setup-engine` is a technical configuration skill. No director gates appl
   from VERSION.md) is surfaced by the skill but not assertion-tested here.
 - Performance budget defaults per engine are noted as engine-specific but
   exact default values are not assertion-tested.
+
+## Web engine extension cases (not yet behaviorally executed)
+
+### Phaser aliases, pin and routing
+Fixture: placeholder preferences, no game source, installed framework templates.
+Input: `/setup-engine phaser3 3.90.0`; user authorizes configuration and chooses TS.
+Expected: canonical phaser path/import, Phaser 3 pin, TypeScript stack, primary and
+language routes phaser-specialist; technical-artist shader consultation and
+ui-programmer DOM boundary. Does not configure from template presence, select
+Phaser 4, add @types/phaser, or run Bash from this skill. Scaffold copy/build goes
+to authorized tools-programmer; absent Task 2 sources are reported forthcoming.
+
+### Three aliases, project pin and trust boundary
+Inputs: `/setup-engine three 0.186.0` and `/setup-engine three.js 0.186.0`.
+Expected: canonical threejs; npm/revision 0.186.0/r186; primary/language
+threejs-specialist, shader technical-artist, UI ui-programmer. Existing JS/pin
+is preserved unless migration approved. r187 docs do not override r186. No
+browser acceptance is claimed from configuration or preview manifest alone.
+
+### Original paths stay available
+Repeat original Godot GDScript/C#/Both, Unity and Unreal fixtures after adding
+web sources. Expected: original selected routes and review modes remain intact;
+no unrelated web libraries or reference imports enter those projects.

@@ -5,7 +5,7 @@ from pathlib import Path
 import platform
 import shutil
 import sys
-from . import adr, catalog, generate
+from . import adr, catalog, generate, scaffold
 from .provenance import verify_upstream
 
 
@@ -43,6 +43,10 @@ def main(argv=None):
     role.add_argument('name')
     workflow = sub.add_parser('workflow', help='Print a complete original workflow with runtime contract.')
     workflow.add_argument('name')
+    web = sub.add_parser('scaffold-web', help='Preview or copy an explicit web template; never install packages.')
+    web.add_argument('engine')
+    web.add_argument('--target', required=True)
+    web.add_argument('--write', action='store_true')
     context = sub.add_parser('adr-context', help='Read current ADR metadata or bounded, hash-pinned section pages.')
     context.add_argument('path')
     context.add_argument('--metadata-only', action='store_true')
@@ -51,9 +55,11 @@ def main(argv=None):
     context.add_argument('--limit', type=int, default=adr.DEFAULT_LIMIT)
     context.add_argument('--expected-sha256')
     args = parser.parse_args(argv)
-    root = args.root.resolve()
+    root = args.root.absolute() if args.command == 'scaffold-web' else args.root.resolve()
     try:
-        if args.command == 'adr-context':
+        if args.command == 'scaffold-web':
+            emit(scaffold.copy_web(root, args.engine, args.target, write=args.write))
+        elif args.command == 'adr-context':
             emit(adr.read_context(root, args.path, sections=args.section,
                                   metadata_only=args.metadata_only, offset=args.offset,
                                   limit=args.limit, expected_sha256=args.expected_sha256))

@@ -299,6 +299,34 @@ namespace GameTestHelpers
 
 ---
 
+### Phaser 3 / Three.js (Vitest + Playwright)
+
+Read `.claude/docs/web-game-development.md` and the actual pure simulation API.
+Put TS helpers in `tests/helpers/`; use JS equivalents for an existing JS project.
+Create a fresh state from the accepted balance fixture per test, clone mutable
+fixture data, and pass explicit input/time steps. Example reusable pattern (adapt
+State/Input types to the project's public API):
+```typescript
+export function advanceTicks<State, Input>(
+  initial: State, input: Input, ticks: number, dt: number,
+  step: (state: State, input: Input, dt: number) => State,
+): State {
+  let state = initial;
+  for (let tick = 0; tick < ticks; tick += 1) state = step(state, input, dt);
+  return state;
+}
+```
+Use hand-derived expected bounds/scores/reset values; never compute expected state
+with the same step function. A fixed-step helper tests pure state, not Phaser
+physics determinism or WebGL behavior.
+
+Browser helpers should operate the visible UI and keyboard/pointer and release
+held keys in finally blocks. Poll an observable score/position rather than sleep
+for an arbitrary duration. Keep each browser context and app state independent;
+exercise real restart twice, focus clearing and resize. A deterministic test seam
+may supplement real input but must not add arbitrary mutation APIs to production.
+Mocked Phaser Scenes/Three.js renderers are unit doubles, never engine acceptance.
+
 ## 5. Generate System-Specific Helpers
 
 For `[system-name]` or `all` modes, generate a helper per system:
@@ -372,6 +400,7 @@ After writing: Verdict: **COMPLETE** — helper files created.
 
 "Helper files created. To use them in a test:
 - Godot: `class_name` is auto-imported — no explicit import needed
+- Phaser 3 / Three.js: explicit ESM imports from `tests/helpers/`; keep Vitest units and Playwright integration discovery separate
 - Unity: Add `using` directive or reference the test assembly
 - Unreal: `#include \"tests/helpers/GameTestHelpers.h\"`"
 

@@ -1,6 +1,6 @@
 # Operating Codex Game Studio
 
-The complete catalog remains available: 73 workflows, 49 roles, all supported
+The complete catalog remains available: 73 workflows, 51 roles (49 original plus two web leads), all supported
 engine branches and full/lean/solo review modes. The suggestions here narrow the
 work selected for a session; they do not remove tools or replace the workflows.
 See the [capability map](capabilities.md) for the full inventory.

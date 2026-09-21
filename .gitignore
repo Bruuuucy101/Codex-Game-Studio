@@ -142,3 +142,7 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 *.lnk
+
+# Web browser test artifacts
+test-results/
+playwright-report/

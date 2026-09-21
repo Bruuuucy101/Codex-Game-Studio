@@ -6,8 +6,8 @@ description: "Run the critical path smoke test gate before QA hand-off. Executes
 # CCGS Codex entry: smoke-check
 
 Source: `.claude/skills/smoke-check/SKILL.md` (relative to the project root).
-SHA256: `98521191c6dd949bce2df9d4f8d4abeebbc0adf36b665e7a99d7645dc9ed42e3`
-Original metadata: {"name": "smoke-check", "description": "Run the critical path smoke test gate before QA hand-off. Executes the automated test suite, verifies core functionality, and produces a PASS/FAIL report. Run after a sprint's stories are implemented and before manual QA begins. A failed smoke check means the build is not ready for QA.", "argument-hint": "[sprint | quick | --platform pc|console|mobile|all]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Bash, Write, AskUserQuestion", "model": "sonnet"}
+SHA256: `43f7e3b462e62a173ba5c58cd94e8ffd92d4bd13b6d6a3e6d8b3a1c4b53c4301`
+Original metadata: {"name": "smoke-check", "description": "Run the critical path smoke test gate before QA hand-off. Executes the automated test suite, verifies core functionality, and produces a PASS/FAIL report. Run after a sprint's stories are implemented and before manual QA begins. A failed smoke check means the build is not ready for QA.", "argument-hint": "[sprint | quick | --platform pc|console|mobile|web|all]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Bash, Write, AskUserQuestion", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.
 2. Read `docs/codex-adapter/runtime.md` before interpreting Claude-specific instructions.

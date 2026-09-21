@@ -6,7 +6,7 @@ description: "Generate engine-specific test helper libraries for the project's t
 # CCGS Codex entry: test-helpers
 
 Source: `.claude/skills/test-helpers/SKILL.md` (relative to the project root).
-SHA256: `98494481c7fe0b69611243f9174a1a860622e2b5488499c953a2e539001e3438`
+SHA256: `707a387b7bb41fd17a1915af940963692c62ad41f89dd00e9521ee7e0e9a97f9`
 Original metadata: {"name": "test-helpers", "description": "Generate engine-specific test helper libraries for the project's test suite. Reads existing test patterns and produces tests/helpers/ with assertion utilities, factory functions, and mock objects tailored to the project's systems. Reduces boilerplate in new test files.", "argument-hint": "[system-name | all | scaffold]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

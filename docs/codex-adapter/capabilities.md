@@ -4,7 +4,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 
 ## skills: 73
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | adopt | `.claude/skills/adopt/SKILL.md` | ccgs-adopt |
 | architecture-decision | `.claude/skills/architecture-decision/SKILL.md` | ccgs-architecture-decision |
@@ -80,9 +80,9 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | ux-review | `.claude/skills/ux-review/SKILL.md` | ccgs-ux-review |
 | vertical-slice | `.claude/skills/vertical-slice/SKILL.md` | ccgs-vertical-slice |
 
-## agents: 49
+## agents: 51
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | accessibility-specialist | `.claude/agents/accessibility-specialist.md` | ccgs-accessibility-specialist |
 | ai-programmer | `.claude/agents/ai-programmer.md` | ccgs-ai-programmer |
@@ -108,6 +108,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | narrative-director | `.claude/agents/narrative-director.md` | ccgs-narrative-director |
 | network-programmer | `.claude/agents/network-programmer.md` | ccgs-network-programmer |
 | performance-analyst | `.claude/agents/performance-analyst.md` | ccgs-performance-analyst |
+| phaser-specialist | `.claude/agents/phaser-specialist.md` | ccgs-phaser-specialist |
 | producer | `.claude/agents/producer.md` | ccgs-producer |
 | prototyper | `.claude/agents/prototyper.md` | ccgs-prototyper |
 | qa-lead | `.claude/agents/qa-lead.md` | ccgs-qa-lead |
@@ -118,6 +119,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | systems-designer | `.claude/agents/systems-designer.md` | ccgs-systems-designer |
 | technical-artist | `.claude/agents/technical-artist.md` | ccgs-technical-artist |
 | technical-director | `.claude/agents/technical-director.md` | ccgs-technical-director |
+| threejs-specialist | `.claude/agents/threejs-specialist.md` | ccgs-threejs-specialist |
 | tools-programmer | `.claude/agents/tools-programmer.md` | ccgs-tools-programmer |
 | ue-blueprint-specialist | `.claude/agents/ue-blueprint-specialist.md` | ccgs-ue-blueprint-specialist |
 | ue-gas-specialist | `.claude/agents/ue-gas-specialist.md` | ccgs-ue-gas-specialist |
@@ -136,7 +138,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 
 ## rules: 11
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | ai-code | `.claude/rules/ai-code.md` | original file, preserved |
 | data-files | `.claude/rules/data-files.md` | original file, preserved |
@@ -152,7 +154,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 
 ## hooks: 12
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | detect-gaps | `.claude/hooks/detect-gaps.sh` | event bridge; see hooks.md |
 | log-agent-stop | `.claude/hooks/log-agent-stop.sh` | event bridge; see hooks.md |
@@ -169,7 +171,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 
 ## templates: 40
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | accessibility-requirements | `.claude/docs/templates/accessibility-requirements.md` | original file, preserved |
 | architecture-decision-record | `.claude/docs/templates/architecture-decision-record.md` | original file, preserved |
@@ -212,9 +214,9 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | ux-spec | `.claude/docs/templates/ux-spec.md` | original file, preserved |
 | vertical-slice-report | `.claude/docs/templates/vertical-slice-report.md` | original file, preserved |
 
-## behavior_specs: 126
+## behavior_specs: 128
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | CLAUDE | `CCGS Skill Testing Framework/CLAUDE.md` | original file, preserved |
 | README | `CCGS Skill Testing Framework/README.md` | original file, preserved |
@@ -227,6 +229,8 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | godot-gdscript-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-gdscript-specialist.md` | original file, preserved |
 | godot-shader-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-shader-specialist.md` | original file, preserved |
 | godot-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-specialist.md` | original file, preserved |
+| phaser-specialist | `CCGS Skill Testing Framework/agents/engine/phaser/phaser-specialist.md` | original file, preserved |
+| threejs-specialist | `CCGS Skill Testing Framework/agents/engine/threejs/threejs-specialist.md` | original file, preserved |
 | unity-addressables-specialist | `CCGS Skill Testing Framework/agents/engine/unity/unity-addressables-specialist.md` | original file, preserved |
 | unity-dots-specialist | `CCGS Skill Testing Framework/agents/engine/unity/unity-dots-specialist.md` | original file, preserved |
 | unity-shader-specialist | `CCGS Skill Testing Framework/agents/engine/unity/unity-shader-specialist.md` | original file, preserved |

@@ -35,6 +35,10 @@ A test framework installed at sprint four costs 3 sprints.
    - Glob `.github/workflows/` — does a CI workflow file exist?
    - Glob `tests/gdunit4_runner.gd` (Godot) or `tests/EditMode/` (Unity) or
      `Source/Tests/` (Unreal) for engine-specific artifacts.
+   - For Phaser 3/Three.js, inspect package.json scripts, package-lock.json,
+     vitest.config.*, playwright.config.* and tests/web-unit/ + tests/browser/.
+     Reuse the accepted game scaffold's tests; templates/node_modules do not mean
+     the adopted game is configured. Read `.claude/docs/web-game-development.md`.
 
 3. **Report findings**:
    - "Engine: [engine]. Test directory: [found / not found]. CI workflow: [found / not found]."
@@ -88,7 +92,7 @@ After approval, create the following files:
 # Test Infrastructure
 
 **Engine**: [engine name + version]
-**Test Framework**: [GdUnit4 | Unity Test Framework | UE Automation]
+**Test Framework**: [GdUnit4 | Unity Test Framework | UE Automation | Vitest + Playwright]
 **CI**: `.github/workflows/tests.yml`
 **Setup date**: [date]
 
@@ -203,6 +207,23 @@ Test category naming: "MyGame.[System].[Feature]"
 ```
 
 ---
+
+#### Phaser 3 / Three.js
+
+Use the installed project's approved exact pins. New staged scaffolds use Vitest
+4.1.11, Playwright 1.58.2, TypeScript 5.9.3 and Vite 7.3.6 with Node 22.14.0.
+No unpinned `npm install` or `npx ...@latest`. Phaser has bundled declarations;
+Three.js 0.186.0 uses @types/three 0.186.0 and same-package addons.
+
+Create only missing configuration and tests. Propose merges to existing package
+scripts/config/workflows; do not overwrite them even with `force`. Keep unit
+include globs `tests/web-unit/**/*_test.ts` and Playwright testDir
+`tests/browser/`. Use `test`, `typecheck`, `build`, `test:browser`,
+`preview` scripts from the accepted scaffold, or record actual existing equivalents.
+At least one pure state test must assert observable behavior, not just import a
+module. Browser tests exercise real engine/input/rendering, not Vitest mocks.
+A Playwright webServer should own a production preview and use
+reuseExistingServer false in CI so unrelated servers cannot satisfy readiness.
 
 ## Phase 4: Create CI/CD Workflow
 
@@ -342,6 +363,24 @@ Note: UE CI requires a self-hosted runner with Unreal Editor installed.
 Set the `UE_EDITOR_PATH` environment variable on the runner.
 
 ---
+
+### Phaser 3 / Three.js
+
+Merge a web job after reviewing the existing workflow. In the game root with
+Node 22.14.0 run, as separate failure-reporting steps:
+```bash
+npm ci
+npm run typecheck
+npm test
+npm run build
+npm exec --no -- playwright install --with-deps chromium
+npm run test:browser
+```
+Dependency/browser installation is explicit setup work, never a side effect of
+the scaffold helper or smoke check. Use the lockfile and installed Playwright
+version. Preserve logs/screenshots on failure, and block release on this job.
+Chromium alone does not certify Safari, mobile devices or WebGPU. Runnable
+scaffolds and executed acceptance remain forthcoming until Task 2 lands.
 
 ## Phase 5: Create Smoke Test Seed
 
