@@ -34,7 +34,7 @@ jobs:
           original = {pathlib.Path(p).stem for p in baseline if p.startswith('.claude/agents/') and p.endswith('.md')}
           canonical = {p.stem for p in pathlib.Path('.claude/agents').glob('*.md')}
           assert original <= canonical
-          assert canonical - original == {'phaser-specialist', 'threejs-specialist'}
+          assert canonical - original == {'phaser-specialist', 'threejs-specialist', 'game-pipeline-developer'}
           assert {p.stem.removeprefix('ccgs-') for p in roles} == canonical
           for role in roles:
               tomllib.loads(role.read_text())
