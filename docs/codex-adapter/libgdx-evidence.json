@@ -1,0 +1,199 @@
+{
+  "date": "2026-09-21",
+  "scope": "Java starter clean-copy acceptance; not GPU/optional backend certification",
+  "baseline_before_task": "8251dcbf222af6519018404c9110bcf0cdbb5256",
+  "host": "macOS 13.7.8 x86_64",
+  "jdk": "Temurin 21.0.12.1+1-LTS",
+  "gradle": "8.14.3",
+  "libgdx": "1.14.2",
+  "junit_jupiter": "5.13.4",
+  "commands": [
+    {
+      "command": "./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon --no-watch-fs --offline",
+      "exit_code": 0,
+      "result": "BUILD SUCCESSFUL;12 tasks executed; strict committed locks unchanged"
+    },
+    {
+      "command": "./gradlew :headless:run --no-daemon --no-watch-fs --offline",
+      "exit_code": 0,
+      "output": "Collected signal; score=1"
+    }
+  ],
+  "transport": "Controller executed the exact worker-requested Gradle commands because worker sandbox denied Gradle localhost lock socket. Worker inspected output/XML/manifests; no independent-review claim.",
+  "junit_suites": [
+    {
+      "name": "studio.collect.gameplay.CollectStateTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "studio.collect.headless.HeadlessLifecycleTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "files": [
+    {
+      "path": "README-LIBGDX.md",
+      "bytes": 5934,
+      "sha256": "b1a4441036f3f55915259314d2137f4e3aff4256a8bb3ca574287b0928b9d4ca",
+      "mode": "0644"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.md",
+      "bytes": 1635,
+      "sha256": "694ffe7b73ed2f77eca5a2cffc643ee96d36b1ed0b35a08b61a48bfcbd71a9b1",
+      "mode": "0644"
+    },
+    {
+      "path": "assets/data/game_config.json",
+      "bytes": 195,
+      "sha256": "bc510cda0412189930c710bd8ec82348d742f2539d99954184d49f0bd08594cf",
+      "mode": "0644"
+    },
+    {
+      "path": "assets/i18n/messages.properties",
+      "bytes": 131,
+      "sha256": "e168ab8ae210734adab075ab45900df07c8777277bad54dc6c946909be86f3a5",
+      "mode": "0644"
+    },
+    {
+      "path": "build.gradle",
+      "bytes": 1078,
+      "sha256": "3f89cd5f292236c48a7737a40f24c5cdc09f799cb8962cd247d48602729641e2",
+      "mode": "0644"
+    },
+    {
+      "path": "core/build.gradle",
+      "bytes": 121,
+      "sha256": "f47537fd2803198ac6e29d7737a00f0396a24052517073ff03a6d3be3c7c0f34",
+      "mode": "0644"
+    },
+    {
+      "path": "core/gradle.lockfile",
+      "bytes": 1203,
+      "sha256": "ed8d3bcc0489137d0e96327a297f05a76cf7299e3b2b001b5fed793263ee8345",
+      "mode": "0644"
+    },
+    {
+      "path": "core/src/main/java/studio/collect/gameplay/CollectGame.java",
+      "bytes": 2580,
+      "sha256": "bc4e4ef49b172f5d1303a81bbc245f4216f04ca1e1124a4fa297d84f874c5df9",
+      "mode": "0644"
+    },
+    {
+      "path": "core/src/main/java/studio/collect/gameplay/CollectState.java",
+      "bytes": 1960,
+      "sha256": "14cf855c79335584394da1ceecbcb062929e5f81ddafdf283e52c6357e26e26a",
+      "mode": "0644"
+    },
+    {
+      "path": "core/src/main/java/studio/collect/gameplay/GameConfig.java",
+      "bytes": 2112,
+      "sha256": "b88ea868d9ce6e8c1cd1e627970d0817c32951fb0f90c21b789b3ad629fb4754",
+      "mode": "0644"
+    },
+    {
+      "path": "core/src/test/java/studio/collect/gameplay/CollectStateTest.java",
+      "bytes": 3218,
+      "sha256": "8a1edd6faff112e02b446aff76c6ff05e5145c3209b19f35a6b0474d8fd61340",
+      "mode": "0644"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.jar",
+      "bytes": 43764,
+      "sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+      "mode": "0644"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 340,
+      "sha256": "e7b4d7f2edf511cac799802e08d0ac9ea3fd8f309fad984bdec6b40c2a796e94",
+      "mode": "0644"
+    },
+    {
+      "path": "gradlew",
+      "bytes": 8733,
+      "sha256": "b187b4c52e749f5760afdd6fadc31b2a98ad35fb249bf0dff03b72650f320409",
+      "mode": "0755"
+    },
+    {
+      "path": "gradlew.bat",
+      "bytes": 2937,
+      "sha256": "1d297e00bd21de3ace22b4d7f2de1f9dfa858883d66bbf7c1ccbecccec8f4f3b",
+      "mode": "0644"
+    },
+    {
+      "path": "headless/build.gradle",
+      "bytes": 299,
+      "sha256": "5647de290a4eb687a8e2977c1a8b99a5e6c6152d898e49be0c0de483ba880faa",
+      "mode": "0644"
+    },
+    {
+      "path": "headless/gradle.lockfile",
+      "bytes": 1409,
+      "sha256": "95956ad2722e2cc59d150cdcb1e26f1563b2ac5c4c35fcd9edef36b5bdbc7292",
+      "mode": "0644"
+    },
+    {
+      "path": "headless/src/main/java/studio/collect/headless/HeadlessLauncher.java",
+      "bytes": 1121,
+      "sha256": "3a2e7054aec129f81d8f5ea8dcb259a17e1f99dfdd03810891b4299c26b3e085",
+      "mode": "0644"
+    },
+    {
+      "path": "headless/src/main/java/studio/collect/headless/HeadlessRunner.java",
+      "bytes": 3857,
+      "sha256": "fe85c08b7324cba568f68c6b0176a15acba62ad12983d8521bd247389b094d74",
+      "mode": "0644"
+    },
+    {
+      "path": "headless/src/test/java/studio/collect/headless/HeadlessLifecycleTest.java",
+      "bytes": 3142,
+      "sha256": "064ba74b72d57bfe516501915a6446c3a3662e4d670c4160b19421d7dbe50f41",
+      "mode": "0644"
+    },
+    {
+      "path": "lwjgl3/build.gradle",
+      "bytes": 444,
+      "sha256": "b9a1ed0c6cbeba627ccd677ec71e480fb62a2fa65f09af3527a7537c0324df8a",
+      "mode": "0644"
+    },
+    {
+      "path": "lwjgl3/gradle.lockfile",
+      "bytes": 2246,
+      "sha256": "582647121aac223ed65596ac12a640eab987c234b1b16fd5f9a996c6d256f3e9",
+      "mode": "0644"
+    },
+    {
+      "path": "lwjgl3/src/main/java/studio/collect/desktop/DesktopLauncher.java",
+      "bytes": 4163,
+      "sha256": "a3ff817b66ce82ff4c52a639cf988f76e474c710fb70790985df08e7f5fa6420",
+      "mode": "0644"
+    },
+    {
+      "path": "settings.gradle",
+      "bytes": 71,
+      "sha256": "35ccac19a7cd5f066b2817f6ee4a1d45c4ea85d61b079a7abc59ccd26b3d23a9",
+      "mode": "0644"
+    }
+  ],
+  "warnings": [
+    "JDK21 emitted obsolete Java8 source/target warnings; build succeeded."
+  ],
+  "not_verified": [
+    "Desktop GPU/input playtest",
+    "Android",
+    "iOS",
+    "GWT",
+    "Kotlin/KTX",
+    "Ashley",
+    "Box2D",
+    "audio",
+    "public CI (controller gate)"
+  ]
+}

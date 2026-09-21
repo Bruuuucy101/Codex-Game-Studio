@@ -6,8 +6,8 @@ has a cutoff date** and game engines update frequently.
 
 ## Why This Exists
 
-Claude's training data has a knowledge cutoff (currently May 2025). Game engines
-like Godot, Unity, and Unreal ship updates that introduce breaking API changes,
+Model knowledge is not release verification. Engines/libraries
+like Godot, Unity, Unreal, Phaser 3, Three.js and libGDX ship updates that introduce breaking API changes,
 new features, and deprecated patterns. Without these reference files, agents will
 suggest outdated code.
 
@@ -61,3 +61,22 @@ Engine-specialist agents are instructed to:
 - Include code examples showing correct/incorrect patterns
 - Link to official documentation URLs for verification
 - Only document things that differ from the model's training data
+
+## Web reference candidates
+
+- [Phaser 3.90.0](phaser/VERSION.md): Scenes, input/loading and restart ownership.
+- [Three.js 0.186.0 / r186](threejs/VERSION.md): WebGL2, exact addons and explicit
+  GPU resource disposal. Future r187 migration notes are not r186 behavior.
+
+These source-checked curated references do not configure the framework or prove
+runtime behavior. Preserve adopted project pins. Full web references are retained
+regardless of model cutoff because lifecycle/ownership errors remain possible.
+Runnable web scaffolds and actual browser evidence are documented in the current validation report.
+
+
+## libGDX reference candidate
+
+[libGDX 1.14.2](libgdx/VERSION.md): lead plus four domain specialists, Java
+core/lwjgl3/headless starter, separate actual headless and desktop build checks.
+Kotlin/KTX, Ashley/Box2D and Android/iOS/GWT are explicit optional choices with
+separate version/toolchain/runtime evidence. Existing project pins always win.

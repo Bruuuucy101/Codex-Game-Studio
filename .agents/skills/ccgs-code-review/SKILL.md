@@ -6,8 +6,8 @@ description: "Performs an architectural and quality code review on a specified f
 # CCGS Codex entry: code-review
 
 Source: `.claude/skills/code-review/SKILL.md` (relative to the project root).
-SHA256: `e0abfa89a0a22bb3cfb9042941efc8f7ffb2a73b4f92884ef8eaba670366ca53`
-Original metadata: {"name": "code-review", "description": "Performs an architectural and quality code review on a specified file or set of files. Checks for coding standard compliance, architectural pattern adherence, SOLID principles, testability, and performance concerns.", "argument-hint": "[path-to-file-or-directory]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Bash, Task, AskUserQuestion", "model": "sonnet", "agent": "lead-programmer"}
+SHA256: `d3457eb85b297be9f86f7f0252df9c626908c8d73ea21571e58238e4812289e9`
+Original metadata: {"name": "code-review", "description": "Performs an architectural and quality code review on a specified file or set of files. Checks for coding standard compliance, architectural pattern adherence, SOLID principles, testability, and performance concerns.", "argument-hint": "[path-to-file-or-directory] [story-path] [--review full|lean|solo]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Bash, Task, AskUserQuestion", "model": "sonnet", "agent": "lead-programmer"}
 Metadata role routing: Dispatch a real `ccgs-lead-programmer` child for the role work, using `.claude/agents/lead-programmer.md` and this complete workflow. The coordinator retains user decisions and AskUserQuestion handling when the role lacks that tool; pause dependent work, return the exact decision request to the coordinator, and resume only with the actual answer. Preserve the role tool restrictions and required nested delegation. Give the child bounded task scope, arguments, source paths, relevant evidence hashes and accepted decisions. Do not copy the full conversation. Use a fresh bounded context where supported. Inherit the parent model and effort unless an explicit validated role mapping applies. If the host cannot dispatch the role, report a blocker; do not simulate it.
 
 

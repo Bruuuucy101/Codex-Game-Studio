@@ -22,6 +22,28 @@ first: preserve the original lock, reviewed patch ledger and local adapters.
 
 ---
 
+## Codex v0.1.1-beta → v0.2.0-beta
+
+Retain the exact adopted baseline and merge customized files using the strategy
+below. The current edition adds setup-tool and eight roles (Phaser, Three.js,
+pipeline developer and five libGDX specialists), preserving all original identities.
+Review the source patch ledger, regenerate adapters after authorized canonical
+changes, then run strict checks and adapter tests. Do not replace project engine
+pins, preferences, game content or review mode with template defaults.
+
+The adapter still requires only Python 3.10+, Git and Bash. Optional web starters
+need Node >=22.12.0/npm (CI 22.14.0); the optional libGDX starter needs JDK 21 and
+ships a checksum-pinned Gradle 8.14.3 wrapper plus strict locks. Preview the scaffold
+into a separate directory, add `--write` only for the selected copy, then explicitly
+install/build/test in that target. Existing files are not overwritten. No board-sync
+or provider dependency is added. Third-party packages and the official wrapper
+retain their own licenses; see [notices](templates/libgdx/THIRD-PARTY-NOTICES.md).
+
+Read the [English quickstart](.github/README.md) or [Chinese quickstart](README-CODEX.zh-CN.md)
+for commands, and [current validation](docs/codex-adapter/feature-validation-2026-09-21.md)
+for tested platforms and boundaries. The upstream version sections below use
+upstream's version numbering, separate from these Codex beta tags.
+
 ## Table of Contents
 
 - [Upgrade Strategies](#upgrade-strategies)

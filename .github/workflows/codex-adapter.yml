@@ -28,16 +28,98 @@ jobs:
         if: matrix.python == '3.12'
         run: |
           python3 - <<'PY'
-          import pathlib, tomllib
+          import json, pathlib, tomllib
           roles = list(pathlib.Path('.codex/agents').glob('*.toml'))
-          assert len(roles) == 49
+          baseline = json.loads(pathlib.Path('.codex/upstream-lock.json').read_text())['files']
+          original = {pathlib.Path(p).stem for p in baseline if p.startswith('.claude/agents/') and p.endswith('.md')}
+          canonical = {p.stem for p in pathlib.Path('.claude/agents').glob('*.md')}
+          assert original <= canonical
+          assert canonical - original == {'phaser-specialist', 'threejs-specialist', 'game-pipeline-developer', 'libgdx-specialist', 'libgdx-scene2d-specialist', 'libgdx-graphics-specialist', 'libgdx-ashley-specialist', 'libgdx-core-specialist'}
+          assert {p.stem.removeprefix('ccgs-') for p in roles} == canonical
           for role in roles:
               tomllib.loads(role.read_text())
           tomllib.loads(pathlib.Path('.codex/config.toml').read_text())
           PY
 
+  web:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [phaser, threejs]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+      - name: Copy exact release template into a clean fixture
+        run: python3 tools/ccgs_codex.py scaffold-web ${{ matrix.engine }} --target "$RUNNER_TEMP/web-game" --write
+      - name: Install exact lock and verify unit/build behavior
+        working-directory: ${{ runner.temp }}/web-game
+        run: |
+          node --version
+          npm --version
+          npm ci
+          npm run typecheck
+          npm test
+          npm run build
+      - name: Install matching Chromium and exercise real browser input
+        working-directory: ${{ runner.temp }}/web-game
+        run: |
+          npx playwright --version
+          npx playwright install --with-deps chromium
+          npm run test:browser
+      - name: Retain browser screenshots and traces for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-${{ matrix.engine }}-browser-evidence
+          path: |
+            ${{ runner.temp }}/web-game/test-results/
+            ${{ runner.temp }}/web-game/playwright-report/
+          if-no-files-found: warn
+          retention-days: 14
+
+  libgdx:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Validate official Gradle wrapper JARs
+        uses: gradle/actions/wrapper-validation@v4
+      - name: Copy exact binary and executable starter into a clean fixture
+        run: python3 tools/ccgs_codex.py scaffold-libgdx --target "$RUNNER_TEMP/libgdx-game" --write
+      - name: Test pure simulation and actual headless lifecycle, package desktop
+        working-directory: ${{ runner.temp }}/libgdx-game
+        run: |
+          java -version
+          ./gradlew --version
+          ./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon
+          ./gradlew :headless:run --no-daemon
+      - name: Retain actual JUnit and build evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: libgdx-headless-build-evidence
+          path: |
+            ${{ runner.temp }}/libgdx-game/core/build/test-results/
+            ${{ runner.temp }}/libgdx-game/headless/build/test-results/
+            ${{ runner.temp }}/libgdx-game/core/build/reports/tests/
+            ${{ runner.temp }}/libgdx-game/headless/build/reports/tests/
+          if-no-files-found: warn
+          retention-days: 14
+
   beta-patch-release:
-    needs: verify
+    needs: [verify, web, libgdx]
     if: github.repository == 'Bruuuucy101/Codex-Game-Studio' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
@@ -45,15 +127,19 @@ jobs:
     concurrency: beta-patch-release
     steps:
       - uses: actions/checkout@v4
-      - name: Publish v0.1.1-beta if it does not exist
+      - name: Publish v0.2.0-beta if it does not exist
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          if gh release view v0.1.1-beta --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo 'The beta release already exists; leaving it unchanged.'
+          # List endpoints return an empty result for absence; API/auth failures
+          # remain fatal under set -e. Preserve bare tags and draft releases too.
+          existing_tag=$(gh api "repos/$GITHUB_REPOSITORY/git/matching-refs/tags/v0.2.0-beta" --jq '.[] | select(.ref == "refs/tags/v0.2.0-beta") | .ref')
+          existing_release=$(gh api --paginate "repos/$GITHUB_REPOSITORY/releases" --jq '.[] | select(.tag_name == "v0.2.0-beta") | .id')
+          if [ -n "$existing_tag" ] || [ -n "$existing_release" ]; then
+            echo 'The version tag or release already exists; leaving it unchanged.'
             exit 0
           fi
-          git archive --format=zip --prefix=Codex-Game-Studio/ --output=Codex-Game-Studio-v0.1.1-beta.zip HEAD
-          sha256sum Codex-Game-Studio-v0.1.1-beta.zip > SHA256SUMS.txt
-          gh release create v0.1.1-beta Codex-Game-Studio-v0.1.1-beta.zip SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title 'Codex Game Studios v0.1.1-beta' --notes-file RELEASE_NOTES.md
+          git archive --format=zip --prefix=Codex-Game-Studio/ --output=Codex-Game-Studio-v0.2.0-beta.zip HEAD
+          sha256sum Codex-Game-Studio-v0.2.0-beta.zip > SHA256SUMS.txt
+          gh release create v0.2.0-beta Codex-Game-Studio-v0.2.0-beta.zip SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title 'Codex Game Studio v0.2.0-beta' --notes-file RELEASE_NOTES.md

@@ -1,0 +1,6 @@
+{
+  "width": 320, "height": 180,
+  "playerRadius": 8, "targetRadius": 10, "speed": 120,
+  "startX": 60, "startY": 60, "targetX": 180, "targetY": 60,
+  "fixedStep": 0.016666667, "maxDelta": 0.1
+}

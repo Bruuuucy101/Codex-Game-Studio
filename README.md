@@ -1,16 +1,18 @@
+> **Codex community adaptation — v0.2.0-beta.** Read the [English quickstart](.github/README.md) or [中文指南](README-CODEX.zh-CN.md). Current inventory: 74 workflows / 57 roles, retaining all original 73/49 identities. [Current evidence](docs/codex-adapter/feature-validation-2026-09-21.md) covers Phaser, Three.js, tooling and libGDX; board-sync remains unimplemented. Original Donchitos attribution and license are retained below.
+
 <p align="center">
   <h1 align="center">Claude Code Game Studios</h1>
   <p align="center">
     Turn a single Claude Code session into a full game development studio.
     <br />
-    49 agents. 73 skills. One coordinated AI team.
+    57 agents. 74 skills. One coordinated AI team.
   </p>
 </p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
-  <a href=".claude/agents"><img src="https://img.shields.io/badge/agents-49-blueviolet" alt="49 Agents"></a>
-  <a href=".claude/skills"><img src="https://img.shields.io/badge/skills-73-green" alt="73 Skills"></a>
+  <a href=".claude/agents"><img src="https://img.shields.io/badge/agents-57-blueviolet" alt="57 Agents"></a>
+  <a href=".claude/skills"><img src="https://img.shields.io/badge/skills-74-green" alt="74 Skills"></a>
   <a href=".claude/hooks"><img src="https://img.shields.io/badge/hooks-12-orange" alt="12 Hooks"></a>
   <a href=".claude/rules"><img src="https://img.shields.io/badge/rules-11-red" alt="11 Rules"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/built%20for-Claude%20Code-f5f5f5?logo=anthropic" alt="Built for Claude Code"></a>
@@ -24,7 +26,7 @@
 
 Building a game solo with AI is powerful — but a single chat session has no structure. No one stops you from hardcoding magic numbers, skipping design docs, or writing spaghetti code. There's no QA pass, no design review, no one asking "does this actually fit the game's vision?"
 
-**Claude Code Game Studios** solves this by giving your AI session the structure of a real studio. Instead of one general-purpose assistant, you get 49 specialized agents organized into a studio hierarchy — directors who guard the vision, department leads who own their domains, and specialists who do the hands-on work. Each agent has defined responsibilities, escalation paths, and quality gates.
+**Claude Code Game Studios** solves this by giving your AI session the structure of a real studio. Instead of one general-purpose assistant, you get 57 specialized agents organized into a studio hierarchy — directors who guard the vision, department leads who own their domains, and specialists who do the hands-on work. Each agent has defined responsibilities, escalation paths, and quality gates.
 
 The result: you still make every decision, but now you have a team that asks the right questions, catches mistakes early, and keeps your project organized from first brainstorm to launch.
 
@@ -52,8 +54,8 @@ The result: you still make every decision, but now you have a team that asks the
 
 | Category | Count | Description |
 |----------|-------|-------------|
-| **Agents** | 49 | Specialized subagents across design, programming, art, audio, narrative, QA, and production |
-| **Skills** | 73 | Slash commands for every workflow phase (`/start`, `/design-system`, `/create-epics`, `/create-stories`, `/dev-story`, `/story-done`, etc.) |
+| **Agents** | 57 | Specialized subagents across design, programming, art, audio, narrative, QA, and production |
+| **Skills** | 74 | Slash commands for every workflow phase (`/start`, `/design-system`, `/create-epics`, `/create-stories`, `/dev-story`, `/story-done`, etc.) |
 | **Hooks** | 12 | Automated validation on commits, pushes, asset changes, session lifecycle, agent audit trail, and gap detection |
 | **Rules** | 11 | Path-scoped coding standards enforced when editing gameplay, engine, AI, UI, network code, and more |
 | **Templates** | 41 | Document templates for GDDs, UX specs, ADRs, sprint plans, HUD design, accessibility, and more |
@@ -84,17 +86,20 @@ Tier 3 — Specialists (Sonnet/Haiku)
 
 ### Engine Specialists
 
-The template includes agent sets for all three major engines. Use the set that matches your project:
+The template includes agent sets for Godot, Unity, Unreal, web and libGDX. Use the set that matches your project:
 
 | Engine | Lead Agent | Sub-Specialists |
 |--------|-----------|-----------------|
 | **Godot 4** | `godot-specialist` | GDScript, Shaders, GDExtension |
 | **Unity** | `unity-specialist` | DOTS/ECS, Shaders/VFX, Addressables, UI Toolkit |
 | **Unreal Engine 5** | `unreal-specialist` | GAS, Blueprints, Replication, UMG/CommonUI |
+| **Phaser 3** | `phaser-specialist` | Existing programmer/UI/art roles |
+| **Three.js** | `threejs-specialist` | Existing programmer/UI/art roles |
+| **libGDX** | `libgdx-specialist` | Scene2D, Graphics, Ashley/Box2D, Core/Gradle |
 
 ## Slash Commands
 
-Type `/` in Claude Code to access all 73 skills:
+Type `/` in Claude Code to access all 74 skills:
 
 **Onboarding & Navigation**
 `/start` `/help` `/project-stage-detect` `/setup-engine` `/adopt`
@@ -175,8 +180,8 @@ versions, and which files are safe to overwrite vs. which need a manual merge.
 CLAUDE.md                           # Master configuration
 .claude/
   settings.json                     # Hooks, permissions, safety rules
-  agents/                           # 49 agent definitions (markdown + YAML frontmatter)
-  skills/                           # 73 slash commands (subdirectory per skill)
+  agents/                           # 57 agent definitions (markdown + YAML frontmatter)
+  skills/                           # 74 slash commands (subdirectory per skill)
   hooks/                            # 12 hook scripts (bash, cross-platform)
   rules/                            # 11 path-scoped coding standards
   statusline.sh                     # Status line script (context%, model, stage, epic breadcrumb)
@@ -274,12 +279,12 @@ This is a **template**, not a locked framework. Everything is meant to be custom
 - **Modify skills** — adjust workflows to match your team's process
 - **Add rules** — create new path-scoped rules for your project's directory structure
 - **Tune hooks** — adjust validation strictness, add new checks
-- **Pick your engine** — use the Godot, Unity, or Unreal agent set (or none)
+- **Pick your engine** — use Godot, Unity, Unreal, Phaser 3, Three.js, or libGDX specialists (or none)
 - **Set review intensity** — `full` (all director gates), `lean` (phase gates only), or `solo` (none). Set during `/start` or edit `production/review-mode.txt`. Override per-run with `--review solo` on any skill.
 
 ## Platform Support
 
-Primary development and testing on **Windows 10** with Git Bash. All hooks use POSIX-compatible patterns (`grep -E`, not `grep -P`) and include fallbacks for missing tools, so they should run on macOS and Linux. The `notify.sh` hook uses PowerShell for Windows toast notifications and is a no-op elsewhere — desktop notifications on macOS/Linux are not yet wired. Cross-platform testing is ongoing; please file issues for any platform-specific breakage.
+**Upstream platform record:** primary development and testing on Windows 10 with Git Bash. The Codex adaptation has separate macOS adapter and Linux Chromium/libGDX evidence; see [current validation](docs/codex-adapter/feature-validation-2026-09-21.md). All hooks use POSIX-compatible patterns (`grep -E`, not `grep -P`) and include fallbacks for missing tools, so they should run on macOS and Linux. The `notify.sh` hook uses PowerShell for Windows toast notifications and is a no-op elsewhere — desktop notifications on macOS/Linux are not yet wired. Cross-platform testing is ongoing; please file issues for any platform-specific breakage.
 
 ## Community
 
@@ -310,3 +315,42 @@ Sponsorships help fund time spent maintaining skills, adding new agents, keeping
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
+
+## Web-engine extension
+
+All 49 original roles and 73 workflows remain; Phaser 3 and Three.js add two
+engine leads; five libGDX roles and a tooling developer bring the current total to 57. Use `/setup-engine phaser` or
+`/setup-engine threejs`. Canonical routing and version/lifecycle/test references
+are available. Runnable `templates/web/` collect games and a safe preview-first copy command
+are included; see [web development](.claude/docs/web-game-development.md) for commands and
+[validation](docs/codex-adapter/validation.md) for observed runtime limits.
+
+
+## libGDX Java starter
+
+Use `/setup-engine libgdx [version]` and the five specialist roles. The preview-first
+`python3 tools/ccgs_codex.py scaffold-libgdx --target PATH [--write]` copies the
+pinned Java core/lwjgl3/headless starter without overwriting studio files or
+installing packages. Its official Gradle wrapper and committed dependency locks
+support pure tests, actual headless lifecycle and desktop packaging. GPU playtests
+and optional backends remain separate evidence. See
+[libGDX development](.claude/docs/libgdx-development.md) and
+[validation](docs/codex-adapter/validation.md). All original 73 workflows/49 roles
+remain, with setup-tool bringing the current workflow total to 74.
+
+## Tooling projects and Codex quickstart
+
+Use `ccgs-setup-tool level-exporter author --review lean` in Codex (or `/setup-tool`
+in Claude Code) to author a standalone tool contract; use `update` or `adopt` for
+existing work. Game components retain their game's engine, stage and review mode.
+Setup alone does not implement or review the tool. The Python 3.10+ standard-library
+[CSV example](examples/tooling/level-exporter/README.md) needs no engine/provider.
+
+Preview `python3 tools/ccgs_codex.py scaffold-web phaser --target my-web-game`
+(or `threejs`) or `python3 tools/ccgs_codex.py scaffold-libgdx --target my-java-game`.
+Append `--write` only for the chosen copy; no files are overwritten or packages
+installed. Web targets need Node >=22.12.0/npm; Java targets need JDK 21 and the
+included Gradle wrapper. Run installs/tests inside the copied target. The complete
+[English quickstart](.github/README.md) and [中文指南](README-CODEX.zh-CN.md) give
+exact commands, tested scope and third-party licensing. Board-sync has no shipped
+command/dependency; mobile/Kotlin/WebGPU/provider execution remain unverified.

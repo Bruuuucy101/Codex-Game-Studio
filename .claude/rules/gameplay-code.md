@@ -1,6 +1,13 @@
 ---
 paths:
   - "src/gameplay/**"
+  - "core/src/main/**/gameplay/**"
+  - "lwjgl3/src/main/**/gameplay/**"
+  - "headless/src/main/**/gameplay/**"
+  - "desktop/src/main/**/gameplay/**"
+  - "android/src/main/**/gameplay/**"
+  - "ios/src/main/**/gameplay/**"
+  - "html/src/main/**/gameplay/**"
 ---
 
 # Gameplay Code Rules

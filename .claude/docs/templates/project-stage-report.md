@@ -1,7 +1,7 @@
 # Project Stage Analysis Report
 
 **Generated**: [DATE]
-**Stage**: [Concept | Systems Design | Technical Setup | Pre-Production | Production | Polish | Release]
+**Stage**: [Concept | Systems Design | Technical Setup | Pre-Production | Production | Polish | Release | Tooling Project | unconfigured tooling candidate]
 **Analysis Scope**: [Full project | Specific role: programmer/designer/producer]
 
 ---
@@ -15,6 +15,18 @@
 **Estimated Time to Next Stage**: [If applicable]
 
 ---
+
+## Tooling Applicability (standalone branch only)
+
+For a standalone tool, replace the game completeness sections below with:
+- Contract: [Meaningful sections/gaps in tools/TOOL_SPEC.md]
+- Runtime/usage: [Verified pins, commands and missing dependencies]
+- Code: [Actual scoped implementation paths; no adapter/example file-count proxy]
+- Tests: [Units, real file/CLI integration, fixture hashes, commands/results or NOT RUN]
+- Review: [Independent lead/pipeline/QA findings and unresolved issues]
+- ADRs: [Current Accepted dependencies/hashes, registry constraints or actual gaps]
+- Resume: [Saved task, next action, project memory path]
+- Game phases: [N/A with standalone reason; no passed gate or invented stage change]
 
 ## Completeness Overview
 

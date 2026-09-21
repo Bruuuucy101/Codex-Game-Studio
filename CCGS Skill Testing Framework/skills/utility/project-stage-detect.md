@@ -181,3 +181,31 @@ gates apply.
 - The Polish and Release stages are not fixture-tested here; they follow the
   same high-confidence (stage.txt present) or inference logic.
 - Confidence levels are advisory — the skill does not gate any actions on them.
+
+## Web source roots case (not yet behaviorally executed)
+
+Fixture: 30 template/vendor TS files but only 3 actual src/ game files; engine
+configured. Expected: count 3 and remain Pre-Production under existing heuristics.
+With 10 actual game source files and active development, Production is eligible.
+Package dependency alone is not configuration. Explicit production/stage.txt
+wins in both fixtures. Monorepo roots/uncertainty are reported, not guessed.
+
+## Standalone tooling and mixed-game regression
+
+Execute setup-tool specification Cases 2–5 in fresh fixtures, then run stage detection.
+Standalone report lists contract/runtime/code/test/review gaps and explicit Tooling
+Project or unconfigured candidate; no fabricated game phase. A mixed-game report
+preserves explicit Production/Polish/Release and lists the tool as a component.
+Missing, malformed and symlink configuration remain visible blockers, not fallback.
+Shipped adapter tests/examples cannot count as target-tool test evidence.
+
+
+## Additional libGDX scenario — Module source accounting
+
+**Input/fixture:** Count 12 Java/Kotlin implementation files under actual core/src/main plus 200 generated build files, 8 tests and a bundled template; stage marker says Technical Setup.
+
+**Expected behavior:** Counts only12 actual implementation sources, excludes tests/build/templates, reports module roots and respects explicit compatible stage marker. Does not identify Scene2D/Ashley purely by extension or claim backend execution from dependency metadata.
+
+**Evidence:** Authored scenario only. Run a fresh consuming agent with full skill,
+actual fixture and canonical references; record prompt/source hashes and observed
+outcome. Do not count static source assertions as this behavior run.

@@ -1,0 +1,2 @@
+rootProject.name = 'ccgs-collect'
+include 'core', 'lwjgl3', 'headless'

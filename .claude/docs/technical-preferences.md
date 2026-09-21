@@ -85,3 +85,26 @@
 | Scene / prefab / level files | [TO BE CONFIGURED] |
 | Native extension / plugin files | [TO BE CONFIGURED] |
 | General architecture review | Primary |
+
+## Tooling
+
+<!-- Optional: populated by /setup-tool only for an actual scoped tool. -->
+<!-- Standalone agnostic tools use an explicit N/A engine; game components preserve all game fields above. -->
+- **Contract**: [tools/TOOL_SPEC.md when authored]
+- **Scope**: [Standalone or game component]
+- **Runtime and Dependencies**: [Verified versions and source evidence]
+- **Engine Target**: [Explicit agnostic status or verified target/version]
+- **Owned Paths**: [Tool source/tests/examples only]
+- **Implementation**: game-pipeline-developer via lead-programmer
+- **Review**: Fresh lead/pipeline/QA instances; applicable engine specialist
+- **Acceptance**: [Contract tests, actual evidence and remaining gaps]
+
+
+## Build and Source Roots
+
+<!-- Populated only for the actual adopted project by setup-engine. -->
+- **Source Roots**: [TO BE CONFIGURED — actual root/module paths; exclude bundled templates]
+- **Selected Backends**: [TO BE CONFIGURED — include only actual platform modules]
+- **Build Runtime**: [TO BE CONFIGURED — verified JDK/Node/etc. version]
+- **Build Tool and Lockfiles**: [TO BE CONFIGURED — wrapper/tool version and lock paths]
+- **Build/Test Commands**: [TO BE CONFIGURED — commands plus separately observed evidence]

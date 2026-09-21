@@ -1,6 +1,9 @@
 ---
 paths:
   - "assets/shaders/**"
+  - "core/assets/shaders/**"
+  - "android/assets/shaders/**"
+  - "core/src/main/resources/shaders/**"
 ---
 
 # Shader Code Standards

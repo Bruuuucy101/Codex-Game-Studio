@@ -2,9 +2,9 @@
 
 Generated from actual files. Counts prove coverage only; see [validation](validation.md) for execution evidence.
 
-## skills: 73
+## skills: 74
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | adopt | `.claude/skills/adopt/SKILL.md` | ccgs-adopt |
 | architecture-decision | `.claude/skills/architecture-decision/SKILL.md` | ccgs-architecture-decision |
@@ -53,6 +53,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | scope-check | `.claude/skills/scope-check/SKILL.md` | ccgs-scope-check |
 | security-audit | `.claude/skills/security-audit/SKILL.md` | ccgs-security-audit |
 | setup-engine | `.claude/skills/setup-engine/SKILL.md` | ccgs-setup-engine |
+| setup-tool | `.claude/skills/setup-tool/SKILL.md` | ccgs-setup-tool |
 | skill-improve | `.claude/skills/skill-improve/SKILL.md` | ccgs-skill-improve |
 | skill-test | `.claude/skills/skill-test/SKILL.md` | ccgs-skill-test |
 | smoke-check | `.claude/skills/smoke-check/SKILL.md` | ccgs-smoke-check |
@@ -80,9 +81,9 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | ux-review | `.claude/skills/ux-review/SKILL.md` | ccgs-ux-review |
 | vertical-slice | `.claude/skills/vertical-slice/SKILL.md` | ccgs-vertical-slice |
 
-## agents: 49
+## agents: 57
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | accessibility-specialist | `.claude/agents/accessibility-specialist.md` | ccgs-accessibility-specialist |
 | ai-programmer | `.claude/agents/ai-programmer.md` | ccgs-ai-programmer |
@@ -95,6 +96,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | economy-designer | `.claude/agents/economy-designer.md` | ccgs-economy-designer |
 | engine-programmer | `.claude/agents/engine-programmer.md` | ccgs-engine-programmer |
 | game-designer | `.claude/agents/game-designer.md` | ccgs-game-designer |
+| game-pipeline-developer | `.claude/agents/game-pipeline-developer.md` | ccgs-game-pipeline-developer |
 | gameplay-programmer | `.claude/agents/gameplay-programmer.md` | ccgs-gameplay-programmer |
 | godot-csharp-specialist | `.claude/agents/godot-csharp-specialist.md` | ccgs-godot-csharp-specialist |
 | godot-gdextension-specialist | `.claude/agents/godot-gdextension-specialist.md` | ccgs-godot-gdextension-specialist |
@@ -103,11 +105,17 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | godot-specialist | `.claude/agents/godot-specialist.md` | ccgs-godot-specialist |
 | lead-programmer | `.claude/agents/lead-programmer.md` | ccgs-lead-programmer |
 | level-designer | `.claude/agents/level-designer.md` | ccgs-level-designer |
+| libgdx-ashley-specialist | `.claude/agents/libgdx-ashley-specialist.md` | ccgs-libgdx-ashley-specialist |
+| libgdx-core-specialist | `.claude/agents/libgdx-core-specialist.md` | ccgs-libgdx-core-specialist |
+| libgdx-graphics-specialist | `.claude/agents/libgdx-graphics-specialist.md` | ccgs-libgdx-graphics-specialist |
+| libgdx-scene2d-specialist | `.claude/agents/libgdx-scene2d-specialist.md` | ccgs-libgdx-scene2d-specialist |
+| libgdx-specialist | `.claude/agents/libgdx-specialist.md` | ccgs-libgdx-specialist |
 | live-ops-designer | `.claude/agents/live-ops-designer.md` | ccgs-live-ops-designer |
 | localization-lead | `.claude/agents/localization-lead.md` | ccgs-localization-lead |
 | narrative-director | `.claude/agents/narrative-director.md` | ccgs-narrative-director |
 | network-programmer | `.claude/agents/network-programmer.md` | ccgs-network-programmer |
 | performance-analyst | `.claude/agents/performance-analyst.md` | ccgs-performance-analyst |
+| phaser-specialist | `.claude/agents/phaser-specialist.md` | ccgs-phaser-specialist |
 | producer | `.claude/agents/producer.md` | ccgs-producer |
 | prototyper | `.claude/agents/prototyper.md` | ccgs-prototyper |
 | qa-lead | `.claude/agents/qa-lead.md` | ccgs-qa-lead |
@@ -118,6 +126,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | systems-designer | `.claude/agents/systems-designer.md` | ccgs-systems-designer |
 | technical-artist | `.claude/agents/technical-artist.md` | ccgs-technical-artist |
 | technical-director | `.claude/agents/technical-director.md` | ccgs-technical-director |
+| threejs-specialist | `.claude/agents/threejs-specialist.md` | ccgs-threejs-specialist |
 | tools-programmer | `.claude/agents/tools-programmer.md` | ccgs-tools-programmer |
 | ue-blueprint-specialist | `.claude/agents/ue-blueprint-specialist.md` | ccgs-ue-blueprint-specialist |
 | ue-gas-specialist | `.claude/agents/ue-gas-specialist.md` | ccgs-ue-gas-specialist |
@@ -136,7 +145,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 
 ## rules: 11
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | ai-code | `.claude/rules/ai-code.md` | original file, preserved |
 | data-files | `.claude/rules/data-files.md` | original file, preserved |
@@ -152,7 +161,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 
 ## hooks: 12
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | detect-gaps | `.claude/hooks/detect-gaps.sh` | event bridge; see hooks.md |
 | log-agent-stop | `.claude/hooks/log-agent-stop.sh` | event bridge; see hooks.md |
@@ -167,9 +176,9 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | validate-push | `.claude/hooks/validate-push.sh` | event bridge; see hooks.md |
 | validate-skill-change | `.claude/hooks/validate-skill-change.sh` | event bridge; see hooks.md |
 
-## templates: 40
+## templates: 41
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | accessibility-requirements | `.claude/docs/templates/accessibility-requirements.md` | original file, preserved |
 | architecture-decision-record | `.claude/docs/templates/architecture-decision-record.md` | original file, preserved |
@@ -209,12 +218,13 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | technical-design-document | `.claude/docs/templates/technical-design-document.md` | original file, preserved |
 | test-evidence | `.claude/docs/templates/test-evidence.md` | original file, preserved |
 | test-plan | `.claude/docs/templates/test-plan.md` | original file, preserved |
+| tool-spec | `.claude/docs/templates/tool-spec.md` | original file, preserved |
 | ux-spec | `.claude/docs/templates/ux-spec.md` | original file, preserved |
 | vertical-slice-report | `.claude/docs/templates/vertical-slice-report.md` | original file, preserved |
 
-## behavior_specs: 126
+## behavior_specs: 135
 
-| Name | Original source | Codex route |
+| Name | Canonical source | Codex route |
 |---|---|---|
 | CLAUDE | `CCGS Skill Testing Framework/CLAUDE.md` | original file, preserved |
 | README | `CCGS Skill Testing Framework/README.md` | original file, preserved |
@@ -227,6 +237,13 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | godot-gdscript-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-gdscript-specialist.md` | original file, preserved |
 | godot-shader-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-shader-specialist.md` | original file, preserved |
 | godot-specialist | `CCGS Skill Testing Framework/agents/engine/godot/godot-specialist.md` | original file, preserved |
+| libgdx-ashley-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-ashley-specialist.md` | original file, preserved |
+| libgdx-core-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-core-specialist.md` | original file, preserved |
+| libgdx-graphics-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-graphics-specialist.md` | original file, preserved |
+| libgdx-scene2d-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-scene2d-specialist.md` | original file, preserved |
+| libgdx-specialist | `CCGS Skill Testing Framework/agents/engine/libgdx/libgdx-specialist.md` | original file, preserved |
+| phaser-specialist | `CCGS Skill Testing Framework/agents/engine/phaser/phaser-specialist.md` | original file, preserved |
+| threejs-specialist | `CCGS Skill Testing Framework/agents/engine/threejs/threejs-specialist.md` | original file, preserved |
 | unity-addressables-specialist | `CCGS Skill Testing Framework/agents/engine/unity/unity-addressables-specialist.md` | original file, preserved |
 | unity-dots-specialist | `CCGS Skill Testing Framework/agents/engine/unity/unity-dots-specialist.md` | original file, preserved |
 | unity-shader-specialist | `CCGS Skill Testing Framework/agents/engine/unity/unity-shader-specialist.md` | original file, preserved |
@@ -256,6 +273,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | security-engineer | `CCGS Skill Testing Framework/agents/qa/security-engineer.md` | original file, preserved |
 | ai-programmer | `CCGS Skill Testing Framework/agents/specialists/ai-programmer.md` | original file, preserved |
 | engine-programmer | `CCGS Skill Testing Framework/agents/specialists/engine-programmer.md` | original file, preserved |
+| game-pipeline-developer | `CCGS Skill Testing Framework/agents/specialists/game-pipeline-developer.md` | original file, preserved |
 | gameplay-programmer | `CCGS Skill Testing Framework/agents/specialists/gameplay-programmer.md` | original file, preserved |
 | network-programmer | `CCGS Skill Testing Framework/agents/specialists/network-programmer.md` | original file, preserved |
 | performance-analyst | `CCGS Skill Testing Framework/agents/specialists/performance-analyst.md` | original file, preserved |
@@ -333,6 +351,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | release-checklist | `CCGS Skill Testing Framework/skills/utility/release-checklist.md` | original file, preserved |
 | reverse-document | `CCGS Skill Testing Framework/skills/utility/reverse-document.md` | original file, preserved |
 | setup-engine | `CCGS Skill Testing Framework/skills/utility/setup-engine.md` | original file, preserved |
+| setup-tool | `CCGS Skill Testing Framework/skills/utility/setup-tool.md` | original file, preserved |
 | skill-improve | `CCGS Skill Testing Framework/skills/utility/skill-improve.md` | original file, preserved |
 | skill-test | `CCGS Skill Testing Framework/skills/utility/skill-test.md` | original file, preserved |
 | smoke-check | `CCGS Skill Testing Framework/skills/utility/smoke-check.md` | original file, preserved |

@@ -193,6 +193,9 @@ engine risk.
 | Engine | Specialist agents available |
 |--------|----------------------------|
 | Godot 4 | `godot-specialist`, `godot-gdscript-specialist`, `godot-shader-specialist` |
+| Phaser 3 (`phaser`) | `phaser-specialist`; `technical-artist` for shaders; `ui-programmer` for DOM UI |
+| Three.js (`threejs`) | `threejs-specialist`; `technical-artist` for shaders; `ui-programmer` for DOM UI |
+| libGDX (`libgdx`) | `libgdx-specialist`, `libgdx-scene2d-specialist`, `libgdx-graphics-specialist`, `libgdx-ashley-specialist`, `libgdx-core-specialist` |
 | Unity | `unity-specialist`, `unity-ui-specialist`, `unity-shader-specialist` |
 | Unreal Engine | `unreal-specialist`, `ue-gas-specialist`, `ue-blueprint-specialist`, `ue-umg-specialist`, `ue-replication-specialist` |
 
@@ -201,6 +204,24 @@ specialist, even for non-engine-facing stories. High risk means the ADR records
 assumptions about post-cutoff engine APIs that need expert verification.
 
 ---
+
+For web code, route `.js`/`.ts`/`.mjs` consultation to the configured
+Language/Code Specialist. Use path/content ownership for DOM UI, and consult the
+engine primary on lifecycle/rendering/loading changes even when another role owns
+the file. Preserve the primary programmer routing, Config/Data exception and HIGH
+risk review gates. Read `.claude/docs/web-game-development.md` for separate unit,
+build and browser evidence; do not treat mocked engines as integration acceptance.
+
+For libGDX read `.claude/docs/libgdx-development.md` and actual Gradle sourceSets.
+Java/Kotlin alone routes to `libgdx-specialist`; Stage/Table/Skin UI to
+`libgdx-scene2d-specialist`; rendering/shaders/FBOs to `libgdx-graphics-specialist`;
+selected Ashley/Box2D to `libgdx-ashley-specialist`; lifecycle/AssetManager/build
+and backend work to `libgdx-core-specialist`. Preserve the primary programmer,
+HIGH risk and selected review-mode gates; dispatch real needed specialists through
+the lead. Apply matching rules to package/module paths too. Logic evidence uses
+pure tests; Integration evidence uses actual HeadlessApplication where applicable;
+Visual/Feel still needs a real graphics backend and manual/device evidence.
+
 
 ## Phase 4: Implement
 

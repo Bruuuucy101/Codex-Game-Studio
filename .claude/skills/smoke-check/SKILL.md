@@ -1,7 +1,7 @@
 ---
 name: smoke-check
 description: "Run the critical path smoke test gate before QA hand-off. Executes the automated test suite, verifies core functionality, and produces a PASS/FAIL report. Run after a sprint's stories are implemented and before manual QA begins. A failed smoke check means the build is not ready for QA."
-argument-hint: "[sprint | quick | --platform pc|console|mobile|all]"
+argument-hint: "[sprint | quick | --platform pc|console|mobile|web|all]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, Write, AskUserQuestion
 model: sonnet
@@ -35,6 +35,7 @@ Arguments can be combined: `/smoke-check sprint --platform console`
   platform certification requirements)
 - `--platform mobile` — add mobile-specific checks (touch, portrait/landscape,
   battery/thermal behaviour)
+- `--platform web` — add browser input/focus, resize, asset loading and renderer checks
 - `--platform all` — add all platform variants; output per-platform verdict table
 
 If `--platform` is provided, Phase 4 adds platform-specific batches and
@@ -46,8 +47,10 @@ Phase 5 outputs a per-platform verdict table in addition to the overall verdict.
 
 Before running anything, understand the environment:
 
-1. **Test framework check**: verify `tests/` directory exists.
-   If it does not: "No test directory found at `tests/`. Run `/test-setup`
+1. **Test framework check**: read the engine preferences first. For libGDX inspect
+   actual Gradle sourceSets, `core/src/test` and `headless/src/test`; a missing root
+   `tests/` does not mean those tests are absent. For other engines verify `tests/`.
+   If no applicable configured test root exists: "No test directory found at `tests/`. Run `/test-setup`
    to scaffold the testing infrastructure, or create the directory manually
    if tests live elsewhere." Then stop.
 
@@ -110,6 +113,36 @@ ls -t Saved/Logs/ 2>/dev/null | grep -i "test\|automation" | head -5 \
 If no matching log found: "UE automation tests must be run via the Session
 Frontend or CI pipeline. Please confirm test status manually."
 
+**Phaser 3 (`phaser`) / Three.js (`threejs`):**
+Read package.json scripts, the lockfile, VERSION.md and `.claude/docs/web-game-development.md`.
+Execute the actual configured scripts from the adopted game root. Scaffold defaults:
+```bash
+npm run typecheck
+npm test
+npm run build
+npm run test:browser
+```
+Run each separately, retain exit codes and actual test counts. Browser tests use
+production preview, actual movement/collection/reset twice, focus loss and resize;
+Three.js requires an actual WebGL2 context/nonempty frame. Inspect screenshots and
+console/page errors. Missing dependencies, browser or script means NOT RUN with
+the specific reason; never install implicitly or replace the browser test with a
+mock. This branch does not fall into Unknown engine. Under `--platform web` include
+these checks in Phase 4 and its per-platform report. A warning/manual confirmation
+under the existing gate policy is not evidence that a browser test executed.
+
+**libGDX:**
+Read `.claude/docs/libgdx-development.md` and actual module/test configuration.
+Use `./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon` (Windows:
+`gradlew.bat`), the configured JDK and committed locks. Record each test count,
+background failure/timeout and desktop build result. A missing wrapper/JDK/native
+artifact is NOT RUN with cause, not a switch to Unknown engine or a fabricated
+pass. Headless uses mock graphics/audio/input: manual smoke still requires actual
+desktop movement, collect, reset twice, resize, focus/pause, clean exit and errors.
+Mobile/GWT/Kotlin are separate selected-backend checks. Existing warning/manual
+confirmation policy never turns an unexecuted backend test into execution evidence.
+
+
 **Unknown engine / not configured:**
 "Engine not configured in `.claude/docs/technical-preferences.md`. Run
 `/setup-engine` to specify the engine, then re-run `/smoke-check`."
@@ -150,7 +183,9 @@ For each story in scope:
 1. Extract the system slug from the story's file path
    (e.g., `production/epics/combat/story-001.md` → `combat`)
 2. Glob `tests/unit/[system]/` and `tests/integration/[system]/` for files
-   whose name contains the story slug or a closely related term
+   whose name contains the story slug or a closely related term. For libGDX also
+   inspect the actual module src/test Java/Kotlin classes and Gradle XML evidence;
+   root tests/ absence must not mark implemented module tests MISSING.
 3. Check the story file itself for a `Test file:` header field or a
    "Test Evidence" section
 

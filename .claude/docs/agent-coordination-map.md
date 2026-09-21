@@ -31,6 +31,9 @@
     community-manager       -- Patch notes, player feedback, crisis comms
 
   Engine Specialists (use the SET matching your engine):
+    phaser-specialist  -- Phaser 3 lead: Scenes, browser input/loading, restart ownership
+    threejs-specialist -- Three.js lead: WebGL2, scene graph, render loop, GPU disposal
+    (Web leads reuse existing programmer/UI/art roles; no dedicated sub-specialists.)
     unreal-specialist  -- UE5 lead: Blueprint/C++, GAS overview, UE subsystems
       ue-gas-specialist         -- GAS: abilities, effects, attributes, tags, prediction
       ue-blueprint-specialist   -- Blueprint: BP/C++ boundary, graph standards, optimization
@@ -73,7 +76,7 @@ art-dir = art-director
 | technical-director | lead-programmer, devops-engineer, performance-analyst, technical-artist (technical decisions) |
 | producer | Any agent (task assignment within their domain only) |
 | game-designer | systems-designer, level-designer, economy-designer |
-| lead-programmer | gameplay-programmer, engine-programmer, ai-programmer, network-programmer, tools-programmer, ui-programmer |
+| lead-programmer | gameplay-programmer, engine-programmer, ai-programmer, network-programmer, tools-programmer, game-pipeline-developer, ui-programmer; configured engine specialist for engine consultation |
 | art-director | technical-artist, ux-designer |
 | audio-director | sound-designer |
 | narrative-director | writer, world-builder |
@@ -83,7 +86,8 @@ art-dir = art-director
 | prototyper | (works independently, reports findings to producer and relevant leads) |
 | security-engineer | network-programmer (security review), lead-programmer (secure patterns) |
 | accessibility-specialist | ux-designer (accessible patterns), ui-programmer (implementation), qa-tester (a11y testing) |
-| [engine]-specialist | engine sub-specialists (delegates subsystem-specific work) |
+| [engine]-specialist | engine sub-specialists where defined; phaser-specialist/threejs-specialist coordinate bounded work with existing programmer/UI/art owners through lead-programmer |
+| phaser-specialist / threejs-specialist | gameplay-programmer, engine-programmer, ui-programmer, tools-programmer within delegated scope; consult technical-artist for shaders |
 | [engine] sub-specialists | (advises all programmers on engine subsystem patterns and optimization) |
 | live-ops-designer | economy-designer (live economy), community-manager (event comms), analytics-engineer (engagement metrics) |
 | community-manager | (works with producer for approval, release-manager for patch note timing) |
@@ -279,3 +283,13 @@ When the art bible or asset standards change, the art-director must notify:
 5. **Assumption-based implementation**: If a spec is ambiguous, the implementer
    must ask the specifier rather than guessing. Wrong guesses are more expensive
    than a question.
+
+## Standalone tool branch
+
+`lead-programmer` → `game-pipeline-developer` for contract-scoped CLI/data work.
+Editor tools retain `tools-programmer`; art constraints use `technical-artist`,
+build changes use `devops-engineer`, runtime consumers use configured engine/gameplay
+specialists. Coordinator dispatches on a lead's behalf when nested tools are unavailable.
+A fresh lead/pipeline/QA set reviews implementation independently in every review mode.
+Standalone readiness uses technical-director + producer in full/lean; game-phase
+creative/art gates are reasoned N/A. Mixed-game projects retain the original game panel.

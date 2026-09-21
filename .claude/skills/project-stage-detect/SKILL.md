@@ -21,6 +21,31 @@ of artifacts, and gaps that need attention. It's especially useful when:
 
 ## Workflow
 
+### 0. Resolve project kind and explicit state first
+
+Run `python3 tools/ccgs_codex.py project-kind`; use the shared JSON and read the
+contract/evidence it names. `conflict` is a configuration blocker: report actionable
+paths and stop classification; do not fall back to a guessed stage or write state.
+Valid kind/stage inconsistencies remain visible and require scoped resolution.
+Read `.claude/docs/tooling-projects.md` for the exact contract.
+
+For standalone tooling, report **Tooling Project** only when explicit compatible
+stage exists, otherwise “tooling candidate / stage not configured” and recommend
+`/setup-tool`. Report gaps separately: meaningful contract sections, usage/runtime
+pins, actual owned tool source, representative fixtures, units/CLI integration,
+independent review, current ADR dependencies, and saved resume task. Validate evidence
+paths and actual results; adapter tests and example files are not this target's test
+coverage. Do not calculate a completion percentage from file counts or invent a
+Concept/Production/Polish transition. GDD, fun, art bible and game-engine gates are
+N/A with a reason for a genuinely standalone agnostic tool. Use this tooling report
+instead of the game heuristic/completeness sections below; preserve approval before
+writing a report. Missing/incomplete spec → `/setup-tool update` or author/adopt;
+missing implementation → lead/pipeline role; evidence gaps → actual tests/code review.
+
+Game projects (including tool components) continue below with their explicit stage
+preserved and tool gaps listed separately. Unknown pristine templates retain Concept
+onboarding as a recommendation; classification itself never writes stage/kind.
+
 ### 1. Scan Key Directories
 
 Analyze project structure and content:
@@ -34,7 +59,9 @@ Analyze project structure and content:
 - Count level designs in `design/levels/`
 
 **Source Code** (`src/`):
-- Count source files (language-agnostic)
+- Count actual source files (language-agnostic, including `.js`, `.ts`, `.mjs` web modules and `.java`, `.kt` JVM files) under `src/` or explicit adopted source roots. For libGDX include actual `core/src`, `lwjgl3/src`, `headless/src` and selected platform modules; use the read-only `source-files` diagnostic and inspect custom Gradle sourceSets. Exclude `src/test` as well as bundled examples/templates, generated/build/vendor output. Core is shared code, not proof of a runnable backend.
+- Exclude `templates/`, `.claude/docs/templates/`, `node_modules/`, `dist/`, generated output, caches and test trees from game-code evidence, even if they contain nested `src/`. Installing bundled templates never promotes stage.
+- For web projects compare configured technical preferences with package/lockfile evidence. Dependencies alone are an engine candidate, not a configured engine. Report source roots and uncertainty for monorepos; retain `production/stage.txt` as the explicit override.
 - Identify major systems (directories with 5+ files)
 - Check for core/, gameplay/, ai/, networking/, ui/ directories
 - Estimate lines of code (rough scale)
@@ -65,11 +92,12 @@ auto-detect using these heuristics (check from most-advanced backward):
 
 | Stage | Indicators |
 |-------|-----------|
+| **Tooling Project** | Standalone-tool branch above; explicit compatible stage, gaps tracked separately |
 | **Concept** | No game concept doc, brainstorming phase |
 | **Systems Design** | Game concept exists, systems index missing or incomplete |
 | **Technical Setup** | Systems index exists, engine not configured |
-| **Pre-Production** | Engine configured, `src/` has <10 source files |
-| **Production** | `src/` has 10+ source files, active development |
+| **Pre-Production** | Engine configured, actual source roots have <10 implementation files |
+| **Production** | actual source roots have 10+ implementation files, active development |
 | **Polish** | Explicit only (set by `/gate-check` Production → Polish gate) |
 | **Release** | Explicit only (set by `/gate-check` Polish → Release gate) |
 
@@ -92,7 +120,7 @@ Use template: `.claude/docs/templates/project-stage-report.md`
 # Project Stage Analysis
 
 **Date**: [date]
-**Stage**: [Concept/Systems Design/Technical Setup/Pre-Production/Production/Polish/Release]
+**Stage**: [Concept/Systems Design/Technical Setup/Pre-Production/Production/Polish/Release/Tooling Project/unconfigured tooling candidate]
 **Stage Confidence**: [PASS — clearly detected / CONCERNS — ambiguous signals / FAIL — critical gaps block progress]
 
 ## Completeness Overview

@@ -6,7 +6,7 @@ description: "Validate readiness to advance between development phases. Produces
 # CCGS Codex entry: gate-check
 
 Source: `.claude/skills/gate-check/SKILL.md` (relative to the project root).
-SHA256: `3ae463120765909eedb2d04f592191bf90afda4795ae88522d314e1833773da7`
+SHA256: `c464e25ea1259bab884850fab55f6463072e5d4598a695afc1d21167d79ea0c4`
 Original metadata: {"name": "gate-check", "description": "Validate readiness to advance between development phases. Produces a PASS/CONCERNS/FAIL verdict with specific blockers and required artifacts. Use when user says 'are we ready to move to X', 'can we advance to production', 'check if we can start the next phase', 'pass the gate'.", "argument-hint": "[target-phase: systems-design | technical-setup | pre-production | production | polish | release] [--review full|lean|solo]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Bash, Write, Task, AskUserQuestion", "model": "opus"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

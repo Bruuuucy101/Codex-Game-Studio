@@ -15,6 +15,42 @@ phase. It checks for required artifacts, quality standards, and blockers.
 **Distinct from `/project-stage-detect`**: That skill is diagnostic ("where are we?").
 This skill is prescriptive ("are we ready to advance?" with a formal verdict).
 
+## Applicability: project kind first
+
+Before any phase transition or director spawn, run
+`python3 tools/ccgs_codex.py project-kind` read-only. `conflict` stops dependent
+checks with configuration gaps; valid contradictory kind/stage evidence must be
+resolved before claiming readiness or changing state. A tool-spec candidate without
+confirmed standalone scope goes to `/setup-tool`, not an invented game phase.
+Game projects, including game components with TOOL_SPEC, retain all seven stages,
+all checks and the original full/lean/solo panel below.
+
+For confirmed standalone tooling, read `.claude/docs/tooling-projects.md`, complete
+`tools/TOOL_SPEC.md`, real source/fixtures/test results, current Accepted ADRs and
+saved review/session evidence. Resolve review mode with the same precedence as
+Phase 1. Use this **tool readiness** branch instead of the game transitions below:
+
+1. Assess meaningful contract/runtime/usage, actual code, representative I/O,
+   malformed/duplicate/missing/partial failures, deterministic results, safe atomic
+   publication/overwrite policy and independent lead/pipeline/QA review evidence.
+   Run only the tool's authorized declared acceptance commands; never auto-execute
+   discovered scripts. Missing or unrun evidence remains FAIL/CONCERNS or MANUAL
+   CHECK NEEDED as appropriate; file existence and adapter tests prove no acceptance.
+2. In full and lean, spawn technical-director and producer independently via Task
+   for technical readiness and delivery readiness, using TD-PHASE-GATE and
+   PR-PHASE-GATE with explicit tool-contract context replacing inapplicable game
+   fields. Both receive actual evidence/gaps/current ADRs; NOT READY means FAIL,
+   CONCERNS means at least CONCERNS. In solo explicitly skip directors and keep
+   evidence checks. Do not lower the selected mode or simulate unavailable reviewers.
+3. Mark CD/AD game-phase gates, GDD/fun/vertical-slice/art checks N/A with the
+   standalone scope reason, **never PASS**. This does not satisfy any game gate.
+   Engine-specific tool acceptance still needs its actual engine specialist.
+4. Report `Tool readiness: PASS | CONCERNS | FAIL`, each contract criterion's
+   evidence/gap, independent reviewers, mode, and next scoped action. Stage stays
+   `Tooling Project`; do not advance it to Production, Polish or Release.
+5. Write a scoped report under `production/gate-checks/` only when authorized.
+   Do not auto-fix missing artifacts, write kind/stage or close a nonexistent story.
+
 ## Production Stages (7)
 
 The project progresses through these stages:

@@ -1,6 +1,13 @@
 ---
 paths:
   - "src/ai/**"
+  - "core/src/main/**/ai/**"
+  - "lwjgl3/src/main/**/ai/**"
+  - "headless/src/main/**/ai/**"
+  - "desktop/src/main/**/ai/**"
+  - "android/src/main/**/ai/**"
+  - "ios/src/main/**/ai/**"
+  - "html/src/main/**/ai/**"
 ---
 
 # AI Code Rules

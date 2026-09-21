@@ -3,13 +3,15 @@ name: start
 description: "First-time onboarding — asks where you are, then guides you to the right workflow. No assumptions."
 argument-hint: "[no arguments]"
 user-invocable: true
-allowed-tools: Read, Glob, Grep, Write, AskUserQuestion
+allowed-tools: Read, Glob, Grep, Bash, Write, AskUserQuestion
 model: sonnet
 ---
 
 # Guided Onboarding
 
-This skill writes one file: `production/review-mode.txt` (review mode config set in Phase 3b).
+This skill writes authorized initial stage/kind and review-mode configuration.
+Tool contract/configuration authoring belongs to `/setup-tool`; no implementation
+is implied by onboarding. Honor decisions and write authorization already supplied.
 
 This skill is the entry point for new users. It does NOT assume you have a game idea, an engine preference, or any prior experience. It asks first, then routes you to the right workflow.
 
@@ -19,10 +21,20 @@ This skill is the entry point for new users. It does NOT assume you have a game 
 
 Before asking anything, silently gather context so you can tailor your guidance. Do NOT show these results unprompted — they inform your recommendations, not the conversation opener.
 
-Check:
+First run `python3 tools/ccgs_codex.py project-kind` (read-only), and read
+`.claude/docs/tooling-projects.md` if tooling is requested or a contract exists.
+Use this shared result, not script counts. `conflict` requires repairing invalid
+configuration before dependent writes. Surface contradictions without resetting
+state. Valid explicit kind/stage remains authoritative. A meaningful contract
+alongside game evidence is a game component. Bundled tools/tests/templates/examples
+are not completed projects. If the user already specified a standalone tool, use
+E directly; do not ask the game-idea question again. Returning standalone users
+resume through `/setup-tool update` and `/project-stage-detect` with saved state.
+
+For game/unknown routes, also check:
 - **Engine configured?** Read `.claude/docs/technical-preferences.md`. If the Engine field contains `[TO BE CONFIGURED]`, the engine is not set.
 - **Game concept exists?** Check for `design/gdd/game-concept.md`.
-- **Source code exists?** Glob for source files in `src/` (`*.gd`, `*.cs`, `*.cpp`, `*.h`, `*.rs`, `*.py`, `*.js`, `*.ts`).
+- **Source code exists?** Inspect actual `src/` plus conventional module roots `core/src`, `lwjgl3/src`, `headless/src`, `desktop/src`, `android/src`, `ios/src`, `html/src`, including `.java` and `.kt` as well as `.gd`, `.cs`, `.cpp`, `.h`, `.rs`, `.py`, `.js`, `.ts`, `.mjs`. The read-only `source-files` diagnostic lists these; custom Gradle sourceSets need explicit inspection. Exclude templates/examples, test roots, vendor, generated/build and dependency directories. Bundled Java templates never mean a game is already configured.
 - **Prototypes exist?** Check for subdirectories in `prototypes/`.
 - **Design docs exist?** Count markdown files in `design/gdd/`.
 - **Production artifacts?** Check for files in `production/sprints/` or `production/milestones/`.
@@ -35,14 +47,16 @@ Store these findings internally to validate the user's self-assessment and tailo
 
 This is the first thing the user sees. Use `AskUserQuestion` with these exact options so the user can click rather than type:
 
-- **Prompt**: "Welcome to Claude Code Game Studios! Before I suggest anything, I'd like to understand where you're starting from. Where are you at with your game idea right now?"
+- **Prompt**: "Welcome to Claude Code Game Studios! Before I suggest anything, I'd like to understand where you're starting from. Where are you at with your game idea or development tool right now?"
 - **Options**:
   - `A) No idea yet` — I don't have a game concept at all. I want to explore and figure out what to make.
   - `B) Vague idea` — I have a rough theme, feeling, or genre in mind (e.g., "something with space" or "a cozy farming game") but nothing concrete.
   - `C) Clear concept` — I know the core idea — genre, basic mechanics, maybe a pitch sentence — but haven't formalized it into documents yet.
   - `D) Existing work` — I already have design docs, prototypes, code, or significant planning done. I want to organize or continue the work.
+  - `E) Game-development tool` — I want to build or adopt a standalone converter, validator or pipeline, or add one to a game.
 
-Wait for the user's selection. Do not proceed until they respond.
+Wait for a selection unless the user's request already specifies it. Supplied
+requirements/authorization are decisions, not a reason to repeat onboarding.
 
 ---
 
@@ -167,29 +181,51 @@ The user needs creative exploration before anything else.
 
 ---
 
-## Phase 3c: Write Initial Stage File
+#### If E: Game-development tool
 
-After confirming the starting path (and before asking about review mode), write the initial stage to `production/stage.txt`. Create the `production/` directory if it does not exist.
+1. Use supplied name, purpose and standalone/component intent; otherwise ask only
+   for these missing facts. Read existing state and `tools/TOOL_SPEC.md` if present.
+2. Route to `/setup-tool [name/description]` (author/update/adopt as appropriate).
+   It writes the recognized contract, never `docs/project-spec.md` as a substitute.
+3. Explain lead-programmer → game-pipeline-developer implementation and independent
+   lead/pipeline/QA review. Engine-agnostic work needs no game engine setup.
+4. Apply the explicit state mapping below only for a confirmed standalone choice.
+   A game component preserves the game's configuration/stage and review mode.
+
+---
+
+## Phase 3b: Write Initial Stage File
+
+After confirming the starting path (and before resolving review mode), write an
+initial stage only if absent or an explicitly authorized reset/reclassification
+requires it. Preserve an existing valid stage (especially Production/Polish/Release)
+on resume and for mixed-game tooling. Never downgrade it from file-count heuristics.
+If kind/stage conflict, resolve the concrete scope before writing. Create the
+`production/` directory if needed.
 
 Stage mapping:
+- **Path E, confirmed standalone tool**: write `tooling` to `production/project-kind.txt` and `Tooling Project` to `production/stage.txt`, each with one LF; `/setup-tool` owns contract/configuration authoring
+- **Path E, game component**: do not change marker or stage; preserve game stack/imports and review mode
 - **Path A, B, or C (starting from scratch)**: write `Concept`
 - **Path D, existing project, engine not configured or only a game concept exists**: write `Concept`
 - **Path D, existing project with GDDs but no architecture documents**: write `Systems Design`
 - **Path D, existing project with full architecture (ADRs, architecture doc)**: write `Technical Setup`
 
-Do this silently — no "May I write?" needed for this single-line file.
+These scoped state writes follow the confirmed path or existing authorization; do
+not treat a candidate classification as consent. Report the files actually written.
 
-Say: "I've set `production/stage.txt` to `[stage]` — this anchors your status line and stage detection."
+If written, say: "I've set `production/stage.txt` to `[stage]`." Otherwise report
+the existing stage as preserved; never claim a state write that did not occur.
 
 ---
 
-## Phase 3b: Set Review Mode
+## Phase 3c: Set Review Mode
 
 Check if `production/review-mode.txt` already exists.
 
 **If it exists**: Read it and show the current mode — "Review mode is set to `[current]`." — then proceed to Phase 4. Do not ask again.
 
-**If it does not exist**: Use `AskUserQuestion`:
+**If it does not exist**: use a mode explicitly supplied by the user; otherwise use `AskUserQuestion`:
 
 - **Prompt**: "One setup choice: how much design review would you want as you work through the workflow?"
 - **Options**:
@@ -210,7 +246,10 @@ Create the `production/` directory if it does not exist.
 
 ## Phase 4: Confirm Before Proceeding
 
-After presenting the recommended path, use `AskUserQuestion` to ask the user which step they'd like to take first. Never auto-run the next skill.
+After presenting the recommended path, ask which step to take unless their existing
+request already authorizes that step. For explicit tooling setup, continue through
+the complete `/setup-tool` workflow. Otherwise never execute a suggested next step
+without user authorization.
 
 - **Prompt**: "Would you like to start with [recommended first step]?"
 - **Options**:
@@ -221,7 +260,9 @@ After presenting the recommended path, use `AskUserQuestion` to ask the user whi
 
 ## Phase 5: Hand Off
 
-When the user confirms their next step, respond with a single short line: "Type `[skill command]` to begin." Nothing else. Do not re-explain the skill or add encouragement. The `/start` skill's job is done.
+If the request already includes tooling setup work, perform the authorized `/setup-tool`
+workflow and report actual results. For recommendation-only onboarding, when the
+user confirms their next step, respond with a single short line: "Type `[skill command]` to begin." Nothing else. Do not re-explain the skill or add encouragement. The `/start` skill's job is done.
 
 Verdict: **COMPLETE** — user oriented and handed off to next step.
 
@@ -241,5 +282,10 @@ Verdict: **COMPLETE** — user oriented and handed off to next step.
 1. **Ask first** — never assume the user's state or intent
 2. **Present options** — give clear paths, not mandates
 3. **User decides** — they pick the direction
-4. **No auto-execution** — recommend the next skill, don't run it without asking
+4. **Scoped execution** — recommendations need authorization; an existing request for setup/implementation already supplies that scope
 5. **Adapt** — if the user's situation doesn't fit a template, listen and adjust
+
+For libGDX onboarding use `/setup-engine libgdx [version]`, the five-role routing
+and `.claude/docs/libgdx-development.md`. The Java desktop/headless starter is an
+optional authorized scaffold, not an automatic installation. Kotlin/KTX and other
+backends need explicit choices and verified toolchains.

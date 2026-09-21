@@ -1,8 +1,16 @@
 # Codex adapter validation
 
-Current local acceptance: **v0.1.1-beta, 2026-09-21**. Original baseline: `984023ddac0d5e27624f2baacde6105e45de375f`. This report separates file integrity, deterministic checks, real Git fixtures and sampled model behavior. None certifies full runtime equivalence or actual game-engine readiness. The historical v0.1.0 evidence is retained below with its original date and scope.
+## Current v0.2.0-beta acceptance
 
-| Evidence layer | Current observed result | Limit |
+See [feature validation — 2026-09-21](feature-validation-2026-09-21.md) for the current 74-workflow/57-role inventory, 128 adapter tests, five fresh-agent samples, actual Chromium and libGDX headless/build evidence, exact candidate CI tree and pending final publication gates. Board-sync remains entirely unimplemented.
+
+The sections below are historical implementation checkpoints, retained with their original counts and then-pending work; the current feature report supersedes their pending feature acceptance statements.
+
+## Historical v0.1.1-beta checkpoint
+
+Prior local acceptance: **v0.1.1-beta, 2026-09-21**. Original baseline: `984023ddac0d5e27624f2baacde6105e45de375f`. This report separates file integrity, deterministic checks, real Git fixtures and sampled model behavior. None certifies full runtime equivalence or actual game-engine readiness. The historical v0.1.0 evidence is retained below with its original date and scope.
+
+| Evidence layer | Prior v0.1.1 observed result | Limit |
 |---|---|---|
 | Source integrity | All 417 baseline paths retained; 407 match original SHA256 and 10 match explicit reviewed patches; original lock unchanged | Reviewed corrections deliberately differ from upstream bytes |
 | Capability inventory | 73 skills, 49 roles, 11 rules, 12 hook scripts, 40 recursive templates, 126 behavior-framework Markdown files retained | Inventory is not workflow execution |
@@ -20,13 +28,13 @@ python3 -m unittest discover -s tests/codex_adapter -v
 python3 tools/ccgs_codex.py doctor
 ```
 
-## Current regression and Git evidence
+## v0.1.1 regression and Git evidence
 
 New deterministic checks were observed failing before their respective fixes, then passing. They cover malformed or unsafe patch ledgers, exact source hashes, large single-line ADR sections, fenced fake status/headings, numbered/nested sections, ambiguous/missing status, complete bounded reconstruction, changed-file detection and corrected workflow ordering. An independent task review reproduced a fence-depth bug where a quoted marker inside a top-level code fence exposed a fake Accepted status; the depth-aware correction and regression now pass. Earlier phase reviews completed without remaining scoped findings; whole-branch release review is a separate acceptance step.
 
 Six disposable local Git repositories exercised: shared/unrelated history with non-overlapping customization (2), shared/unrelated history with overlapping edits and explicit conflict resolution (2), ordinary fast-forward update (1), and divergent merge refusal/conflict/abort (1). The selective updates preserved customized source and untouched adapter/configuration sentinels. Failed `git apply --check` left files unchanged; three-way conflicts required actual resolution or restoration. These validate the documented command paths, not arbitrary conflict-resolution correctness, archive recovery, or network publication.
 
-## Current fresh-agent observations
+## v0.1.1 fresh-agent observations
 
 ### Denied hotfix implementation
 
@@ -114,3 +122,155 @@ The latter fixes were preceded by five observed failing assertions (four new tes
 ## Remaining acceptance work
 
 Open this directory as the actual Codex project, review/trust its hooks, and observe live lifecycle and validation events. Select the real engine/version and run one complete feature through implementation, passing tests, independent review, closure and stage QA. Expand the original skill-testing framework across the desired workflows and full/lean/solo modes. Native Windows registration, all-engine behavior, complex nested teams, hard role-policy equivalence, notification equivalence and user-scoped memory remain unverified or documented host differences.
+
+## Web-engine Task 1 extension — 2026-09-21
+
+Canonical workflow support adds phaser-specialist and threejs-specialist while
+preserving the original lock and 73 workflow/49 role identity sets. Current
+inventory is 51 roles. Source-contract tests cover identity preservation,
+canonical/generated bodies, routing targets and reference/spec resolution.
+These are deterministic structural checks, not executed behavioral scenarios.
+On Python 3.10.0, `python3 -m unittest discover -s tests/codex_adapter -v`
+passed 77 tests after regeneration. `check --strict-upstream` passed; 417 baseline
+paths remain (382 original hashes, 35 reviewed hashes), and the original lock
+SHA256 above is unchanged. The generator produced 126 files; 51 role profiles
+and project config parsed with the local pip-vendored tomli. `git diff --check`
+passed. Python 3.12 CI and remote CI execution were not run locally.
+
+Scaffold implementation, package installation, typecheck/unit/build/browser runs
+and screenshot acceptance are forthcoming in Task 2. New behavioral catalog
+entries intentionally have blank execution fields. No browser, Safari, mobile,
+WebGPU or native hardware verification is claimed by this phase. Earlier counts
+and observed runs above retain their historical scope.
+
+## Web scaffold implementation — 2026-09-21
+
+The `scaffold-web` command now previews/copies explicit manifests for Phaser 3
+and Three.js without npm, network access, overwrites or engine-state changes.
+Its filesystem tests cover both exact byte/hash manifests, dry-run, aliases,
+invalid/traversal/protected paths, all output collision positions, symlinks,
+repeat invocation, existing studio files and rollback after a mid-write failure.
+
+Exact game pins remain Phaser 3.90.0 and Three.js/@types/three 0.186.0. The
+initial Vite 7.3.1/Vitest 4.1.9 candidate passed build/unit checks but npm audit
+reported development-server advisories. The reviewed baseline was refreshed to
+Vite 7.3.6 and Vitest 4.1.11; TypeScript 5.9.3 and Playwright 1.58.2 remain pinned.
+The compatible transitive esbuild resolved to 0.28.2; final `npm audit --json`
+reported zero vulnerabilities for both locks on this date. Lock generation used
+task-local npm 11.6.2 after npm 10.9.2's initial dependency
+resolver threw an internal `edgesOut` error. The resulting lockfiles install
+with normal npm 10.9.2 on Node 22.14.0 using `npm ci`; no global npm change or
+peer-dependency bypass is required.
+
+The clean-fixture acceptance commands are `npm ci`, `npm run typecheck`,
+`npm test`, `npm run build`, `npx playwright install chromium`, then
+`npm run test:browser`. Fresh copies of both final templates passed all four install/type/unit/build
+commands on Node 22.14.0/npm 10.9.2. After review fixes, each template passed
+ten unit tests: five simulation, two modifier-input and three page-lifecycle tests.
+Matching Chromium installation and discovery of four browser scenarios per
+template succeeded; discovery did not execute them. Unit discovery is
+`tests/web-unit/**/*_test.ts`; browser discovery is `tests/browser`. The engine
+bundles currently trigger Vite's 500 kB chunk warning (approximately 1.21 MB
+Phaser / 530 kB Three.js uncompressed JS); these are starter templates, not
+optimized download budgets.
+
+Browser acceptance remains **NOT VERIFIED locally**: downloaded Chromium 145
+and its matching headless shell abort before page creation in this macOS host's
+application registration path. Type/unit/build checks and Playwright discovery
+are separate evidence and do not prove canvas output. The release-blocking Linux
+web CI matrix runs real keyboard/pointer, two collection/reset cycles, focus
+clearing, resize, teardown and actual Three WebGL2 checks against owned production
+preview. Additional scenarios exercise modifier transitions and explicit persisted
+pagehide/pageshow suspension/restoration; the latter tests the event contract,
+not the browser’s independent back/forward-cache eligibility decision. Final
+pagehide/HMR still releases owned resources. It uploads screenshots/traces for
+inspection, including failure artifacts.
+Until that CI run and visual inspection are recorded, browser acceptance is open.
+The full Python adapter suite passed 87 tests; strict provenance and generated
+integrity checks passed with the original lock unchanged.
+Safari, mobile, WebGPU, native GPU performance and behavioral-agent adherence
+remain unverified. The historical Task 1 counts/results above are unchanged.
+
+## Tooling implementation checks — 2026-09-21
+
+The tooling addition retains the unchanged 417-file baseline lock, all 73 original
+workflow and 49 original role identities, plus the earlier web additions. Current
+inventory is **74 workflows, 52 roles, 11 rules, 12 hooks, 41 templates and 130
+behavior-spec Markdown files**. Exact reviewed baseline changes are recorded in
+the existing patch ledger; additive files do not replace baseline entries.
+
+Local Python 3.10.0 on macOS 13.7.8 passed **112 adapter tests**: the existing 87
+plus 18 read-only project-classification/CLI cases and 7 converter test methods
+(including multiple invalid-input fixtures). `generate`, strict reviewed-source
+integrity and `git diff --check` passed. Classifier cases cover placeholder/fenced
+and metadata-only documents, configured original/web engines, stage precedence,
+invalid markers/UTF-8/JSON, symlinks, rejected-root status reads and no mutation.
+
+The [level-exporter example](../../examples/tooling/level-exporter/README.md) was
+also run twice as an actual subprocess on its real synthetic fixture. Both exits
+were 0 and output bytes matched. Input SHA256 before/after:
+`37cb8abe05802979e41111e54ec7e82018dff646cee6b49e7fa1aafaa130ec26`.
+Both output SHA256 values:
+`329d5c9dc9ec70198862a72f6a3b600ddacd86addd445fc1fd98a19b761c669d`.
+Real filesystem tests verify malformed/duplicate/missing data, unchanged existing
+output/input, partial-batch rejection and atomic create-only publication when a
+competing writer creates the final path immediately before publication. Temporary
+cleanup is checked on failures. Filesystems lacking hard-link support fail explicitly.
+
+These are deterministic code and file-processing observations, not certification of
+agent behavior, native engine binary conversion/import, directory-metadata crash
+durability or other platforms. A separate fresh baseline operator demonstrated the
+old onboarding's missing canonical tool contract and tooling stage; it already
+respected engine-agnostic and lean requests. New standalone/mixed-game workflow and
+independent-review acceptance remain separate controller gates at this implementation
+checkpoint. Earlier web CI/browser evidence is unchanged; no browser test was rerun.
+
+
+## libGDX Task 1 — 2026-09-21
+
+The current canonical inventory is **74 workflows, 57 roles, 11 rules, 12 hooks,
+41 document templates and 135 behavioral-framework Markdown files**. The original
+73 workflow and 49 role identity sets remain exact subsets; expected additions
+are asserted by identity in adapter tests and CI. Five libGDX roles generate full
+native profiles and reference bodies. The original 417-file lock retains SHA256
+`fb68f5ff2fd503611db210ee6c84e7820865778b4da4275bf5447667a2a72afa`;
+359 baseline paths retain original bytes and 58 have exact reviewed patch hashes.
+
+Local Python3.10 adapter suite: **128 tests passed** (117 prior plus 11 libGDX
+source/filesystem integration tests). Generated output:133 files, all57 role TOML
+profiles and project config parsed; strict provenance/generation and diff whitespace
+checks passed. Behavioral role/workflow scenarios are authored and catalogued;
+these static tests are not their execution. The controller owns independent agent
+behavior/review and public CI acceptance.
+
+The official Gradle8.14.3 wrapper JAR matches SHA256
+`7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172`,
+retains its embedded license and Unix executable script mode. Its distribution
+checksum is pinned, and strict dependency locks cover all resolvable runtime/test
+configurations. The copier preview and collision/symlink/no-overwrite behavior are
+exercised with real files, including binary bytes and mode-failure rollback.
+
+A clean 24-file copy was executed on macOS13.7.8 x86_64 with Temurin21.0.12.1+1,
+Gradle8.14.3, libGDX1.14.2 and JUnit Jupiter5.13.4. Exact source/fixture hashes and
+modes matched. `./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon
+--no-watch-fs --offline` passed without rewriting locks: **7 pure tests +3 actual
+HeadlessApplication tests**, zero failures/errors, and desktop distribution built.
+Headless tests verify collection/reset, create/render/pause/dispose, callback error
+propagation, bounded timeout cleanup and repeated-run Gdx isolation. The actual
+`:headless:run` command also passed and printed `Collected signal; score=1`.
+See [machine-readable receipt](libgdx-evidence.json) for the exact template hashes.
+
+Gradle required a localhost lock socket denied in the worker sandbox; the
+controller executed the exact requested commands under the prepared task-local
+runtime. Initial offline resolution lacked one JUnit API dependency, which the
+controller resolved online before the valid missing-implementation red run.
+Subsequent clean acceptance used the populated cache offline. JDK21 emitted
+obsolete Java8 source/target warnings; no build error remained. No global JDK or
+machine configuration was changed.
+
+Desktop packaging does **not** verify GPU frames, keyboard feel or audio. Desktop
+playtests, mobile/GWT, Kotlin/KTX, Ashley and Box2D are not claimed. The new CI job
+uses JDK21, official wrapper validation, clean copied locked acceptance and test
+artifact retention, and joins prior verify/web jobs as a release dependency.
+Public CI execution is a separate controller gate. Earlier validation sections
+retain their historical counts and limits.

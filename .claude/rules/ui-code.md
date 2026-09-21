@@ -1,6 +1,13 @@
 ---
 paths:
   - "src/ui/**"
+  - "core/src/main/**/ui/**"
+  - "lwjgl3/src/main/**/ui/**"
+  - "headless/src/main/**/ui/**"
+  - "desktop/src/main/**/ui/**"
+  - "android/src/main/**/ui/**"
+  - "ios/src/main/**/ui/**"
+  - "html/src/main/**/ui/**"
 ---
 
 # UI Code Rules

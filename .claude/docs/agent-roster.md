@@ -34,6 +34,7 @@ domain lead) should delegate to specialists.
 | `engine-programmer` | Engine systems | Sonnet | Core engine, rendering, physics, memory management |
 | `ai-programmer` | AI systems | Sonnet | Behavior trees, pathfinding, NPC logic, state machines |
 | `network-programmer` | Networking | Sonnet | Netcode, replication, lag compensation, matchmaking |
+| `game-pipeline-developer` | CLI/data pipelines | Standalone CLI, converters and data pipelines with TOOL_SPEC, deterministic I/O and safe publication |
 | `tools-programmer` | Dev tools | Sonnet | Editor extensions, pipeline tools, debug utilities |
 | `ui-programmer` | UI implementation | Sonnet | UI framework, screens, widgets, data binding |
 | `technical-artist` | Tech art | Sonnet | Shaders, VFX, optimization, art pipeline tools |
@@ -60,6 +61,12 @@ domain lead) should delegate to specialists.
 | `unreal-specialist` | Unreal Engine 5 | Sonnet | Blueprint vs C++, GAS overview, UE subsystems, Unreal optimization |
 | `unity-specialist` | Unity | Sonnet | MonoBehaviour vs DOTS, Addressables, URP/HDRP, Unity optimization |
 | `godot-specialist` | Godot 4 | Sonnet | GDScript patterns, node/scene architecture, signals, Godot optimization |
+| `phaser-specialist` | Phaser 3 | Sonnet | Scenes, loading/input, 2D rendering, restart/resource ownership |
+| `threejs-specialist` | Three.js | Sonnet | Scene graph, WebGL2, loaders, one loop and GPU disposal |
+
+Web leads report through lead-programmer to technical-director and reuse existing
+programmer, UI, technical-art, audio, networking and QA roles. There are no
+engine-specific web sub-specialists. Current total: 57 roles; 49 original identities retained (plus web leads, tooling developer and five libGDX roles).
 
 ### Unreal Engine Sub-Specialists
 
@@ -87,3 +94,18 @@ domain lead) should delegate to specialists.
 | `godot-csharp-specialist` | C# / .NET | Sonnet | .NET patterns, [Signal] delegates, async, nullable types, type-safe node access |
 | `godot-shader-specialist` | Shaders/Rendering | Sonnet | Godot shading language, visual shaders, particles, post-processing |
 | `godot-gdextension-specialist` | GDExtension | Sonnet | C++/Rust bindings, native performance, custom nodes, build systems |
+
+
+### libGDX Lead and Sub-Specialists
+
+| Agent | Responsibility | Reports to |
+|---|---|---|
+| `libgdx-specialist` | Engine, language/backend decisions and delegation | lead-programmer → technical-director |
+| `libgdx-scene2d-specialist` | Stage/Table/Skin, layout, viewport and input focus | libgdx-specialist |
+| `libgdx-graphics-specialist` | Batches, shaders, framebuffers and GPU ownership | libgdx-specialist |
+| `libgdx-ashley-specialist` | Optional ECS/Box2D, ordering, stepping and contacts | libgdx-specialist |
+| `libgdx-core-specialist` | Lifecycle/assets/platform APIs, Gradle and backends | libgdx-specialist |
+
+All use Sonnet source metadata with maxTurns 20. Codex inherits the selected host
+model according to its runtime contract. Choose subsystem by actual imports and
+responsibility; ambiguous Java/Kotlin falls back to the libGDX lead.
