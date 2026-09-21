@@ -346,8 +346,8 @@ existing work. Game components retain their game's engine, stage and review mode
 Setup alone does not implement or review the tool. The Python 3.10+ standard-library
 [CSV example](examples/tooling/level-exporter/README.md) needs no engine/provider.
 
-Preview `python3 tools/ccgs_codex.py scaffold-web phaser --target ../my-web-game`
-(or `threejs`) or `python3 tools/ccgs_codex.py scaffold-libgdx --target ../my-java-game`.
+Preview `python3 tools/ccgs_codex.py scaffold-web phaser --target my-web-game`
+(or `threejs`) or `python3 tools/ccgs_codex.py scaffold-libgdx --target my-java-game`.
 Append `--write` only for the chosen copy; no files are overwritten or packages
 installed. Web targets need Node >=22.12.0/npm; Java targets need JDK 21 and the
 included Gradle wrapper. Run installs/tests inside the copied target. The complete

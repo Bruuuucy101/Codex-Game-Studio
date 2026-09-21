@@ -116,12 +116,12 @@ GPU、移动端、GWT、Kotlin/KTX 验证范围见[libGDX 开发说明](.claude/
 `使用 ccgs-setup-engine threejs 0.186.0` 或 `使用 ccgs-setup-engine libgdx 1.14.2`。
 已有项目的锁定版本优先，保留 full / lean / solo 的原审查要求。
 
-从工作室根目录预览，再仅为选定命令追加 `--write`：
+从工作室根目录预览（目标为当前目录下的子目录），再仅为选定命令追加 `--write`：
 
 ```sh
-python3 tools/ccgs_codex.py scaffold-web phaser --target ../my-web-game
-python3 tools/ccgs_codex.py scaffold-web threejs --target ../my-three-game
-python3 tools/ccgs_codex.py scaffold-libgdx --target ../my-java-game
+python3 tools/ccgs_codex.py scaffold-web phaser --target my-web-game
+python3 tools/ccgs_codex.py scaffold-web threejs --target my-three-game
+python3 tools/ccgs_codex.py scaffold-libgdx --target my-java-game
 ```
 
 复制拒绝碰撞和符号链接，保留现有文件，不安装依赖。后续在**对应目标目录**运行：

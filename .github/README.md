@@ -37,12 +37,12 @@ Choose your game concept and engine through that workflow. Start in a fresh proj
 
 Ask Codex `Use ccgs-setup-engine phaser 3.90.0`, `Use ccgs-setup-engine threejs 0.186.0`, or `Use ccgs-setup-engine libgdx 1.14.2`. Existing project pins take precedence. For an engine-agnostic tool, ask `Use ccgs-setup-tool level-exporter author --review lean`; `update` and `adopt` handle existing contracts. Start path E also leads to tooling. Setup writes an authorized specification, not an implemented tool. Components inside games preserve game configuration and stage. All original engines and full/lean/solo modes remain available.
 
-From the studio root, preview one starter into a separate target:
+From the studio root, preview one starter into a child directory (targets are relative to the current directory):
 
 ```sh
-python3 tools/ccgs_codex.py scaffold-web phaser --target ../my-web-game
-python3 tools/ccgs_codex.py scaffold-web threejs --target ../my-three-game
-python3 tools/ccgs_codex.py scaffold-libgdx --target ../my-java-game
+python3 tools/ccgs_codex.py scaffold-web phaser --target my-web-game
+python3 tools/ccgs_codex.py scaffold-web threejs --target my-three-game
+python3 tools/ccgs_codex.py scaffold-libgdx --target my-java-game
 ```
 
 Append `--write` to the chosen command after checking the preview. Copying refuses collisions/symlinks, preserves existing files and never installs dependencies. Run subsequent commands **inside the copied target**:
