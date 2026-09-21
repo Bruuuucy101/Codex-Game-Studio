@@ -198,3 +198,11 @@ treat this confirmation as a failure.
 - The Vertical Slice validation block (Pre-Production → Production gate) is not
   covered because it requires a playable build context that cannot be expressed
   as a document fixture.
+
+## Tool readiness applicability
+
+Execute setup-tool Case 7 readiness in full/lean/solo. Standalone Tooling Project
+never advances through game stages: actual contract/code/test/independent-review
+evidence determines tool readiness. Full/lean use technical-director and producer;
+solo reports skipped directors. Creative/art/game-fun checks are reasoned N/A, never
+passed game gates. Repeat on a mixed game: all original game gates/panels remain.

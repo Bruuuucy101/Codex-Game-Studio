@@ -2,180 +2,89 @@
 
 ## Skill Summary
 
-`/start` is the first-time onboarding skill for new projects. It guides the
-user through naming the project, choosing a game engine, and setting up the
-initial directory structure. It creates stub configuration files (CLAUDE.md,
-technical-preferences.md) and then routes to `/setup-engine` with the chosen
-engine as an argument. Each file or directory created is gated behind a
-"May I write" ask, following the collaborative protocol.
-
-The skill detects whether a project is already configured and whether a
-partial setup exists, offering to resume or restart as appropriate. It has
-no director gates — it is a utility setup skill that runs before any agent
-hierarchy exists.
-
----
+Read existing project evidence, ask A–E or honor an already supplied path, initialize
+only authorized absent state, preserve review mode, and recommend/perform the scoped
+next workflow. Engine configuration belongs to setup-engine; start does not create
+an engine scaffold. This specification follows the actual onboarding workflow rather
+than the inherited engine-picker/stub-creation expectations.
 
 ## Static Assertions (Structural)
 
-Verified automatically by `/skill-test static` — no fixture needed.
-
-- [ ] Has required frontmatter fields: `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`
-- [ ] Has ≥2 phase headings
-- [ ] Contains verdict keywords: COMPLETE, BLOCKED
-- [ ] Contains "May I write" collaborative protocol language for each config file
-- [ ] Has a next-step handoff at the end (routes to `/setup-engine`)
-
----
+- [ ] Required skill metadata and phase headings are present.
+- [ ] The shared classifier, stage/review paths and referenced workflows resolve.
+- [ ] COMPLETE is a setup/handoff result, not implemented-game/tool certification.
 
 ## Director Gate Checks
 
-None. `/start` is a utility setup skill. No director agents exist yet at the
-point this skill runs.
-
----
+Start has no director gate. Saving a mode does not itself execute reviews.
 
 ## Test Cases
 
-### Case 1: Happy Path — Fresh repo, no engine, full onboarding flow
+### Case 1: Fresh game idea — A and B
 
-**Fixture:**
-- Empty repository: no CLAUDE.md overrides, no `production/stage.txt`, no
-  `technical-preferences.md` content beyond placeholders
-- No existing design docs or source code
+Fixture: full pristine adapter including scripts, tests, web templates and samples;
+no meaningful game concept, configured Engine field, stage, marker or tool spec.
+Input `/start`, choose A, then choose lean and recommendation-only handoff.
+Expected: show A–E; no “detected tooling” from shipped tools/tests. Recommend
+`/brainstorm open`, preserve original concept → architecture → pre-production →
+production path; write Concept/lean only after their selections. No engine install,
+engine scaffold, project implementation or fabricated tests. Repeat B with supplied
+hint: recommend `/brainstorm [hint]`. No tool contract/marker is created.
 
-**Input:** `/start`
+### Case 2: Clear concept — C
 
-**Expected behavior:**
-1. Skill detects no existing configuration and begins fresh onboarding
-2. Skill asks for project name
-3. Skill presents 3 engine options: Godot 4, Unity, Unreal Engine 5
-4. User selects an engine
-5. Skill asks "May I write the initial directory structure?"
-6. Skill creates all directories defined in `directory-structure.md`
-7. Skill asks "May I write CLAUDE.md stub?" and writes it on approval
-8. Skill routes to `/setup-engine [chosen-engine]` to complete technical config
+Fixture: fresh project, supplied game concept. Expected: offer formalize via
+brainstorm or setup-engine; preserve prototype and separate vertical-slice phases,
+all original game workflows and mode choices. Engine selection and references are
+resolved by actual setup-engine, not three hardcoded choices inside start.
 
-**Assertions:**
-- [ ] Project name is captured before any file is written
-- [ ] Exactly 3 engine options are presented
-- [ ] "May I write" is asked for each config file individually
-- [ ] No file is written without explicit user approval
-- [ ] Handoff to `/setup-engine` occurs at the end with the chosen engine argument
-- [ ] Verdict is COMPLETE after all files are written and handoff is issued
+### Case 3: Existing game — D and resume
 
----
+Fixture: configured Unity/Godot/Unreal/Phaser/Three.js or explicit custom game runtime;
+meaningful concept, stage Production (repeat Polish/Release), saved full mode.
+Expected: preserve stage and review mode byte-for-byte. Recommend stage-detect/adopt
+or current work according to artifacts; never reset to Technical Setup from counts.
+Engine missing → setup-engine recommendation for a game. Returning configured users
+may skip onboarding. No template source counts as implemented game behavior.
 
-### Case 2: Already Configured — Detects existing config, offers to skip or reconfigure
+### Case 4: Partial project and inconsistent choice
 
-**Fixture:**
-- `technical-preferences.md` has engine already set (not placeholder)
-- `production/stage.txt` exists with `Concept`
+Fixture: only concept or incomplete docs, no stage. User chooses D.
+Expected: appropriate initial stage mapping and gap recommendations. If user chooses
+D for an empty template, explain mismatch and offer A/B. If they choose A with real
+code, surface existing work. No automatic deletion/reconfiguration from contradiction.
+Invalid marker/stage/symlink must be reported; dependent state writes wait for repair.
 
-**Input:** `/start`
+### Case 5: Review modes and authorization
 
-**Expected behavior:**
-1. Skill reads `technical-preferences.md` and detects configured engine
-2. Skill reports: "This project is already configured with [engine]"
-3. Skill presents options: skip (exit), reconfigure engine, or reconfigure specific sections
-4. If user selects skip: skill exits cleanly with a summary of current config
-5. If user selects reconfigure: skill proceeds to the engine-selection step
+Repeat full/lean/solo. A saved mode is read and preserved without another prompt;
+a supplied choice is used; otherwise ask once. An explicit request to perform setup
+continues the authorized workflow; recommendation-only requests do not execute it.
+No repeated write approval where the user's existing instruction already covers it.
 
-**Assertions:**
-- [ ] Skill does NOT overwrite existing config without user choosing reconfigure
-- [ ] Detected engine name is shown to the user in the status message
-- [ ] User is offered at least 2 options (skip or reconfigure)
-- [ ] Verdict is COMPLETE whether user skips or reconfigures
+### Case 6: Standalone tool — E
 
----
+Run the exact engine-agnostic baseline scenario in
+`CCGS Skill Testing Framework/skills/utility/setup-tool.md`, Case 2.
+Expected: E → actual setup-tool; recognized TOOL_SPEC, tooling marker and Tooling
+Project stage; no invented Concept lifecycle, docs/project-spec substitute or engine
+VERSION. Setup-only creates no converter/tests and claims no independent review.
 
-### Case 3: Engine Choice — User picks Godot 4, routes to /setup-engine godot
+### Case 7: Tool component in an existing game
 
-**Fixture:**
-- Fresh repo — no existing configuration
+Run setup-tool Case 3. Expected: preserve game Technology Stack, engine import,
+production stage, marker and review mode byte-for-byte; save component contract
+and separate tooling section. Unknown choice is clarified without destructive writes.
 
-**Input:** `/start`
+### Case 8: Web source evidence
 
-**Expected behavior:**
-1. Skill presents engine options and user selects Godot 4
-2. Skill writes initial stubs (directory structure, CLAUDE.md) after approval
-3. Skill explicitly routes to `/setup-engine godot` as the next step
-4. Handoff message clearly names the engine and the next skill invocation
+Fixture: bundled Phaser/Three templates/examples plus no configured engine/concept.
+Expected: unknown, no completed game/tool claim. Then use explicit adopted web root
+or real root manifest/configuration: recognize game evidence without claiming browser,
+engine version or application behavior verified merely from dependency declarations.
 
-**Assertions:**
-- [ ] Handoff command is `/setup-engine godot` (not generic `/setup-engine`)
-- [ ] Handoff is issued after all initial stubs are written, not before
-- [ ] Engine choice is echoed back to user before writing begins
+## Evidence and limits
 
----
-
-### Case 4: Interrupted Setup — Partial config detected, offers resume or restart
-
-**Fixture:**
-- Directory structure exists (was created) but `technical-preferences.md` is
-  still all placeholders (engine was never chosen — setup was interrupted)
-- No `production/stage.txt`
-
-**Input:** `/start`
-
-**Expected behavior:**
-1. Skill detects partial state: directories exist but engine is unconfigured
-2. Skill reports: "A partial setup was detected — directories exist but engine is not configured"
-3. Skill offers: resume from engine selection, or restart from scratch
-4. If resume: skill skips directory creation, proceeds to engine choice
-5. If restart: skill asks "May I overwrite existing structure?" before proceeding
-
-**Assertions:**
-- [ ] Partial state is correctly identified (directories present, engine absent)
-- [ ] User is offered resume vs. restart choice — not forced into one path
-- [ ] Resume path skips re-creating directories (no redundant "May I write" for structure)
-- [ ] Restart path asks for permission to overwrite before touching any files
-
----
-
-### Case 5: Director Gate Check — No gate; start is a utility setup skill
-
-**Fixture:**
-- Any fixture
-
-**Input:** `/start`
-
-**Expected behavior:**
-1. Skill completes full onboarding flow
-2. No director agents are spawned at any point
-3. No gate IDs (CD-*, TD-*, AD-*, PR-*) appear in the output
-
-**Assertions:**
-- [ ] No director gate is invoked during the skill execution
-- [ ] No gate skip messages appear (gates are absent, not suppressed)
-- [ ] Skill reaches COMPLETE without any gate verdict
-
----
-
-## Protocol Compliance
-
-- [ ] Asks for project name before any file is written
-- [ ] Presents engine options as a structured choice (not free text)
-- [ ] Asks "May I write" separately for directory structure and for CLAUDE.md stub
-- [ ] Ends with a handoff to `/setup-engine` with the engine name as argument
-- [ ] Verdict is clearly stated (COMPLETE or BLOCKED) at end of output
-
----
-
-## Coverage Notes
-
-- The case where the user rejects all engine options and provides a custom
-  engine name is not tested — the skill is designed for the three supported
-  engines only.
-- Git initialization (if any) is not tested here; that is an infrastructure
-  concern outside the skill boundary.
-- Solo vs. lean mode behavior is not applicable — this skill has no gates and
-  mode selection is irrelevant.
-
-## Web source evidence case (not yet behaviorally executed)
-
-Fixture A: framework templates/web and node_modules only, placeholder technical
-preferences. Expected: still unconfigured; installed examples are not game code.
-Fixture B: configured Phaser 3/Three.js plus real src/core/*.ts and engine adapter.
-Expected: recognize actual JS/TS source and respect the selected engine; use the
-existing onboarding path, never force Godot because its bundled reference exists.
+Use fresh operators, record full before/after file maps, actual actions and preserved
+bytes. No case is marked PASS solely from this source file. Full game and tooling
+independent review/engine acceptance belong to their actual workflows.

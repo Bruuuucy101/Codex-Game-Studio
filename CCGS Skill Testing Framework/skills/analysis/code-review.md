@@ -170,3 +170,11 @@ None. Code review is a read-only advisory skill; no gates are invoked.
   is assumed to apply the same checks file by file and aggregate the verdict.
 - Test coverage checks (verifying corresponding test files exist) are a stretch
   goal not tested here; that is primarily the domain of `/test-evidence-review`.
+
+## Tool contract review in full, lean and solo
+
+Execute setup-tool Case 7 with actual tool source/tests/fixtures and no story. Observe
+fresh lead/pipeline/QA role dispatch in every mode, real findings for determinism,
+I/O/failure/atomicity, and engine consultation only where formats/consumers require it.
+No story-done option without a real story, no simulated self-review, no mode downgrade.
+Missing or non-Accepted referenced ADR blocks approval; unrun tests remain unverified.

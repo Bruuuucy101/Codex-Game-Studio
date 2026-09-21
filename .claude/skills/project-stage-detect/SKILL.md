@@ -21,6 +21,31 @@ of artifacts, and gaps that need attention. It's especially useful when:
 
 ## Workflow
 
+### 0. Resolve project kind and explicit state first
+
+Run `python3 tools/ccgs_codex.py project-kind`; use the shared JSON and read the
+contract/evidence it names. `conflict` is a configuration blocker: report actionable
+paths and stop classification; do not fall back to a guessed stage or write state.
+Valid kind/stage inconsistencies remain visible and require scoped resolution.
+Read `.claude/docs/tooling-projects.md` for the exact contract.
+
+For standalone tooling, report **Tooling Project** only when explicit compatible
+stage exists, otherwise “tooling candidate / stage not configured” and recommend
+`/setup-tool`. Report gaps separately: meaningful contract sections, usage/runtime
+pins, actual owned tool source, representative fixtures, units/CLI integration,
+independent review, current ADR dependencies, and saved resume task. Validate evidence
+paths and actual results; adapter tests and example files are not this target's test
+coverage. Do not calculate a completion percentage from file counts or invent a
+Concept/Production/Polish transition. GDD, fun, art bible and game-engine gates are
+N/A with a reason for a genuinely standalone agnostic tool. Use this tooling report
+instead of the game heuristic/completeness sections below; preserve approval before
+writing a report. Missing/incomplete spec → `/setup-tool update` or author/adopt;
+missing implementation → lead/pipeline role; evidence gaps → actual tests/code review.
+
+Game projects (including tool components) continue below with their explicit stage
+preserved and tool gaps listed separately. Unknown pristine templates retain Concept
+onboarding as a recommendation; classification itself never writes stage/kind.
+
 ### 1. Scan Key Directories
 
 Analyze project structure and content:
@@ -67,6 +92,7 @@ auto-detect using these heuristics (check from most-advanced backward):
 
 | Stage | Indicators |
 |-------|-----------|
+| **Tooling Project** | Standalone-tool branch above; explicit compatible stage, gaps tracked separately |
 | **Concept** | No game concept doc, brainstorming phase |
 | **Systems Design** | Game concept exists, systems index missing or incomplete |
 | **Technical Setup** | Systems index exists, engine not configured |
@@ -94,7 +120,7 @@ Use template: `.claude/docs/templates/project-stage-report.md`
 # Project Stage Analysis
 
 **Date**: [date]
-**Stage**: [Concept/Systems Design/Technical Setup/Pre-Production/Production/Polish/Release]
+**Stage**: [Concept/Systems Design/Technical Setup/Pre-Production/Production/Polish/Release/Tooling Project/unconfigured tooling candidate]
 **Stage Confidence**: [PASS — clearly detected / CONCERNS — ambiguous signals / FAIL — critical gaps block progress]
 
 ## Completeness Overview

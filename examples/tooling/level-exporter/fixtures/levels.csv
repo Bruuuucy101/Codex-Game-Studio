@@ -1,0 +1,3 @@
+id,x,y,type
+spawn-b,2.5,-3,enemy
+spawn-a,0,1,player

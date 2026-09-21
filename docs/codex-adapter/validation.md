@@ -182,3 +182,37 @@ The full Python adapter suite passed 87 tests; strict provenance and generated
 integrity checks passed with the original lock unchanged.
 Safari, mobile, WebGPU, native GPU performance and behavioral-agent adherence
 remain unverified. The historical Task 1 counts/results above are unchanged.
+
+## Tooling implementation checks — 2026-09-21
+
+The tooling addition retains the unchanged 417-file baseline lock, all 73 original
+workflow and 49 original role identities, plus the earlier web additions. Current
+inventory is **74 workflows, 52 roles, 11 rules, 12 hooks, 41 templates and 130
+behavior-spec Markdown files**. Exact reviewed baseline changes are recorded in
+the existing patch ledger; additive files do not replace baseline entries.
+
+Local Python 3.10.0 on macOS 13.7.8 passed **112 adapter tests**: the existing 87
+plus 18 read-only project-classification/CLI cases and 7 converter test methods
+(including multiple invalid-input fixtures). `generate`, strict reviewed-source
+integrity and `git diff --check` passed. Classifier cases cover placeholder/fenced
+and metadata-only documents, configured original/web engines, stage precedence,
+invalid markers/UTF-8/JSON, symlinks, rejected-root status reads and no mutation.
+
+The [level-exporter example](../../examples/tooling/level-exporter/README.md) was
+also run twice as an actual subprocess on its real synthetic fixture. Both exits
+were 0 and output bytes matched. Input SHA256 before/after:
+`37cb8abe05802979e41111e54ec7e82018dff646cee6b49e7fa1aafaa130ec26`.
+Both output SHA256 values:
+`329d5c9dc9ec70198862a72f6a3b600ddacd86addd445fc1fd98a19b761c669d`.
+Real filesystem tests verify malformed/duplicate/missing data, unchanged existing
+output/input, partial-batch rejection and atomic create-only publication when a
+competing writer creates the final path immediately before publication. Temporary
+cleanup is checked on failures. Filesystems lacking hard-link support fail explicitly.
+
+These are deterministic code and file-processing observations, not certification of
+agent behavior, native engine binary conversion/import, directory-metadata crash
+durability or other platforms. A separate fresh baseline operator demonstrated the
+old onboarding's missing canonical tool contract and tooling stage; it already
+respected engine-agnostic and lean requests. New standalone/mixed-game workflow and
+independent-review acceptance remain separate controller gates at this implementation
+checkpoint. Earlier web CI/browser evidence is unchanged; no browser test was rerun.

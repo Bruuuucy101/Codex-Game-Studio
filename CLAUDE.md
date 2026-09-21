@@ -1,6 +1,6 @@
 # Claude Code Game Studios -- Game Studio Agent Architecture
 
-Indie game development managed through 51 coordinated Claude Code subagents (49 original roles plus Phaser 3 and Three.js leads).
+Indie game development managed through 52 coordinated Claude Code subagents (49 original roles plus Phaser 3, Three.js and game-pipeline-developer).
 Each agent owns a specific domain, enforcing separation of concerns and quality.
 
 ## Technology Stack
@@ -19,6 +19,17 @@ Each agent owns a specific domain, enforcing separation of concerns and quality.
 ## Project Structure
 
 @.claude/docs/directory-structure.md
+
+## Project Kind and Tooling
+
+An optional `production/project-kind.txt` declares `game` or `tooling`; no marker
+is preconfigured. Use the read-only `python3 tools/ccgs_codex.py project-kind`
+classifier. `/start` option E and `/setup-tool` author `tools/TOOL_SPEC.md` for
+standalone tools or game components; see `.claude/docs/tooling-projects.md`.
+Standalone stage is `Tooling Project`. Existing games keep their stage and stack.
+For explicitly engine-agnostic standalone setup, engine context is reasoned N/A;
+the default import below is replaced only in that authorized project's setup.
+Do not invent an engine or block the agnostic setup on a missing default VERSION.
 
 ## Engine Version Reference
 
@@ -45,7 +56,7 @@ Every task follows: **Question -> Options -> Decision -> Draft -> Approval**
 See `docs/COLLABORATIVE-DESIGN-PRINCIPLE.md` for full protocol and examples.
 
 > **First session?** If the project has no engine configured and no game concept,
-> run `/start` to begin the guided onboarding flow.
+> run `/start` to begin the guided onboarding flow, including option E for tools.
 
 ## Coding Standards
 

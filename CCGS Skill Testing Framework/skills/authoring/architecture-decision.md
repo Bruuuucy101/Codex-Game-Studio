@@ -195,3 +195,11 @@ In `solo` mode: both gates are skipped. ADR is written with Status: Proposed.
   via Case 4 but not all link types are individually verified.
 - The TR-registry update (when new TR-IDs are defined in the ADR) is part of the
   write phase — tested implicitly via Case 1.
+
+## Engine-agnostic tooling ADR
+
+Execute setup-tool Case 6 with explicit runtime/format contract context and a missing
+or Proposed dependency. GDD/engine N/A is reasoned and contract-linked; a missing
+engine is not invented. Registry/current Accepted dependency constraints still apply.
+A new Proposed ADR does not unblock dependent implementation/stories. Full TD-ADR
+runs; lean/solo skips as before, without suppressing applicable format/engine review.

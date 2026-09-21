@@ -76,7 +76,7 @@ art-dir = art-director
 | technical-director | lead-programmer, devops-engineer, performance-analyst, technical-artist (technical decisions) |
 | producer | Any agent (task assignment within their domain only) |
 | game-designer | systems-designer, level-designer, economy-designer |
-| lead-programmer | gameplay-programmer, engine-programmer, ai-programmer, network-programmer, tools-programmer, ui-programmer; configured engine specialist for engine consultation |
+| lead-programmer | gameplay-programmer, engine-programmer, ai-programmer, network-programmer, tools-programmer, game-pipeline-developer, ui-programmer; configured engine specialist for engine consultation |
 | art-director | technical-artist, ux-designer |
 | audio-director | sound-designer |
 | narrative-director | writer, world-builder |
@@ -283,3 +283,13 @@ When the art bible or asset standards change, the art-director must notify:
 5. **Assumption-based implementation**: If a spec is ambiguous, the implementer
    must ask the specifier rather than guessing. Wrong guesses are more expensive
    than a question.
+
+## Standalone tool branch
+
+`lead-programmer` → `game-pipeline-developer` for contract-scoped CLI/data work.
+Editor tools retain `tools-programmer`; art constraints use `technical-artist`,
+build changes use `devops-engineer`, runtime consumers use configured engine/gameplay
+specialists. Coordinator dispatches on a lead's behalf when nested tools are unavailable.
+A fresh lead/pipeline/QA set reviews implementation independently in every review mode.
+Standalone readiness uses technical-director + producer in full/lean; game-phase
+creative/art gates are reasoned N/A. Mixed-game projects retain the original game panel.

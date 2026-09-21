@@ -4,12 +4,12 @@
   "baseline_commit": "984023ddac0d5e27624f2baacde6105e45de375f",
   "verification_contract": "Source coverage is not runtime or behavioral certification. See validation.md.",
   "counts": {
-    "skills": 73,
-    "agents": 51,
+    "skills": 74,
+    "agents": 52,
     "rules": 11,
     "hooks": 12,
-    "templates": 40,
-    "behavior_specs": 128
+    "templates": 41,
+    "behavior_specs": 130
   },
   "surfaces": {
     "skills": [
@@ -30,7 +30,7 @@
       {
         "name": "architecture-decision",
         "source": ".claude/skills/architecture-decision/SKILL.md",
-        "sha256": "ee273bcb3f84e2131d1222bd2e4691a218c5620c993ee74814daeafde95bbea5",
+        "sha256": "e309c8558601d0c71d1bc82f8018b46f1e96333036601a9c29b00dbc8c080051",
         "metadata": {
           "name": "architecture-decision",
           "description": "Creates an Architecture Decision Record (ADR) documenting a significant technical decision, its context, alternatives considered, and consequences. Every major technical choice should have an ADR.",
@@ -163,11 +163,11 @@
       {
         "name": "code-review",
         "source": ".claude/skills/code-review/SKILL.md",
-        "sha256": "5e9c0cac63bc5d0c9ca0a1a444ae4277792ce5da312d9a5927934d57781bd0a3",
+        "sha256": "c39317612b3afbba78d111598c5e95920d516373f89ab8d7666bfd265ccc6a51",
         "metadata": {
           "name": "code-review",
           "description": "Performs an architectural and quality code review on a specified file or set of files. Checks for coding standard compliance, architectural pattern adherence, SOLID principles, testability, and performance concerns.",
-          "argument-hint": "[path-to-file-or-directory]",
+          "argument-hint": "[path-to-file-or-directory] [story-path] [--review full|lean|solo]",
           "user-invocable": "true",
           "allowed-tools": "Read, Glob, Grep, Bash, Task, AskUserQuestion",
           "model": "sonnet",
@@ -325,7 +325,7 @@
       {
         "name": "gate-check",
         "source": ".claude/skills/gate-check/SKILL.md",
-        "sha256": "3ae463120765909eedb2d04f592191bf90afda4795ae88522d314e1833773da7",
+        "sha256": "c464e25ea1259bab884850fab55f6463072e5d4598a695afc1d21167d79ea0c4",
         "metadata": {
           "name": "gate-check",
           "description": "Validate readiness to advance between development phases. Produces a PASS/CONCERNS/FAIL verdict with specific blockers and required artifacts. Use when user says 'are we ready to move to X', 'can we advance to production', 'check if we can start the next phase', 'pass the gate'.",
@@ -472,7 +472,7 @@
       {
         "name": "project-stage-detect",
         "source": ".claude/skills/project-stage-detect/SKILL.md",
-        "sha256": "791886cbc13c8519559ec5b6c2d7ce764a9d71bbba71554a1589740f599199a5",
+        "sha256": "e7f922916e79761eef58e20cd05adb28724a053263a2a13a801885d7c2f1e7ee",
         "metadata": {
           "name": "project-stage-detect",
           "description": "Automatically analyze project state, detect stage, identify gaps, and recommend next steps based on existing artifacts. Use when user asks 'where are we in development', 'what stage are we in', 'full project audit'.",
@@ -644,6 +644,19 @@
         }
       },
       {
+        "name": "setup-tool",
+        "source": ".claude/skills/setup-tool/SKILL.md",
+        "sha256": "4a866b09400c4989b7faea8d3fad7cfefdc234c3df76c69b2be36cce265cf379",
+        "metadata": {
+          "name": "setup-tool",
+          "description": "Use when setting up a standalone game-development CLI, converter or data pipeline, adding a tool component to a game, or updating/adopting an existing tool contract.",
+          "argument-hint": "[tool-name or description] [author|update|adopt] [--review full|lean|solo]",
+          "user-invocable": "true",
+          "allowed-tools": "Read, Glob, Grep, Bash, Write, Edit, Task, AskUserQuestion",
+          "model": "sonnet"
+        }
+      },
+      {
         "name": "skill-improve",
         "source": ".claude/skills/skill-improve/SKILL.md",
         "sha256": "24efa8aa68ab240c1d9b1366275490ec9cce4034e1bbe34f214b830bda15617b",
@@ -725,13 +738,13 @@
       {
         "name": "start",
         "source": ".claude/skills/start/SKILL.md",
-        "sha256": "31e7a2cee0568de6e443fd3428fea36f6583478f6db25cac3fa18604c510af9f",
+        "sha256": "13b567dacb994c436598111fb7a0b7c57b8ae179c8f5f3ab81edf89414ec833e",
         "metadata": {
           "name": "start",
           "description": "First-time onboarding — asks where you are, then guides you to the right workflow. No assumptions.",
           "argument-hint": "[no arguments]",
           "user-invocable": "true",
-          "allowed-tools": "Read, Glob, Grep, Write, AskUserQuestion",
+          "allowed-tools": "Read, Glob, Grep, Bash, Write, AskUserQuestion",
           "model": "sonnet"
         }
       },
@@ -1142,6 +1155,19 @@
         }
       },
       {
+        "name": "game-pipeline-developer",
+        "source": ".claude/agents/game-pipeline-developer.md",
+        "sha256": "855c98613faec56d90a653ed5bce0f9101498b402909569b937e36eee871f33d",
+        "metadata": {
+          "name": "game-pipeline-developer",
+          "description": "Use for delegated standalone command-line tools, batch converters, validators and game-data pipelines governed by tools/TOOL_SPEC.md.",
+          "tools": "Read, Glob, Grep, Write, Edit, Bash",
+          "model": "sonnet",
+          "maxTurns": "20",
+          "memory": "project"
+        }
+      },
+      {
         "name": "gameplay-programmer",
         "source": ".claude/agents/gameplay-programmer.md",
         "sha256": "287ac70fb839e40b0e392e47e6e23ddd90851103d41c0a82df7f56e0e168834e",
@@ -1216,7 +1242,7 @@
       {
         "name": "lead-programmer",
         "source": ".claude/agents/lead-programmer.md",
-        "sha256": "2557de5195416e28c5ee156db8c2ef7ec53b7935edd5899c26c2fc5bd9efa3b0",
+        "sha256": "eb9eaf5e208aac4a0b06df036f17e40d14620001cf16dc3f013e47bc01445e63",
         "metadata": {
           "name": "lead-programmer",
           "description": "The Lead Programmer owns code-level architecture, coding standards, code review, and the assignment of programming work to specialist programmers. Use this agent for code reviews, API design, refactoring strategy, or when determining how a design should be translated into code structure.",
@@ -2010,7 +2036,7 @@
       {
         "name": "project-stage-report",
         "source": ".claude/docs/templates/project-stage-report.md",
-        "sha256": "b78afb205a473f5ab30e6c0c0d4db20a1be907d4d3d38b72ed19a5dc73c8ba8e",
+        "sha256": "ac7e39dcc222adc11c29fd37b780dc1c3358bb183ba4651bed7dea430698dfec",
         "metadata": {}
       },
       {
@@ -2080,6 +2106,12 @@
         "metadata": {}
       },
       {
+        "name": "tool-spec",
+        "source": ".claude/docs/templates/tool-spec.md",
+        "sha256": "5be2eaa252d6e427a3639fd64dad1862adbd727ea9fee862428f61cbb281ae8a",
+        "metadata": {}
+      },
+      {
         "name": "ux-spec",
         "source": ".claude/docs/templates/ux-spec.md",
         "sha256": "aae493abbe971f9d4bd4631520a87f917467347f93f0817fdb76caebe63a7bcc",
@@ -2096,13 +2128,13 @@
       {
         "name": "CLAUDE",
         "source": "CCGS Skill Testing Framework/CLAUDE.md",
-        "sha256": "734903ccfd6452b45cc8316d3e08e25a11a07e40d0c5ba59ccaa277515e20571",
+        "sha256": "11bd288305a24f5e0b6091cedb142498d04fc17ead357e8cb04e966673dccbc3",
         "metadata": {}
       },
       {
         "name": "README",
         "source": "CCGS Skill Testing Framework/README.md",
-        "sha256": "4606170bf85b16a7b0bbfe882c633b82376196df8d0243dd86e5bd71549f8045",
+        "sha256": "4cb2725042f7b74722a16dd41a061043096fba675b1054839a1a0ef2d2426ca3",
         "metadata": {}
       },
       {
@@ -2346,6 +2378,12 @@
         "metadata": {}
       },
       {
+        "name": "game-pipeline-developer",
+        "source": "CCGS Skill Testing Framework/agents/specialists/game-pipeline-developer.md",
+        "sha256": "7933d4d91f7fdfe8c338b70ca20c9e3d9b3cb9d183b2fc0a402a65d9b4e01c36",
+        "metadata": {}
+      },
+      {
         "name": "gameplay-programmer",
         "source": "CCGS Skill Testing Framework/agents/specialists/gameplay-programmer.md",
         "sha256": "a59d9e2f1ba9c2094b8d1785afe9084124e06262de612e997daf2c258397ac95",
@@ -2432,7 +2470,7 @@
       {
         "name": "code-review",
         "source": "CCGS Skill Testing Framework/skills/analysis/code-review.md",
-        "sha256": "8a9919b81e295f1a9955b103e25d852ce314342b57efb743f778b7654597bcab",
+        "sha256": "110bcd38e4ee3171a89d3e3b6c1749483d2cb7cd8962f9f92483d6f810dba89a",
         "metadata": {}
       },
       {
@@ -2492,7 +2530,7 @@
       {
         "name": "architecture-decision",
         "source": "CCGS Skill Testing Framework/skills/authoring/architecture-decision.md",
-        "sha256": "1504829dc83fffa98b43df5770b47b1eb05c60a7fe56844975b7c6229234ef58",
+        "sha256": "1e5fbafd20551ec7d455673c54e8a9f61482d6d26833594dee0b0a5487bde55c",
         "metadata": {}
       },
       {
@@ -2534,7 +2572,7 @@
       {
         "name": "gate-check",
         "source": "CCGS Skill Testing Framework/skills/gate/gate-check.md",
-        "sha256": "8f5c80522bcb3e2295d05c4560c320c97e297bc0bda8abc4239e027907dc4532",
+        "sha256": "fda041d980ba3ce7933ae98d6cb0726d846ec99986c6c9eba4c6eeef0589a5a1",
         "metadata": {}
       },
       {
@@ -2768,7 +2806,7 @@
       {
         "name": "project-stage-detect",
         "source": "CCGS Skill Testing Framework/skills/utility/project-stage-detect.md",
-        "sha256": "d97db895c8bfeb98205324cd5e3ced9bdb37205cf6c6f05702cfb45f1b7c5607",
+        "sha256": "0acfee11394a2c1ceec67e7d9ea0890f95ed41c0b9b81501acbdbd55534f0c2c",
         "metadata": {}
       },
       {
@@ -2808,6 +2846,12 @@
         "metadata": {}
       },
       {
+        "name": "setup-tool",
+        "source": "CCGS Skill Testing Framework/skills/utility/setup-tool.md",
+        "sha256": "7654a667ee6c15326de37271fc83ed235a7e8b08900aca1f6db6212b56241a6a",
+        "metadata": {}
+      },
+      {
         "name": "skill-improve",
         "source": "CCGS Skill Testing Framework/skills/utility/skill-improve.md",
         "sha256": "85ede0728f7d8b1214f736d93c9e54978e013a0112a4173525068aa1a277425f",
@@ -2834,7 +2878,7 @@
       {
         "name": "start",
         "source": "CCGS Skill Testing Framework/skills/utility/start.md",
-        "sha256": "b97a75e9eb287e8f0523a59df7e7811bb89a6fa686e1ad405aa7991d47e2e4fb",
+        "sha256": "9b6517a3e2e3ba9873607c7525dbc07649a77d805f35b60d59ba05e60c233378",
         "metadata": {}
       },
       {

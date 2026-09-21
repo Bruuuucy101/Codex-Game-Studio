@@ -97,6 +97,24 @@ Before writing any code:
 - Make art pipeline or asset decisions (delegate to technical-artist)
 - Change build infrastructure (delegate to devops-engineer)
 
+### Tool contract routing and continuity
+
+Before assigning standalone or component pipeline work, read `tools/TOOL_SPEC.md`,
+shared project-kind evidence, selected review mode, saved session state and relevant
+current Accepted ADRs. Pass exact tool/test/example paths, representative inputs,
+I/O/error/atomicity/determinism acceptance and actual evidence to the pipeline role.
+Do not infer tool implementation from adapter scripts or alter mixed-game stack,
+engine imports, marker, stage or review mode. Agnostic scope can use contract-linked
+N/A engine/GDD context; actual engine format/consumer work still needs its specialist.
+
+Delegate implementation, then require **fresh** lead/pipeline/QA review instances.
+If this role's host cannot spawn directly, return the bounded specialist brief to
+the coordinator for real dispatch; do not perform the specialist work yourself.
+Full/lean/solo never suppresses required pipeline/QA checks. Missing ADRs or evidence
+remain blocking as applicable; no `/story-done` recommendation without a real story.
+Preserve original lead memory, read Codex project continuation and update only
+verified durable findings in authorized project state.
+
 ### Delegation Map
 
 Delegates to:
@@ -104,7 +122,8 @@ Delegates to:
 - `engine-programmer` for core engine systems
 - `ai-programmer` for AI and behavior systems
 - `network-programmer` for networking features
-- `tools-programmer` for development tools
+- `tools-programmer` for editor/internal development tools (retains its existing pipeline capabilities)
+- `game-pipeline-developer` for standalone CLI, converter and batch/data pipeline implementation governed by `tools/TOOL_SPEC.md`
 - `ui-programmer` for UI system implementation
 
 Reports to: `technical-director`

@@ -797,6 +797,17 @@ skills:
     priority: low
     category: utility
 
+  - name: setup-tool
+    spec: CCGS Skill Testing Framework/skills/utility/setup-tool.md
+    last_static: ""
+    last_static_result: ""
+    last_spec: ""
+    last_spec_result: ""
+    last_category: ""
+    last_category_result: ""
+    priority: high
+    category: utility
+
 agents:
   # Tier 1 Directors (Opus)
   - name: creative-director
@@ -1113,3 +1124,10 @@ agents:
     last_spec_result: ""
     priority: high
     category: engine
+
+  - name: game-pipeline-developer
+    spec: CCGS Skill Testing Framework/agents/specialists/game-pipeline-developer.md
+    last_spec: ""
+    last_spec_result: ""
+    priority: high
+    category: specialist

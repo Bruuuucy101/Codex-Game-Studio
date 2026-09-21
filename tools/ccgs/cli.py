@@ -5,7 +5,7 @@ from pathlib import Path
 import platform
 import shutil
 import sys
-from . import adr, catalog, generate, scaffold
+from . import adr, catalog, generate, project, scaffold
 from .provenance import verify_upstream
 
 
@@ -18,10 +18,13 @@ def upstream_drift(root):
 
 
 def status(root):
+    kind = project.detect_project_kind(root)
     def read(name, fallback):
+        if kind['kind'] == 'conflict':
+            return 'not read: resolve project-kind conflict first'
         path = root / name
         return path.read_text().strip() if path.exists() else fallback
-    return {'stage': read('production/stage.txt', 'not configured'),
+    return {'project_kind': kind, 'stage': kind['stage'] or 'not configured',
             'review_mode': read('production/review-mode.txt', 'not configured; resolve in the original workflow'),
             'active_state': read('production/session-state/active.md', 'no saved session'),
             'context_usage': 'not exposed by this command'}
@@ -36,6 +39,7 @@ def main(argv=None):
     check.add_argument('--strict-upstream', action='store_true', help='Require pinned upstream bytes or exact recorded reviewed patches.')
     check.add_argument('--pristine-upstream', action='store_true', help='Require every baseline source file to remain byte-identical to upstream.')
     sub.add_parser('doctor', help='Inspect files/dependencies; does not certify live hook trust or model behavior.')
+    sub.add_parser('project-kind', help='Classify project kind read-only; report conflicting configuration.')
     sub.add_parser('status', help='Show actual original project state.')
     rules = sub.add_parser('rules', help='Print complete original rules applicable to paths.')
     rules.add_argument('paths', nargs='+')
@@ -55,7 +59,7 @@ def main(argv=None):
     context.add_argument('--limit', type=int, default=adr.DEFAULT_LIMIT)
     context.add_argument('--expected-sha256')
     args = parser.parse_args(argv)
-    root = args.root.absolute() if args.command == 'scaffold-web' else args.root.resolve()
+    root = args.root.absolute() if args.command in ('scaffold-web', 'project-kind', 'status') else args.root.resolve()
     try:
         if args.command == 'scaffold-web':
             emit(scaffold.copy_web(root, args.engine, args.target, write=args.write))
@@ -93,8 +97,14 @@ def main(argv=None):
                               'game_engine_behavior': 'not verified'},
                   'next': 'Open the project in Codex; review project and hooks with /hooks. See README-CODEX.zh-CN.md.'})
             return bool(problems)
+        elif args.command == 'project-kind':
+            result = project.detect_project_kind(root)
+            emit(result)
+            return result['kind'] == 'conflict'
         elif args.command == 'status':
-            emit(status(root))
+            result = status(root)
+            emit(result)
+            return result['project_kind']['kind'] == 'conflict'
         elif args.command == 'rules':
             for row in catalog.rules_for(root, args.paths):
                 print('\nSource: ' + row['source'])

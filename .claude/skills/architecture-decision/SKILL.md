@@ -75,7 +75,35 @@ Use the user's response as the title, then proceed to Step 1.
 
 ## 1. Load Engine Context (ALWAYS FIRST)
 
-Before doing anything else, establish the engine environment:
+First establish the scope. For an explicitly engine-agnostic standalone tool (or
+an explicitly bounded agnostic component decision), read `tools/TOOL_SPEC.md`, its
+Scope/Engine Target/Runtime and Dependencies/Input/Output/Decisions sections,
+technical preferences and actual runtime/format evidence. Use the shared project
+classification via the coordinator's read-only helper when needed. Missing or
+contradictory tool context is a gap to resolve, never a blanket engine bypass.
+
+When the contract explicitly supports agnostic scope, the steps below requiring
+engine VERSION/modules may be N/A with a reason. Record verified runtime/format
+versions and sources in Engine Compatibility; do not invent an engine or require
+setup-engine for CSV/JSON. Keep `## GDD Requirements Addressed` with a reasoned
+GDD N/A and linked TOOL_SPEC requirement IDs; for a component, retain applicable
+GDD and engine links. During retrofit use the same bounded context and preserve
+existing sections. New ADRs remain Proposed; missing/non-Accepted referenced ADRs
+still block dependent implementation, and current source freshness plus registry
+constraints/authorization remain binding. Inspect every declared dependency rather
+than converting missing references into None.
+
+For this agnostic branch, Phase 5.5 uses a fresh game-pipeline-developer to validate
+format/runtime/atomicity constraints. Engine-specific decisions still use actual
+configured engine specialists. Phase 5.6 TD-ADR remains full only, skipped in
+lean/solo exactly as below. Phase 5.7 checks TOOL_SPEC names/interfaces as well as
+any applicable GDD links. Do not suggest writing GDDs merely because an agnostic
+tool ADR finished; offer remaining tool decisions, implementation or stop. The
+fresh-session architecture review notice applies to game/GDD coverage; explicitly
+agnostic tool coverage uses a fresh scoped lead/pipeline review against TOOL_SPEC
+and registry constraints, without fabricating game GDD coverage.
+
+Otherwise establish the engine environment as follows:
 
 1. Read `docs/engine-reference/[engine]/VERSION.md` to get:
    - Engine name and version
@@ -446,7 +474,11 @@ ADR-[NNNN] written and registry updated. What would you like to do next?
 
 If there are no remaining priority ADRs and no undesigned GDD systems, offer only "Stop here" and suggest running `/architecture-review` in a fresh session.
 
-**Always include this fixed notice in the closing output (do NOT omit it):**
+**For game/GDD scope, include this fixed notice in the closing output:**
+
+For explicitly agnostic tooling scope, instead state that a fresh independent
+lead/pipeline review must validate TOOL_SPEC/ADR/registry coverage before approval;
+do not claim `/architecture-review` has a tool mode or demand unrelated GDDs.
 
 > To validate ADR coverage against your GDDs, open a **fresh Claude Code session**
 > and run `/architecture-review`.
@@ -455,4 +487,7 @@ If there are no remaining priority ADRs and no undesigned GDD systems, offer onl
 > The reviewing agent must be independent of the authoring context to give an unbiased
 > assessment. Running it here would invalidate the review.
 
-Update any stories that were `Status: Blocked` pending this ADR to `Status: Ready`.
+Update a real blocked story to Ready only when this ADR is actually Accepted,
+all its referenced prerequisites are current and Accepted, and the story's other
+readiness constraints pass. Never unblock stories on writing a Proposed ADR;
+never invent a story for a standalone tool.

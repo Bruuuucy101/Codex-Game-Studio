@@ -2,7 +2,7 @@
 
 Generated from actual files. Counts prove coverage only; see [validation](validation.md) for execution evidence.
 
-## skills: 73
+## skills: 74
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -53,6 +53,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | scope-check | `.claude/skills/scope-check/SKILL.md` | ccgs-scope-check |
 | security-audit | `.claude/skills/security-audit/SKILL.md` | ccgs-security-audit |
 | setup-engine | `.claude/skills/setup-engine/SKILL.md` | ccgs-setup-engine |
+| setup-tool | `.claude/skills/setup-tool/SKILL.md` | ccgs-setup-tool |
 | skill-improve | `.claude/skills/skill-improve/SKILL.md` | ccgs-skill-improve |
 | skill-test | `.claude/skills/skill-test/SKILL.md` | ccgs-skill-test |
 | smoke-check | `.claude/skills/smoke-check/SKILL.md` | ccgs-smoke-check |
@@ -80,7 +81,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | ux-review | `.claude/skills/ux-review/SKILL.md` | ccgs-ux-review |
 | vertical-slice | `.claude/skills/vertical-slice/SKILL.md` | ccgs-vertical-slice |
 
-## agents: 51
+## agents: 52
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -95,6 +96,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | economy-designer | `.claude/agents/economy-designer.md` | ccgs-economy-designer |
 | engine-programmer | `.claude/agents/engine-programmer.md` | ccgs-engine-programmer |
 | game-designer | `.claude/agents/game-designer.md` | ccgs-game-designer |
+| game-pipeline-developer | `.claude/agents/game-pipeline-developer.md` | ccgs-game-pipeline-developer |
 | gameplay-programmer | `.claude/agents/gameplay-programmer.md` | ccgs-gameplay-programmer |
 | godot-csharp-specialist | `.claude/agents/godot-csharp-specialist.md` | ccgs-godot-csharp-specialist |
 | godot-gdextension-specialist | `.claude/agents/godot-gdextension-specialist.md` | ccgs-godot-gdextension-specialist |
@@ -169,7 +171,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | validate-push | `.claude/hooks/validate-push.sh` | event bridge; see hooks.md |
 | validate-skill-change | `.claude/hooks/validate-skill-change.sh` | event bridge; see hooks.md |
 
-## templates: 40
+## templates: 41
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -211,10 +213,11 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | technical-design-document | `.claude/docs/templates/technical-design-document.md` | original file, preserved |
 | test-evidence | `.claude/docs/templates/test-evidence.md` | original file, preserved |
 | test-plan | `.claude/docs/templates/test-plan.md` | original file, preserved |
+| tool-spec | `.claude/docs/templates/tool-spec.md` | original file, preserved |
 | ux-spec | `.claude/docs/templates/ux-spec.md` | original file, preserved |
 | vertical-slice-report | `.claude/docs/templates/vertical-slice-report.md` | original file, preserved |
 
-## behavior_specs: 128
+## behavior_specs: 130
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -260,6 +263,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | security-engineer | `CCGS Skill Testing Framework/agents/qa/security-engineer.md` | original file, preserved |
 | ai-programmer | `CCGS Skill Testing Framework/agents/specialists/ai-programmer.md` | original file, preserved |
 | engine-programmer | `CCGS Skill Testing Framework/agents/specialists/engine-programmer.md` | original file, preserved |
+| game-pipeline-developer | `CCGS Skill Testing Framework/agents/specialists/game-pipeline-developer.md` | original file, preserved |
 | gameplay-programmer | `CCGS Skill Testing Framework/agents/specialists/gameplay-programmer.md` | original file, preserved |
 | network-programmer | `CCGS Skill Testing Framework/agents/specialists/network-programmer.md` | original file, preserved |
 | performance-analyst | `CCGS Skill Testing Framework/agents/specialists/performance-analyst.md` | original file, preserved |
@@ -337,6 +341,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | release-checklist | `CCGS Skill Testing Framework/skills/utility/release-checklist.md` | original file, preserved |
 | reverse-document | `CCGS Skill Testing Framework/skills/utility/reverse-document.md` | original file, preserved |
 | setup-engine | `CCGS Skill Testing Framework/skills/utility/setup-engine.md` | original file, preserved |
+| setup-tool | `CCGS Skill Testing Framework/skills/utility/setup-tool.md` | original file, preserved |
 | skill-improve | `CCGS Skill Testing Framework/skills/utility/skill-improve.md` | original file, preserved |
 | skill-test | `CCGS Skill Testing Framework/skills/utility/skill-test.md` | original file, preserved |
 | smoke-check | `CCGS Skill Testing Framework/skills/utility/smoke-check.md` | original file, preserved |

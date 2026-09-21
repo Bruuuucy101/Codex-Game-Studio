@@ -10,8 +10,8 @@
 
 | 原版内容 | Codex 接入方式 |
 |---|---|
-| 73 个工作流技能 | 73 个 `ccgs-*` 入口，每次读取完整原工作流；没有用摘要替代 |
-| 49 个原角色 + 2 个 Web 引擎负责人 | 当前 51 个角色配置，嵌入完整规范；原 49 个身份保留 |
+| 73 个原工作流 + setup-tool | 当前 74 个 `ccgs-*` 入口，每次读取完整原工作流；没有用摘要替代 |
+| 49 个原角色 + 2 个 Web 引擎负责人 + 工具流水线开发者 | 当前 52 个角色配置，嵌入完整规范；原 49 个身份保留 |
 | 11 组路径规则 | 保留原文与适用路径；编辑前加载，受支持的工具事件额外自动注入 |
 | 12 个钩子脚本 | 全部保留；11 个脚本接入事件桥接，通知脚本有明确平台差异 |
 | 40 个模板文件 | 包括嵌套目录，按实际文件清点；原 README 的数字不是此处验收依据 |
@@ -82,10 +82,20 @@ python3 tools/ccgs_codex.py check
 
 现可选择 Phaser 3（phaser/phaser3）和 Three.js（threejs/three/three.js），
 使用新增的两个引擎角色和完整的配置、审查、测试路由。原 73 个工作流、49 个角色身份和
-Godot 三种语言模式、Unity、Unreal 分支保留；当前共 51 个角色。
+Godot 三种语言模式、Unity、Unreal 分支保留；加入工具流水线角色后当前共 52 个角色。
 
 `templates/web/` 提供收集小游戏、锁定依赖和复制工具。先用
 `python3 tools/ccgs_codex.py scaffold-web phaser --target "你的项目目录"` 预览，
 确认清单后加 `--write` 复制；工具不会覆盖文件或安装依赖。浏览器验收与构建结果分别
 记录在 [验证说明](docs/codex-adapter/validation.md)，不能把角色或配置存在当作运行验证通过。版本为 Phaser 3.90.0 和
 Three.js 0.186.0/r186，已有项目的锁定版本优先。参见 [Web 开发说明](.claude/docs/web-game-development.md)。
+
+## 独立工具项目
+
+`ccgs-start` 的 E 路径和 `ccgs-setup-tool` 可建立、更新或从代码整理
+`tools/TOOL_SPEC.md`。独立工具使用 `tooling` 标记与 `Tooling Project` 阶段；
+游戏里的导出器保持原游戏阶段、引擎配置和审查模式。纯 CSV/JSON 工具无需安装引擎。
+实现由 lead-programmer 分派给 game-pipeline-developer，再由独立角色与 QA 审查。
+详见 [工具项目约定](.claude/docs/tooling-projects.md) 和
+[可运行 CSV 转 JSON 示例](examples/tooling/level-exporter/README.md)。示例验证文本文件处理，
+不代表已验证 Unity/Godot/Unreal 原生二进制转换或导入。

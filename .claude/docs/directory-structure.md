@@ -10,9 +10,14 @@
 ├── docs/                        # Technical documentation (architecture, api, postmortems)
 │   └── engine-reference/        # Curated engine API snapshots (version-pinned)
 ├── tests/                       # Test suites (unit, integration, performance, playtest)
-├── tools/                       # Build and pipeline tools (ci, build, asset-pipeline)
+├── tools/                       # Build/pipeline tools; optional TOOL_SPEC.md for scoped tooling
+├── examples/tooling/             # Synthetic executable samples, not root project-kind evidence
 ├── prototypes/                  # Throwaway prototypes (isolated from src/)
 └── production/                  # Production management (sprints, milestones, releases)
     ├── session-state/           # Ephemeral session state (active.md — gitignored)
     └── session-logs/            # Session audit trail (gitignored)
 ```
+
+Standalone setup may create `production/project-kind.txt` (`tooling`) and stage
+`Tooling Project`. These markers are not shipped populated. Tool specs and owned
+source/tests are scoped independently from the adapter's `tools/ccgs/`.

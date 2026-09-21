@@ -107,3 +107,22 @@ The bridge normalizes hook inputs and outputs while retaining original scripts. 
 ## Verification boundaries
 
 Run existing `CCGS Skill Testing Framework` specifications through `ccgs-skill-test` and `ccgs-skill-improve`, retaining original categories and rubrics. Record source hashes and actual observed outcomes. Source preservation, generated validity, deterministic script tests, sampled agent behavior and real game-engine playtests are different evidence layers. A role/skill count or a structural PASS cannot certify all runtime behavior. Never label full capability parity verified while a required host or engine check is missing.
+
+
+## Standalone tools and game components (#19)
+
+Read the shared `project-kind` diagnostic and `.claude/docs/tooling-projects.md`
+before tooling setup/routing. `status.project_kind` exposes the same read-only
+classification. Invalid required configuration returns conflict/nonzero; compatible
+explicit stage remains authoritative. Setup writes a standalone tooling marker/stage
+only with authorized scope, and preserves game stack/imports/stage/mode for components.
+An explicitly agnostic standalone contract permits reasoned engine/GDD N/A; no fake
+engine VERSION is required. Tool progress uses real contract/code/test/review gaps.
+
+The memory-enabled game-pipeline-developer reads both original project memory and
+Codex continuation under the same memory rules above. Lead delegates implementation;
+a fresh lead/pipeline/QA set reviews it. Director modes and original game gates remain.
+Tool readiness marks game-only gates N/A rather than passed; it does not advance to
+Polish/Release. No story-done without a real story. The example CSV converter proves
+only text file processing; native binary/import and independent agent behavior have
+separate evidence requirements.

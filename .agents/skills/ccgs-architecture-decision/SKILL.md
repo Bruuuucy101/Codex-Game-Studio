@@ -6,7 +6,7 @@ description: "Creates an Architecture Decision Record (ADR) documenting a signif
 # CCGS Codex entry: architecture-decision
 
 Source: `.claude/skills/architecture-decision/SKILL.md` (relative to the project root).
-SHA256: `ee273bcb3f84e2131d1222bd2e4691a218c5620c993ee74814daeafde95bbea5`
+SHA256: `e309c8558601d0c71d1bc82f8018b46f1e96333036601a9c29b00dbc8c080051`
 Original metadata: {"name": "architecture-decision", "description": "Creates an Architecture Decision Record (ADR) documenting a significant technical decision, its context, alternatives considered, and consequences. Every major technical choice should have an ADR.", "argument-hint": "[title] [--review full|lean|solo]", "user-invocable": "true", "allowed-tools": "Read, Glob, Grep, Write, Edit, Task, AskUserQuestion", "model": "sonnet"}
 
 1. Locate the project root by walking up from this SKILL.md to `AGENTS.md` and `.claude/`. Resolve original project paths from that root, not the skill directory.

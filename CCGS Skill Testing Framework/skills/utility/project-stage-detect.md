@@ -189,3 +189,12 @@ configured. Expected: count 3 and remain Pre-Production under existing heuristic
 With 10 actual game source files and active development, Production is eligible.
 Package dependency alone is not configuration. Explicit production/stage.txt
 wins in both fixtures. Monorepo roots/uncertainty are reported, not guessed.
+
+## Standalone tooling and mixed-game regression
+
+Execute setup-tool specification Cases 2–5 in fresh fixtures, then run stage detection.
+Standalone report lists contract/runtime/code/test/review gaps and explicit Tooling
+Project or unconfigured candidate; no fabricated game phase. A mixed-game report
+preserves explicit Production/Polish/Release and lists the tool as a component.
+Missing, malformed and symlink configuration remain visible blockers, not fallback.
+Shipped adapter tests/examples cannot count as target-tool test evidence.

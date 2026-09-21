@@ -29,7 +29,12 @@ class CatalogTests(unittest.TestCase):
         catalog, generate = self.api()
         rows = catalog.inventory(self.root)
         files = generate.render(self.root)
-        self.assertEqual(len(rows['skills']), 73)
+        baseline = json.loads((ROOT / '.codex/upstream-lock.json').read_text())['files']
+        original = {Path(p).parent.name for p in baseline if p.startswith('.claude/skills/') and p.endswith('/SKILL.md')}
+        actual = {row['name'] for row in rows['skills']}
+        self.assertEqual(len(original), 73)
+        self.assertTrue(original <= actual)
+        self.assertEqual(actual - original, {'setup-tool'})
         for row in rows['skills']:
             target = f".agents/skills/ccgs-{row['name']}/SKILL.md"
             self.assertIn(target, files)
@@ -47,7 +52,7 @@ class CatalogTests(unittest.TestCase):
         original = {Path(p).stem for p in baseline if p.startswith('.claude/agents/') and p.endswith('.md')}
         actual = {role['name'] for role in roles}
         self.assertTrue(original <= actual)
-        self.assertEqual(actual - original, {'phaser-specialist', 'threejs-specialist'})
+        self.assertEqual(actual - original, {'phaser-specialist', 'threejs-specialist', 'game-pipeline-developer'})
         for role in roles:
             text = files[f".codex/agents/ccgs-{role['name']}.toml"]
             line = next(x for x in text.splitlines() if x.startswith('developer_instructions = '))
