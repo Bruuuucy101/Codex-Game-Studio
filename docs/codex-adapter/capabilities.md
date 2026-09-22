@@ -2,7 +2,7 @@
 
 Generated from actual files. Counts prove coverage only; see [validation](validation.md) for execution evidence.
 
-## skills: 74
+## skills: 76
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -13,6 +13,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | asset-audit | `.claude/skills/asset-audit/SKILL.md` | ccgs-asset-audit |
 | asset-spec | `.claude/skills/asset-spec/SKILL.md` | ccgs-asset-spec |
 | balance-check | `.claude/skills/balance-check/SKILL.md` | ccgs-balance-check |
+| board-sync | `.claude/skills/board-sync/SKILL.md` | ccgs-board-sync |
 | brainstorm | `.claude/skills/brainstorm/SKILL.md` | ccgs-brainstorm |
 | bug-report | `.claude/skills/bug-report/SKILL.md` | ccgs-bug-report |
 | bug-triage | `.claude/skills/bug-triage/SKILL.md` | ccgs-bug-triage |
@@ -36,6 +37,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | localize | `.claude/skills/localize/SKILL.md` | ccgs-localize |
 | map-systems | `.claude/skills/map-systems/SKILL.md` | ccgs-map-systems |
 | milestone-review | `.claude/skills/milestone-review/SKILL.md` | ccgs-milestone-review |
+| npc-voice | `.claude/skills/npc-voice/SKILL.md` | ccgs-npc-voice |
 | onboard | `.claude/skills/onboard/SKILL.md` | ccgs-onboard |
 | patch-notes | `.claude/skills/patch-notes/SKILL.md` | ccgs-patch-notes |
 | perf-profile | `.claude/skills/perf-profile/SKILL.md` | ccgs-perf-profile |
@@ -222,7 +224,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | ux-spec | `.claude/docs/templates/ux-spec.md` | original file, preserved |
 | vertical-slice-report | `.claude/docs/templates/vertical-slice-report.md` | original file, preserved |
 
-## behavior_specs: 135
+## behavior_specs: 137
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -334,6 +336,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | team-ui | `CCGS Skill Testing Framework/skills/team/team-ui.md` | original file, preserved |
 | adopt | `CCGS Skill Testing Framework/skills/utility/adopt.md` | original file, preserved |
 | asset-spec | `CCGS Skill Testing Framework/skills/utility/asset-spec.md` | original file, preserved |
+| board-sync | `CCGS Skill Testing Framework/skills/utility/board-sync.md` | original file, preserved |
 | brainstorm | `CCGS Skill Testing Framework/skills/utility/brainstorm.md` | original file, preserved |
 | bug-report | `CCGS Skill Testing Framework/skills/utility/bug-report.md` | original file, preserved |
 | bug-triage | `CCGS Skill Testing Framework/skills/utility/bug-triage.md` | original file, preserved |
@@ -342,6 +345,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | hotfix | `CCGS Skill Testing Framework/skills/utility/hotfix.md` | original file, preserved |
 | launch-checklist | `CCGS Skill Testing Framework/skills/utility/launch-checklist.md` | original file, preserved |
 | localize | `CCGS Skill Testing Framework/skills/utility/localize.md` | original file, preserved |
+| npc-voice | `CCGS Skill Testing Framework/skills/utility/npc-voice.md` | original file, preserved |
 | onboard | `CCGS Skill Testing Framework/skills/utility/onboard.md` | original file, preserved |
 | playtest-report | `CCGS Skill Testing Framework/skills/utility/playtest-report.md` | original file, preserved |
 | project-stage-detect | `CCGS Skill Testing Framework/skills/utility/project-stage-detect.md` | original file, preserved |

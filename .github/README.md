@@ -2,7 +2,7 @@
 
 **A community-maintained Codex adaptation of [Claude Code Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios) by Donchitos.**
 
-74 workflow skills, 57 specialist roles, and the original studio's design, implementation, review and QA processes, with a project-local Codex compatibility layer.
+75 workflow skills, 57 specialist roles, and the original studio's design, implementation, review and QA processes, with a project-local Codex compatibility layer.
 
 **Version: v0.2.0-beta.** Original source coverage is verified; complete runtime equivalence across every workflow, host and game engine is not. This is not an official release from Donchitos, Anthropic or OpenAI.
 
@@ -88,3 +88,10 @@ This repository uses a snapshot of the named upstream revision. It does not clai
 Original studio: **Donchitos**, [Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios). Codex adaptation maintained by **Bruuuucy101**.
 
 The original [MIT license](../LICENSE) and copyright notice are retained. The added Codex adaptation is also offered under MIT; see [adaptation license](../LICENSE-CODEX). Original sponsorship links refer to the upstream creator. No affiliation or endorsement is implied.
+
+### Optional GitHub board
+
+Use `ccgs-board-sync snapshot` for local mapped story data, then explicit project
+setup and `sync --dry` for a remote preview. Only `--write` applies changes.
+[Setup, optional dependencies and recovery](../docs/codex-adapter/board-sync.md)
+describe gh access and contract tests; live GitHub acceptance remains unverified.

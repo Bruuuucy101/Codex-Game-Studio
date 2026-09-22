@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "provider": "meshy",
+  "operation": "text-to-3d-preview",
+  "asset_id": "guardian-preview",
+  "standalone": true,
+  "source_files": [],
+  "parameters": {
+    "prompt": "A stylized angular stone guardian with clear arms and legs",
+    "ai_model": "meshy-6",
+    "pose_mode": "a-pose"
+  },
+  "outputs": [
+    {"key": "model", "path": "assets/models/guardian-preview.glb", "format": "glb"}
+  ],
+  "rights_note": "Example only; record actual account and input-rights evidence before submitting"
+}

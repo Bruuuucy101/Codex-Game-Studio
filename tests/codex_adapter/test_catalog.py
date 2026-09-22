@@ -34,7 +34,7 @@ class CatalogTests(unittest.TestCase):
         actual = {row['name'] for row in rows['skills']}
         self.assertEqual(len(original), 73)
         self.assertTrue(original <= actual)
-        self.assertEqual(actual - original, {'setup-tool'})
+        self.assertEqual(actual - original, {'setup-tool', 'board-sync', 'npc-voice'})
         for row in rows['skills']:
             target = f".agents/skills/ccgs-{row['name']}/SKILL.md"
             self.assertIn(target, files)

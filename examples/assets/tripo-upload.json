@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "provider": "tripo",
+  "operation": "upload-image",
+  "asset_id": "guardian-reference-upload",
+  "standalone": true,
+  "source_files": [],
+  "parameters": {
+    "image": "references/guardian.png"
+  },
+  "outputs": [],
+  "rights_note": "Example only; record actual account and input-rights evidence before submitting"
+}

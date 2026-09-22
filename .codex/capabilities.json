@@ -4,12 +4,12 @@
   "baseline_commit": "984023ddac0d5e27624f2baacde6105e45de375f",
   "verification_contract": "Source coverage is not runtime or behavioral certification. See validation.md.",
   "counts": {
-    "skills": 74,
+    "skills": 76,
     "agents": 57,
     "rules": 11,
     "hooks": 12,
     "templates": 41,
-    "behavior_specs": 135
+    "behavior_specs": 137
   },
   "surfaces": {
     "skills": [
@@ -105,6 +105,19 @@
           "allowed-tools": "Read, Glob, Grep, Write, AskUserQuestion",
           "model": "sonnet",
           "agent": "economy-designer"
+        }
+      },
+      {
+        "name": "board-sync",
+        "source": ".claude/skills/board-sync/SKILL.md",
+        "sha256": "f5569e1adc76c38dd10c546a1824dc418aa9326b3e0737255eca62684cea52db",
+        "metadata": {
+          "name": "board-sync",
+          "description": "Use when previewing or syncing canonical story cards to an optional GitHub Projects v2 board, setting up its project, or recovering an interrupted board projection.",
+          "argument-hint": "snapshot [--epic SLUG] | setup --owner OWNER --namespace NAME (--number N | --title TITLE) [--dry|--write] | sync [--epic SLUG] [--dry|--write]",
+          "user-invocable": "true",
+          "allowed-tools": "Read, Glob, Grep, Bash, Task, AskUserQuestion",
+          "model": "sonnet"
         }
       },
       {
@@ -412,6 +425,19 @@
           "argument-hint": "[milestone-name|current] [--review full|lean|solo]",
           "user-invocable": "true",
           "allowed-tools": "Read, Glob, Grep, Write, Task, AskUserQuestion",
+          "model": "sonnet"
+        }
+      },
+      {
+        "name": "npc-voice",
+        "source": ".claude/skills/npc-voice/SKILL.md",
+        "sha256": "af9b4b64207d89c325e3683446c6fe2c1554e113c5c17c428cf442bcb52c0559",
+        "metadata": {
+          "name": "npc-voice",
+          "description": "Use when planning, generating, listening-reviewing, collecting, verifying, or importing stable baked NPC dialogue voices through the optional ElevenLabs workflow.",
+          "argument-hint": "plan|bake|status|collect|listen|import|verify --request PATH [--review full|lean|solo]",
+          "user-invocable": "true",
+          "allowed-tools": "Read, Glob, Grep, Write, Bash, Task, AskUserQuestion",
           "model": "sonnet"
         }
       },
@@ -2888,6 +2914,12 @@
         "metadata": {}
       },
       {
+        "name": "board-sync",
+        "source": "CCGS Skill Testing Framework/skills/utility/board-sync.md",
+        "sha256": "2007f9c53baaa8a4981317b3ab2e3e0b64a29c39431fddea476585def06ff013",
+        "metadata": {}
+      },
+      {
         "name": "brainstorm",
         "source": "CCGS Skill Testing Framework/skills/utility/brainstorm.md",
         "sha256": "08078d99d960d0561d976cba292b3ab482184300ced6ea2b0127483e08e920fc",
@@ -2933,6 +2965,12 @@
         "name": "localize",
         "source": "CCGS Skill Testing Framework/skills/utility/localize.md",
         "sha256": "5579797640b71fbd1e539a1cc3a1ff043989a7d907d0b551c74d15828d7943dc",
+        "metadata": {}
+      },
+      {
+        "name": "npc-voice",
+        "source": "CCGS Skill Testing Framework/skills/utility/npc-voice.md",
+        "sha256": "5c70ff849d961707a4af8283a4ea511685d0eeae6af2b5cb4ab1f479fe9be143",
         "metadata": {}
       },
       {

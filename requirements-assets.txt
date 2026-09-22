@@ -1,0 +1,2 @@
+# Optional image validation only; core studio commands remain stdlib-only.
+Pillow==12.3.0

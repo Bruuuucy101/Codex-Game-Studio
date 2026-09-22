@@ -1,0 +1,2 @@
+# Optional; core adapter commands and tests use only the standard library.
+PyYAML==6.0.3

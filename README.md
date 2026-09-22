@@ -1,18 +1,18 @@
-> **Codex community adaptation — v0.2.0-beta.** Read the [English quickstart](.github/README.md) or [中文指南](README-CODEX.zh-CN.md). Current inventory: 74 workflows / 57 roles, retaining all original 73/49 identities. [Current evidence](docs/codex-adapter/feature-validation-2026-09-21.md) covers Phaser, Three.js, tooling and libGDX; board-sync remains unimplemented. Original Donchitos attribution and license are retained below.
+> **Codex community adaptation — v0.2.0-beta.** Read the [English quickstart](.github/README.md) or [中文指南](README-CODEX.zh-CN.md). Current inventory: 76 workflows / 57 roles, retaining all original 73/49 identities. [Current evidence](docs/codex-adapter/feature-validation-2026-09-21.md) covers Phaser, Three.js, tooling and libGDX; [optional board-sync](docs/codex-adapter/board-sync.md) and [NPC voice production](docs/codex-adapter/npc-voice.md) have local/transport contracts; live service acceptance remains unverified. Original Donchitos attribution and license are retained below.
 
 <p align="center">
   <h1 align="center">Claude Code Game Studios</h1>
   <p align="center">
     Turn a single Claude Code session into a full game development studio.
     <br />
-    57 agents. 74 skills. One coordinated AI team.
+    57 agents. 76 skills. One coordinated AI team.
   </p>
 </p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
   <a href=".claude/agents"><img src="https://img.shields.io/badge/agents-57-blueviolet" alt="57 Agents"></a>
-  <a href=".claude/skills"><img src="https://img.shields.io/badge/skills-74-green" alt="74 Skills"></a>
+  <a href=".claude/skills"><img src="https://img.shields.io/badge/skills-76-green" alt="76 Skills"></a>
   <a href=".claude/hooks"><img src="https://img.shields.io/badge/hooks-12-orange" alt="12 Hooks"></a>
   <a href=".claude/rules"><img src="https://img.shields.io/badge/rules-11-red" alt="11 Rules"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/built%20for-Claude%20Code-f5f5f5?logo=anthropic" alt="Built for Claude Code"></a>
@@ -55,7 +55,7 @@ The result: you still make every decision, but now you have a team that asks the
 | Category | Count | Description |
 |----------|-------|-------------|
 | **Agents** | 57 | Specialized subagents across design, programming, art, audio, narrative, QA, and production |
-| **Skills** | 74 | Slash commands for every workflow phase (`/start`, `/design-system`, `/create-epics`, `/create-stories`, `/dev-story`, `/story-done`, etc.) |
+| **Skills** | 75 | Slash commands for every workflow phase (`/start`, `/design-system`, `/create-epics`, `/create-stories`, `/dev-story`, `/story-done`, etc.) |
 | **Hooks** | 12 | Automated validation on commits, pushes, asset changes, session lifecycle, agent audit trail, and gap detection |
 | **Rules** | 11 | Path-scoped coding standards enforced when editing gameplay, engine, AI, UI, network code, and more |
 | **Templates** | 41 | Document templates for GDDs, UX specs, ADRs, sprint plans, HUD design, accessibility, and more |
@@ -99,7 +99,7 @@ The template includes agent sets for Godot, Unity, Unreal, web and libGDX. Use t
 
 ## Slash Commands
 
-Type `/` in Claude Code to access all 74 skills:
+Type `/` in Claude Code to access all 75 skills:
 
 **Onboarding & Navigation**
 `/start` `/help` `/project-stage-detect` `/setup-engine` `/adopt`
@@ -181,7 +181,7 @@ CLAUDE.md                           # Master configuration
 .claude/
   settings.json                     # Hooks, permissions, safety rules
   agents/                           # 57 agent definitions (markdown + YAML frontmatter)
-  skills/                           # 74 slash commands (subdirectory per skill)
+  skills/                           # 75 slash commands (subdirectory per skill)
   hooks/                            # 12 hook scripts (bash, cross-platform)
   rules/                            # 11 path-scoped coding standards
   statusline.sh                     # Status line script (context%, model, stage, epic breadcrumb)
@@ -336,7 +336,17 @@ support pure tests, actual headless lifecycle and desktop packaging. GPU playtes
 and optional backends remain separate evidence. See
 [libGDX development](.claude/docs/libgdx-development.md) and
 [validation](docs/codex-adapter/validation.md). All original 73 workflows/49 roles
-remain, with setup-tool bringing the current workflow total to 74.
+remain, with setup-tool, board-sync and npc-voice bringing the workflow total to 76.
+
+## Optional NPC voice production
+
+Use `ccgs-npc-voice` in Codex (or `/npc-voice` in Claude Code) to coordinate
+reviewed `dialogue.*` source through durable baked WAV generation, listening and
+engine import. The command is preview-first:
+`python3 tools/ccgs_codex.py voice plan --request PATH`. Paid generation requires
+an explicit `bake --write`; collection verifies 24 kHz, 16-bit PCM and publishes an
+immutable playback manifest last. No provider account, Pillow or engine is needed
+for its blocking fixture suite. See [NPC voice production](docs/codex-adapter/npc-voice.md).
 
 ## Tooling projects and Codex quickstart
 
