@@ -142,9 +142,14 @@ one atomic batch; partial collection is explicit and never collection success.
 If a process dies after linking a target but before recording it, recover ownership
 only when the retained staged file and target have the same filesystem identity
 AND expected hash. An unrelated file with identical bytes is still a collision.
-On ordinary failure, roll back only publication proven owned by that identity and
-unchanged hash. Keep the journal/staging for uncertain or partial outcomes; never
-delete a competing writer's or subsequently modified file. Test both crash
+On ordinary failure, retain every already published target and its journal/staging
+as an explicit partial outcome. Do not automatically unlink published targets:
+a hash check followed by unlink cannot exclude an in-place artist edit between
+those operations. Recovery may create missing links from the original retained
+staging only after verifying unchanged bytes and ownership of every existing
+target. A collected repeat must verify every destination exists and has its
+retained inode and expected hash before reporting success. Never delete a
+competing writer's or subsequently modified file. Test both crash
 intervals and identical-content competitors. Source changes after preview or
 submission are surfaced rather than silently attaching old output to new specs.
 

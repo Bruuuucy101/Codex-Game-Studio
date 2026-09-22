@@ -395,14 +395,15 @@
     {
       "path": ".gitignore",
       "original_sha256": "7c87f007704b8146b58f0b46c41bb6cec4456b18385878adac5d7b0db4a06e4e",
-      "patched_sha256": "795c4465c20ec75a891597fade98e257fd6f18a8d6c90115e4437ed38b5ebf0f",
+      "patched_sha256": "1e94277f4b19500de00370c82565ea532454af1b80c32d6dc33ba12356fbb2ee",
       "issue_urls": [
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/62",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/22",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/105",
-        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/82"
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/82",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/23"
       ],
-      "rationale": "Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review. Board Task 2: register the optional preview-first board-sync workflow, behavioral specification, current inventory and ignored owned local state while preserving original identities. Self-reviewed source diff; fake-gh subprocess contracts and independent schema validation are separate from unverified live GitHub acceptance."
+      "rationale": "Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review. Board Task 2: register the optional preview-first board-sync workflow, behavioral specification, current inventory and ignored owned local state while preserving original identities. Self-reviewed source diff; fake-gh subprocess contracts and independent schema validation are separate from unverified live GitHub acceptance. Asset Production Task 1: ignore private .ccgs-assets requests, signed URLs, staged artifacts and recovery journals. Source diff self-reviewed with private-state and real HTTP/CLI/crash tests; independent controller review and live provider acceptance remain separate."
     },
     {
       "path": ".claude/agents/lead-programmer.md",

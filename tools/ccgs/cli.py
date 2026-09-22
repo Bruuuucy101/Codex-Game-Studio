@@ -78,10 +78,16 @@ def main(argv=None):
         mode = command.add_mutually_exclusive_group()
         mode.add_argument('--write', action='store_true')
         mode.add_argument('--dry', action='store_true', help='Explicit default: no local or remote writes.')
+    assets = sub.add_parser('assets', help='Optional asset production; preview by default.', add_help=False)
+    assets.add_argument('--help', action='store_true', dest='assets_help')
+    assets.add_argument('asset_args', nargs=argparse.REMAINDER)
     args = parser.parse_args(argv)
-    root = args.root.absolute() if args.command in ('scaffold-web', 'scaffold-libgdx', 'source-files', 'project-kind', 'status', 'board-sync') else args.root.resolve()
+    root = args.root.absolute() if args.command in ('scaffold-web', 'scaffold-libgdx', 'source-files', 'project-kind', 'status', 'board-sync', 'assets') else args.root.resolve()
     try:
-        if args.command == 'board-sync':
+        if args.command == 'assets':
+            from .assets.cli import main as assets_main
+            return assets_main(root, ['--help'] if args.assets_help else args.asset_args)
+        elif args.command == 'board-sync':
             if args.board_command == 'snapshot':
                 from .board_snapshot import build_snapshot
                 emit(build_snapshot(root, args.epic))

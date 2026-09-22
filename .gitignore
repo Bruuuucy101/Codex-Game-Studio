@@ -152,3 +152,6 @@ playwright-report/
 
 # Optional project-local GitHub board state (never credentials)
 .ccgs-board/
+
+# Optional asset operations: private requests, signed URLs and recovery journals
+.ccgs-assets/
