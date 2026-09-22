@@ -4,12 +4,12 @@
   "baseline_commit": "984023ddac0d5e27624f2baacde6105e45de375f",
   "verification_contract": "Source coverage is not runtime or behavioral certification. See validation.md.",
   "counts": {
-    "skills": 75,
+    "skills": 76,
     "agents": 57,
     "rules": 11,
     "hooks": 12,
     "templates": 41,
-    "behavior_specs": 136
+    "behavior_specs": 137
   },
   "surfaces": {
     "skills": [
@@ -425,6 +425,19 @@
           "argument-hint": "[milestone-name|current] [--review full|lean|solo]",
           "user-invocable": "true",
           "allowed-tools": "Read, Glob, Grep, Write, Task, AskUserQuestion",
+          "model": "sonnet"
+        }
+      },
+      {
+        "name": "npc-voice",
+        "source": ".claude/skills/npc-voice/SKILL.md",
+        "sha256": "af9b4b64207d89c325e3683446c6fe2c1554e113c5c17c428cf442bcb52c0559",
+        "metadata": {
+          "name": "npc-voice",
+          "description": "Use when planning, generating, listening-reviewing, collecting, verifying, or importing stable baked NPC dialogue voices through the optional ElevenLabs workflow.",
+          "argument-hint": "plan|bake|status|collect|listen|import|verify --request PATH [--review full|lean|solo]",
+          "user-invocable": "true",
+          "allowed-tools": "Read, Glob, Grep, Write, Bash, Task, AskUserQuestion",
           "model": "sonnet"
         }
       },
@@ -2952,6 +2965,12 @@
         "name": "localize",
         "source": "CCGS Skill Testing Framework/skills/utility/localize.md",
         "sha256": "5579797640b71fbd1e539a1cc3a1ff043989a7d907d0b551c74d15828d7943dc",
+        "metadata": {}
+      },
+      {
+        "name": "npc-voice",
+        "source": "CCGS Skill Testing Framework/skills/utility/npc-voice.md",
+        "sha256": "5c70ff849d961707a4af8283a4ea511685d0eeae6af2b5cb4ab1f479fe9be143",
         "metadata": {}
       },
       {

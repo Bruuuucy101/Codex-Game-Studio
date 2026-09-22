@@ -46,7 +46,7 @@ def _relative(id,name):
     return '.ccgs-assets/jobs/'+id+'/'+name
 
 
-def _private_bytes(root,path,raw,*,exclusive=False):
+def write_private_bytes(root,path,raw,*,exclusive=False):
     """0600 file + fsync + atomic replacement; use no-follow dirfd paths throughout."""
     if not isinstance(path, str) or not path.startswith(".ccgs-assets/"):
         fail("private_write_must_be_under_ccgs_assets")
@@ -79,18 +79,24 @@ def _private_bytes(root,path,raw,*,exclusive=False):
             except FileNotFoundError: pass
 
 
-def _private_json(root,path,value,*,exclusive=False):
+def write_private_json(root,path,value,*,exclusive=False):
     raw=canonical(value)
     if len(raw)>JSON_LIMIT: fail('private_json_size_limit')
-    _private_bytes(root,path,raw,exclusive=exclusive)
+    write_private_bytes(root,path,raw,exclusive=exclusive)
+
+
+# Compatibility aliases for existing asset orchestration internals.
+_private_bytes = write_private_bytes
+_private_json = write_private_json
 
 
 @contextmanager
-def operation_lock(root,state_dir,id):
-    """An owned local lock. Stale locks require operator inspection, never auto-break."""
-    root=check_root(root); state_path(root,state_dir); identifier(id)
+def private_lock(root,state_dir,path):
+    """Own one project-private lock path; stale locks require explicit inspection."""
+    root=check_root(root); state_path(root,state_dir)
+    if not isinstance(path,str) or not path.startswith('.ccgs-assets/') or not path.endswith('/lock'):
+        fail('invalid_private_lock_path')
     token=secrets.token_hex(32)
-    path=_relative(id,'lock')
     with parent_fd(root,path,create=True,mode=0o700,private=True) as (fd,name):
         try:
             lock_fd=os.open(name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=fd)
@@ -109,6 +115,14 @@ def operation_lock(root,state_dir,id):
                     os.unlink(name,dir_fd=fd); os.fsync(fd)
             except (FileNotFoundError,ValueError):
                 pass
+
+
+@contextmanager
+def operation_lock(root,state_dir,id):
+    """Backward-compatible asset job lock using the shared private lock primitive."""
+    identifier(id)
+    with private_lock(root,state_dir,_relative(id,'lock')):
+        yield
 
 
 def save_receipt(root,state_dir,id,receipt):

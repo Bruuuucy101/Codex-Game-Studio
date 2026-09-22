@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "provider": "elevenlabs",
+  "model_id": "eleven_multilingual_v2",
+  "output_format": "wav_24000",
+  "source_files": [],
+  "rights_note": "Example only; confirm voice access and commercial rights before generation.",
+  "standalone": true,
+  "npcs": [
+    {"id": "merchant", "voice_id": "replace-with-selected-merchant-voice-id", "voice_settings": {"stability": 0.45, "similarity_boost": 0.75, "use_speaker_boost": true}},
+    {"id": "guard", "voice_id": "replace-with-selected-guard-voice-id", "voice_settings": {"stability": 0.65, "similarity_boost": 0.8}}
+  ],
+  "lines": [
+    {"key": "dialogue.npc.merchant.greeting", "npc_id": "merchant", "locale": "en-US", "text": "Welcome, traveller.", "direction_notes": "Warm but cautious."},
+    {"key": "dialogue.npc.merchant.haggle", "npc_id": "merchant", "locale": "en-US", "text": "That is my final offer.", "direction_notes": "Good-humoured firmness."},
+    {"key": "dialogue.npc.guard.warning", "npc_id": "guard", "locale": "en-US", "text": "Keep moving.", "direction_notes": "Firm and clipped."}
+  ]
+}

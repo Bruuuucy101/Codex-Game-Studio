@@ -32,6 +32,7 @@
     ".agents/skills/ccgs-localize/SKILL.md": "b11bb9d755328c48206b9df7119cc14dd7a32bc4381f2c9d3bdf2ebe280d8f46",
     ".agents/skills/ccgs-map-systems/SKILL.md": "cc29e738b66167eb4508575f68a2ff903d33a9885ba0bb0dc355d7f879d7011b",
     ".agents/skills/ccgs-milestone-review/SKILL.md": "1338de9f4affde48d50f102203196a6858862564bb616e70be9fafcc657acdf8",
+    ".agents/skills/ccgs-npc-voice/SKILL.md": "3fae47ed59d10256260cc0ee4427ef9abad77a005c37284c19510ff782dff348",
     ".agents/skills/ccgs-onboard/SKILL.md": "456f9da41a3e62da7a24c857020546f78c50a954804311a75d11254e8a5be64f",
     ".agents/skills/ccgs-patch-notes/SKILL.md": "08381f8f78da4314bb95d9b2f35eabae9c641c154e15a890a2392d6d74e778ec",
     ".agents/skills/ccgs-perf-profile/SKILL.md": "8fb799a5ffe299866b8d8ecd4423a998aebaa06c3bc2f341fb034ed98b4a92b9",
@@ -133,7 +134,7 @@
     ".codex/agents/ccgs-ux-designer.toml": "a54877e204f14bca596648fb94304e0026a617acdd9562fe202ba6fb56b7b08d",
     ".codex/agents/ccgs-world-builder.toml": "1382928bde2aeffc154cc6550f953a493009f82227dd9a0881fbd6ecb04a3a76",
     ".codex/agents/ccgs-writer.toml": "f98d120fcf8a90e0dc53085c26ad43b8846d12468c8077bc84a0764656784d31",
-    ".codex/capabilities.json": "86d33b6d7c8e34171f5565c6346128a59752b12ad66b2f2f348fb1d2235d417d",
-    "docs/codex-adapter/capabilities.md": "3e467db808d5ace3bc9b51b1dde828234e55c00a01786694dec93ff4cc38a57d"
+    ".codex/capabilities.json": "7876a9641a7d1e9f47ae5767abd7699a772a220c296ed650dfd3986470f569ad",
+    "docs/codex-adapter/capabilities.md": "16c31267119be0a59a1bb9285867bfd59df3f28c30dbb9755ad5595aa735edb1"
   }
 }

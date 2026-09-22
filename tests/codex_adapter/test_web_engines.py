@@ -23,7 +23,7 @@ class WebEngineTests(unittest.TestCase):
         self.assertEqual(len(original_roles), 49)
         self.assertEqual(len(original_skills), 73)
         self.assertEqual(actual_roles, original_roles | NEW_ROLES | {'game-pipeline-developer', 'libgdx-specialist', 'libgdx-scene2d-specialist', 'libgdx-graphics-specialist', 'libgdx-ashley-specialist', 'libgdx-core-specialist'})
-        self.assertEqual({r['name'] for r in rows['skills']}, original_skills | {'setup-tool', 'board-sync'})
+        self.assertEqual({r['name'] for r in rows['skills']}, original_skills | {'setup-tool', 'board-sync', 'npc-voice'})
         profiles = generate.render(ROOT)
         self.assertEqual({Path(p).stem.removeprefix('ccgs-') for p in profiles if p.startswith('.codex/agents/')}, actual_roles)
 

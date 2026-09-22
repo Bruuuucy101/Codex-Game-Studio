@@ -81,10 +81,16 @@ def main(argv=None):
     assets = sub.add_parser('assets', help='Optional asset production; preview by default.', add_help=False)
     assets.add_argument('--help', action='store_true', dest='assets_help')
     assets.add_argument('asset_args', nargs=argparse.REMAINDER)
+    voice = sub.add_parser('voice', help='Optional NPC voice generation; preview by default.', add_help=False)
+    voice.add_argument('--help', action='store_true', dest='voice_help')
+    voice.add_argument('voice_args', nargs=argparse.REMAINDER)
     args = parser.parse_args(argv)
-    root = args.root.absolute() if args.command in ('scaffold-web', 'scaffold-libgdx', 'source-files', 'project-kind', 'status', 'board-sync', 'assets') else args.root.resolve()
+    root = args.root.absolute() if args.command in ('scaffold-web', 'scaffold-libgdx', 'source-files', 'project-kind', 'status', 'board-sync', 'assets', 'voice') else args.root.resolve()
     try:
-        if args.command == 'assets':
+        if args.command == 'voice':
+            from .voice.cli import main as voice_main
+            return voice_main(root, ['--help'] if args.voice_help else args.voice_args)
+        elif args.command == 'assets':
             from .assets.cli import main as assets_main
             return assets_main(root, ['--help'] if args.assets_help else args.asset_args)
         elif args.command == 'board-sync':

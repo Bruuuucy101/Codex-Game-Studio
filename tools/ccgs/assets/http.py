@@ -12,7 +12,7 @@ from urllib.parse import urlsplit, urljoin
 from .request import JSON_LIMIT, ARTIFACT_LIMIT, IMAGE_LIMIT, canonical, fail, strict_json
 
 ORIGINS = {'pixellab':'https://api.pixellab.ai', 'meshy':'https://api.meshy.ai',
-           'tripo':'https://openapi.tripo3d.ai'}
+           'tripo':'https://openapi.tripo3d.ai', 'elevenlabs':'https://api.elevenlabs.io'}
 
 
 class TransportError(ValueError):
@@ -179,6 +179,31 @@ class Transport:
             {'Authorization':'Bearer '+credential,'Content-Type':'multipart/form-data; boundary='+boundary},JSON_LIMIT,deadline)
         if not 200<=status<300: raise TransportError('http_'+str(status),status)
         return strict_json(raw,JSON_LIMIT)
+
+    def elevenlabs_json(self,method,path,*,credential,deadline=None):
+        """Fixed ElevenLabs read-only JSON boundary using only xi-api-key."""
+        if method != 'GET' or not isinstance(path,str) or not path.startswith('/') or path.startswith('//') or '#' in path or any(ord(c)<33 for c in path):
+            fail('unsupported_api_request')
+        if not isinstance(credential,str) or not credential or '\r' in credential or '\n' in credential:
+            fail('provider_credential_unavailable')
+        status,_,raw=self._request(ORIGINS['elevenlabs']+path,'GET',None,
+            {'xi-api-key':credential,'Accept':'application/json'},JSON_LIMIT,deadline)
+        if not 200<=status<300: raise TransportError('http_'+str(status),status)
+        return strict_json(raw,JSON_LIMIT)
+
+    def elevenlabs_audio(self,path,*,body,credential,deadline=None):
+        """Single-attempt bounded synchronous ElevenLabs binary POST."""
+        if not isinstance(path,str) or not path.startswith('/v1/text-to-speech/') or path.startswith('//') or '#' in path or any(ord(c)<33 for c in path):
+            fail('unsupported_api_request')
+        if not isinstance(credential,str) or not credential or '\r' in credential or '\n' in credential:
+            fail('provider_credential_unavailable')
+        payload=canonical(body)
+        if len(payload)>JSON_LIMIT: fail('request_body_limit')
+        limit=64*1024*1024
+        status,_,raw=self._request(ORIGINS['elevenlabs']+path,'POST',payload,
+            {'xi-api-key':credential,'Content-Type':'application/json','Accept':'audio/wav'},limit,deadline)
+        if not 200<=status<300: raise TransportError('http_'+str(status),status)
+        return raw
 
     def download(self,url,*,limit=ARTIFACT_LIMIT,deadline=None):
         if type(limit) is not int or not 0<limit<=ARTIFACT_LIMIT: fail('invalid_download_limit')
