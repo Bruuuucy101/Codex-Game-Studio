@@ -201,6 +201,12 @@ def get_adapter(provider, adapters=None):
     if provider == 'pixellab':
         from .pixellab import PixelLab
         return PixelLab()
+    if provider == 'meshy':
+        from .meshy import Meshy
+        return Meshy()
+    if provider == 'tripo':
+        from .tripo import Tripo
+        return Tripo()
     fail('unsupported_provider')
 
 
@@ -276,9 +282,17 @@ def prepare_value(root, state_dir, value, *, adapters=None):
                 fail('unexpected_output_dimensions')
     normalized = dict(value, standalone=standalone, parameters=parameters)
     dependencies = []
+    loaded_dependencies = {}
     for job in adapter.dependency_ids(parameters):
         from .jobs import load_dependency
-        dependencies.append(load_dependency(root, state_dir, job, adapters=adapters)['pin'])
+        loaded = load_dependency(root, state_dir, job, adapters=adapters)
+        dependencies.append(loaded['pin'])
+        loaded_dependencies[job] = loaded
+    local_validator = getattr(adapter, 'validate_local_dependencies', None)
+    if local_validator is not None:
+        if not callable(local_validator):
+            fail('invalid_adapter_local_dependency_validator')
+        local_validator(value['operation'], parameters, loaded_dependencies)
     plan = {'schema_version':1, 'request': normalized,
             'inputs': sorted(inputs.values(), key=lambda x:x['path']),
             'dependencies': dependencies}

@@ -131,8 +131,8 @@ python3 tools/ccgs_codex.py scaffold-libgdx --target my-java-game
 - 示例 CSV 转换器只需 Python 3.10+ 标准库，无需游戏引擎或外部供应商。
 
 board-sync #82 已提供可选 snapshot/setup/sync 命令，默认预览，只有显式 `--write` 才写入。需要读取 sprint YAML 时使用独立的 `requirements-board.txt`；远端操作还需要已认证的 gh。已有本地解析和 fake-gh 子进程契约测试，真实 GitHub 账户验收仍未验证。见[使用与恢复说明](docs/codex-adapter/board-sync.md)。
-创意 MCP #40、NPC TTS #14 仍待交付。素材后端 #23 已提供下述 PixelLab 可选命令，其他供应商与真实账户验收仍待完成。移动端、Kotlin/KTX/GWT、
+创意 MCP #40、NPC TTS #14 仍待交付。素材后端 #23 已提供下述 PixelLab、Meshy 与 Tripo 可选命令；真实账户验收及该议题中的本地媒体/提取、Blender、Pixel Guy/Atlas GUI 范围仍待完成。移动端、Kotlin/KTX/GWT、
 WebGPU 和供应商执行未验证。第三方依赖沿用各自许可，官方 Gradle wrapper 为 Apache-2.0；
 见[第三方声明](templates/libgdx/THIRD-PARTY-NOTICES.md)及[升级说明](UPGRADING.md)。
 
-可选素材生产命令 `python3 tools/ccgs_codex.py assets` 已提供 PixelLab V2 的六项图像操作、只读余额查询和本地 PNG/JPEG/GLB 素材接收。默认预览；提交、恢复、收集与接收需要显式 `--write`。图像验证依赖单独的 `requirements-assets.txt`，密钥只从 `PIXELLAB_SECRET` 读取。真实 HTTP/CLI 本地夹具与崩溃恢复测试不等于真实付费账户、画面质量或引擎导入验收；UI/inpaint 完成结果解码仍明确标为实验兼容。见[请求、支持范围与恢复说明](docs/codex-adapter/asset-production.md)。
+可选素材生产命令 `python3 tools/ccgs_codex.py assets` 已提供 PixelLab V2 的六项图像操作、只读余额查询，Meshy V1/V2 的预览、精修、图生 3D、绑定、单动作、重贴图与重拓扑，Tripo V3 的独立图片上传、文/图生 3D、绑定检查、绑定与单动作重定向，以及本地 PNG/JPEG/GLB 素材接收。默认预览；提交、恢复、收集与接收需要显式 `--write`。图像验证依赖单独的 `requirements-assets.txt`，密钥只从 `PIXELLAB_SECRET`、`MESHY_API_KEY` 或 `TRIPO_API_KEY` 读取。真实 HTTP/CLI 本地夹具与崩溃恢复测试不等于真实付费账户、画面/模型/动画质量或引擎导入验收；UI/inpaint 完成结果解码仍明确标为实验兼容。见[请求、支持范围与恢复说明](docs/codex-adapter/asset-production.md)。

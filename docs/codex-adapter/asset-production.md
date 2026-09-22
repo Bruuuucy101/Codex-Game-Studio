@@ -1,16 +1,19 @@
 # Optional asset production
 
-The asset CLI implements PixelLab V2 image production and safe local artifact
-staging. It does not approve art, run an engine importer or run asset-audit.
+The asset CLI implements PixelLab V2 image production, Meshy V1/V2 and Tripo V3
+3D operations, plus safe local artifact staging. It does not approve art, run an
+engine importer or run asset-audit.
 The existing 75 workflows and 57 roles are unchanged by this command addition.
-All six PixelLab operations have credential-free HTTP fixtures. Live account,
+All declared provider operations have credential-free HTTP fixtures. Live account,
 billing, visual quality, rights and engine acceptance remain unverified.
 
 Install the optional `requirements-assets.txt` into a project virtual environment
 before image operations. It pins Pillow 12.3.0 for complete PNG/JPEG decoding.
 Core studio commands remain standard-library-only; they do not import Pillow.
-Credentials are read only from `PIXELLAB_SECRET`. Never put a key in a request.
-Production uses `https://api.pixellab.ai/v2`; there is no configurable API host.
+Credentials are read only from `PIXELLAB_SECRET`, `MESHY_API_KEY` or
+`TRIPO_API_KEY`. Never put a key in a request. Production origins are fixed to
+`https://api.pixellab.ai`, `https://api.meshy.ai` and
+`https://openapi.tripo3d.ai`; there is no configurable API host.
 No command installs packages or downloads models automatically. Safe filesystem
 operations currently require POSIX no-follow/directory-descriptor primitives;
 unsupported platforms fail before production instead of weakening path checks.
@@ -120,6 +123,60 @@ task ID. They never cause collection success or another POST. Polling uses
 `GET /background-jobs/{job_id}`, documented processing/completed/failed states and
 matching returned IDs. A 404 is not permission to regenerate.
 
+## Supported Meshy subset
+
+Meshy generation/retexture requires the explicit local model `meshy-6`. Every
+operation declares one `model` GLB output. The adapter selects only the documented
+GLB field for that operation; another URL or an FBX is never renamed as GLB.
+
+| Operation | Required request parameters | Optional parameters | Provider request |
+|---|---|---|---|
+| `text-to-3d-preview` | `prompt` 1–800, `ai_model:"meshy-6"` | `pose_mode`: `a-pose`, `t-pose` or empty | V2 text route; `mode:preview`, `target_formats:["glb"]` |
+| `text-to-3d-refine` | local `preview_job` | `enable_pbr`, `texture_prompt` ≤800 | V2 text route; `mode:refine`, verified preview task ID |
+| `image-to-3d` | `image`, `ai_model:"meshy-6"`, `should_texture` | `enable_pbr` | V1 image route; `image` may be project-local PNG/JPEG, HTTPS, or PNG/JPEG data URI and becomes `image_url` |
+| `rigging` | local `input_job`, `humanoid:true`, `textured:true`, `face_count` 1–300000 | positive finite `height_meters` | V1 rigging route; sends only verified source task ID and optional height |
+| `animation` | local `rig_job`, integer `action_id` | none | V1 animation route after successful rig GET and live free action-library membership GET |
+| `retexture` | local `input_job`, `text_style_prompt` 1–800, `ai_model:"meshy-6"` | `enable_pbr` | V1 retexture route with `target_formats:["glb"]` |
+| `remesh` | local `input_job`, `target_polycount` 100–300000 | none | V1 remesh route with triangle topology and GLB target |
+
+`humanoid`, `textured` and `face_count` are explicit local inspection evidence;
+they are never forwarded to Meshy. A successful provider status alone cannot
+establish anatomy, texture suitability, actual face count, animation quality or
+engine compatibility. Refine accepts only this tool's successful preview job;
+post-processing routes accept only their documented source operation set. The
+action ID is checked by exact membership because the library is noncontiguous and
+can change. The adapter never sweeps actions or probes guessed task endpoints.
+
+## Supported Tripo V3 subset
+
+Tripo uses dedicated V3 routes and current `input:string` request fields. The
+generation model, rig model, rig type, output format and action are always explicit.
+
+| Operation | Required request parameters | Optional parameters | Result |
+|---|---|---|---|
+| `upload-image` | project-local decoded PNG/JPEG `image` | none | Private `tripo.upload` token/hash/MIME/size record, no task and no public mesh |
+| `text-to-model` | `prompt` 1–1024, `model:"v3.1-20260211"` | `texture`, `pbr` | One `model` GLB |
+| `image-to-model` | exactly one of HTTPS `input` or local upload `input_job`, plus `model:"v3.1-20260211"` | `texture`, `pbr` | One `model` GLB |
+| `rig-check` | local successful text/image `input_job` | none | One typed `validation` JSON output and zero models |
+| `rig` | model `input_job`, matching successful `rig_check_job`, `model:"v1.0-20240301"`, `rig_type:"biped"`, `spec:"tripo"|"mixamo"`, `out_format:"glb"` | none | One rigged `model` GLB |
+| `retarget` | local v1 rig `rig_job`, one of `preset:biped:idle`, `preset:biped:walk`, `preset:biped:run`, `out_format:"glb"` | boolean `bake_animation`, `export_with_geometry`, `animate_in_place` | One animated `model` GLB |
+
+`pbr:true` requires `texture:true`; contradictory requests fail before networking.
+The old SDK `file` descriptor and V2 task routes are unsupported. Upload is a
+separate journaled POST whose private token is bound to decoded source bytes. A
+generation request names that upload's local job ID and performs its own separately
+authorized POST. Unknown upload submission remains uncertain and is never silently
+retried. Upload status is local-only because no token query API is assumed.
+
+Rig-check accepts valid false findings as collectable validation data. Only
+`riggable:true` with `rig_type:"biped"` for the same original model task enables
+the initial rig operation. The rig consumes that original model task, not the
+rig-check task. Retarget consumes the successful v1 rig and exactly one action.
+
+See example request shapes in `examples/assets/`. For dependent
+operations, replace `*_job` values with the explicit local operation ID saved by
+the prior stage. Planning reads and pins that dependency but does no provider I/O.
+
 ## Recovery, privacy and publication
 
 Private state lives only under ignored `.ccgs-assets/jobs/ID/` with directories
@@ -187,6 +244,22 @@ The transitive contract excerpt SHA256 is
 The endpoint schemas, background-job schema and balance schema were inspected;
 PR wrappers and the old V1 SDK are not API authorities. Research snapshots are
 working evidence outside the release and are not runtime dependencies.
+
+Meshy operation authority: [text/refine](https://docs.meshy.ai/en/api/text-to-3d),
+[image](https://docs.meshy.ai/en/api/image-to-3d),
+[rigging](https://docs.meshy.ai/en/api/rigging),
+[animation/library](https://docs.meshy.ai/en/api/animation),
+[retexture](https://docs.meshy.ai/en/api/retexture), and
+[remesh](https://docs.meshy.ai/en/api/remesh). Tripo authority:
+[text](https://developers.tripo3d.ai/en/docs/generation-text-to-model/standard),
+[image](https://developers.tripo3d.ai/en/docs/generation-image-to-model/standard),
+[files](https://developers.tripo3d.ai/en/docs/files),
+[task query](https://developers.tripo3d.ai/en/docs/task-query),
+[rig check](https://developers.tripo3d.ai/en/docs/animations-rig-check),
+[rig](https://developers.tripo3d.ai/en/docs/animations-rig), and
+[retarget](https://developers.tripo3d.ai/en/docs/animations-retarget). The pinned
+old Tripo SDK was used only as a conflict cross-check; current V3 endpoint pages
+govern the implemented payloads.
 
 Run `python3 -m unittest discover -s tests/asset_tools -v` in the optional asset
 environment. Tests use an actual local HTTP server and CLI subprocesses, including

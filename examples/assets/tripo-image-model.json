@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "provider": "tripo",
+  "operation": "image-to-model",
+  "asset_id": "guardian-model",
+  "standalone": true,
+  "source_files": [],
+  "parameters": {
+    "input_job": "guardian-reference-upload-v1",
+    "model": "v3.1-20260211",
+    "texture": true,
+    "pbr": true
+  },
+  "outputs": [
+    {"key": "model", "path": "assets/models/guardian.glb", "format": "glb"}
+  ],
+  "rights_note": "Example only; record actual account and input-rights evidence before submitting"
+}

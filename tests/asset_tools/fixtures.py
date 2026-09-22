@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import struct
 import sys
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -22,6 +23,15 @@ def png(width=64, height=64):
 
 def image_response(width=64, height=64):
     return {'image': {'type': 'base64', 'format': 'png', 'base64': base64.b64encode(png(width, height)).decode()}}
+
+
+def glb():
+    document = json.dumps({'asset': {'version': '2.0'}, 'buffers': [{'byteLength': 4}],
+                           'bufferViews': [{'buffer': 0, 'byteOffset': 0, 'byteLength': 4}]}).encode()
+    document += b' ' * ((-len(document)) % 4)
+    chunks = (struct.pack('<II', len(document), 0x4e4f534a) + document
+              + struct.pack('<II', 4, 0x004e4942) + b'\0\0\0\0')
+    return struct.pack('<4sII', b'glTF', 2, 12 + len(chunks)) + chunks
 
 
 def request(root, operation='create-image-pixen', **changes):
@@ -83,6 +93,7 @@ class Server:
     def transport(self, **kwargs):
         from ccgs.assets.http import Transport
         return Transport(origin_map={'https://api.pixellab.ai': self.origin,
+                                     'https://api.meshy.ai': self.origin,
                                      'https://openapi.tripo3d.ai': self.origin,
                                      'https://fixture-cdn.example': self.origin}, **kwargs)
 
@@ -97,7 +108,9 @@ def cli(root, *args, server=None, extra_env=None):
         code = ('from ccgs.assets.http import Transport; from ccgs.assets.cli import main; '
                 'from pathlib import Path; import sys; '
                 'sys.exit(main(Path(sys.argv[1]), sys.argv[2:], transport=Transport(origin_map='
-                + repr({'https://api.pixellab.ai': server.origin, 'https://fixture-cdn.example': server.origin}) + ')))')
+                + repr({'https://api.pixellab.ai': server.origin, 'https://api.meshy.ai': server.origin,
+                        'https://openapi.tripo3d.ai': server.origin,
+                        'https://fixture-cdn.example': server.origin}) + ')))')
         command = [sys.executable, '-c', code, str(root), *args]
     else:
         command = [sys.executable, str(REPO / 'tools/ccgs_codex.py'), '--root', str(root), 'assets', *args]
