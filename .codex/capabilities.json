@@ -4,12 +4,12 @@
   "baseline_commit": "984023ddac0d5e27624f2baacde6105e45de375f",
   "verification_contract": "Source coverage is not runtime or behavioral certification. See validation.md.",
   "counts": {
-    "skills": 74,
+    "skills": 75,
     "agents": 57,
     "rules": 11,
     "hooks": 12,
     "templates": 41,
-    "behavior_specs": 135
+    "behavior_specs": 136
   },
   "surfaces": {
     "skills": [
@@ -105,6 +105,19 @@
           "allowed-tools": "Read, Glob, Grep, Write, AskUserQuestion",
           "model": "sonnet",
           "agent": "economy-designer"
+        }
+      },
+      {
+        "name": "board-sync",
+        "source": ".claude/skills/board-sync/SKILL.md",
+        "sha256": "f5569e1adc76c38dd10c546a1824dc418aa9326b3e0737255eca62684cea52db",
+        "metadata": {
+          "name": "board-sync",
+          "description": "Use when previewing or syncing canonical story cards to an optional GitHub Projects v2 board, setting up its project, or recovering an interrupted board projection.",
+          "argument-hint": "snapshot [--epic SLUG] | setup --owner OWNER --namespace NAME (--number N | --title TITLE) [--dry|--write] | sync [--epic SLUG] [--dry|--write]",
+          "user-invocable": "true",
+          "allowed-tools": "Read, Glob, Grep, Bash, Task, AskUserQuestion",
+          "model": "sonnet"
         }
       },
       {
@@ -2885,6 +2898,12 @@
         "name": "asset-spec",
         "source": "CCGS Skill Testing Framework/skills/utility/asset-spec.md",
         "sha256": "a114ea71c1c88fe35853e6ea86c1e4bac391244855511fce026c5d5b97f2e63a",
+        "metadata": {}
+      },
+      {
+        "name": "board-sync",
+        "source": "CCGS Skill Testing Framework/skills/utility/board-sync.md",
+        "sha256": "2007f9c53baaa8a4981317b3ab2e3e0b64a29c39431fddea476585def06ff013",
         "metadata": {}
       },
       {

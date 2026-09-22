@@ -62,10 +62,36 @@ def main(argv=None):
     context.add_argument('--offset', type=int, default=0)
     context.add_argument('--limit', type=int, default=adr.DEFAULT_LIMIT)
     context.add_argument('--expected-sha256')
+    board = sub.add_parser('board-sync', help='Optional GitHub Projects projection; default preview, explicit --write.')
+    board_commands = board.add_subparsers(dest='board_command', required=True)
+    snapshot = board_commands.add_parser('snapshot', help='Emit deterministic local JSON; no gh required.')
+    snapshot.add_argument('--epic')
+    setup = board_commands.add_parser('setup', help='Preview/adopt/create a private GitHub project.')
+    setup.add_argument('--owner', required=True)
+    setup.add_argument('--namespace', required=True)
+    target = setup.add_mutually_exclusive_group(required=True)
+    target.add_argument('--number', type=int)
+    target.add_argument('--title')
+    sync = board_commands.add_parser('sync', help='Preview or apply and verify current story differences.')
+    sync.add_argument('--epic')
+    for command in (setup, sync):
+        mode = command.add_mutually_exclusive_group()
+        mode.add_argument('--write', action='store_true')
+        mode.add_argument('--dry', action='store_true', help='Explicit default: no local or remote writes.')
     args = parser.parse_args(argv)
-    root = args.root.absolute() if args.command in ('scaffold-web', 'scaffold-libgdx', 'source-files', 'project-kind', 'status') else args.root.resolve()
+    root = args.root.absolute() if args.command in ('scaffold-web', 'scaffold-libgdx', 'source-files', 'project-kind', 'status', 'board-sync') else args.root.resolve()
     try:
-        if args.command == 'scaffold-web':
+        if args.command == 'board-sync':
+            if args.board_command == 'snapshot':
+                from .board_snapshot import build_snapshot
+                emit(build_snapshot(root, args.epic))
+            else:
+                from . import board_sync
+                if args.board_command == 'setup':
+                    emit(board_sync.setup(root, args.owner, args.namespace, number=args.number, title=args.title, write=args.write))
+                else:
+                    emit(board_sync.sync(root, args.epic, write=args.write))
+        elif args.command == 'scaffold-web':
             emit(scaffold.copy_web(root, args.engine, args.target, write=args.write))
         elif args.command == 'scaffold-libgdx':
             emit(scaffold.copy_libgdx(root, args.target, write=args.write))

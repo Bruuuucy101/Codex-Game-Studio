@@ -297,15 +297,16 @@
     {
       "path": "CCGS Skill Testing Framework/catalog.yaml",
       "original_sha256": "c8e66955e244f2235f597994edcb07fbb8f17debb413ea696cfaad49a8c11313",
-      "patched_sha256": "dca9083d6f0080a7c3022303c48803928d8195343accc5d244421ebad71836b0",
+      "patched_sha256": "dbf4246f98be197d5845cfeee5a1ed23b42d4d6cb357ad4e1786c9fde978f6a1",
       "issue_urls": [
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/62",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/22",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/19",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/pull/54",
-        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/105"
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/105",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/82"
       ],
-      "rationale": "Task 1 (#62/#22): extend canonical Phaser 3/Three.js selection, routing, lifecycle/testing guidance and current inventory while retaining original engine paths, review modes and baseline identities. Self-reviewed against the accepted web-engine spec and official dated sources; deterministic source-contract checks are not behavioral/browser certification. Task 1 (#19, reviewed PR54 input): add contract-based standalone-tool lifecycle, safe component preservation and explicit review/gate applicability while retaining original game routes and modes. Correct stale behavioral expectations to match canonical onboarding; source assertions are not behavioral certification. Self-reviewed complete diff against approved tooling spec; classifier and real file-processing integration tests provide executable evidence. Independent behavior/review is recorded separately. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review."
+      "rationale": "Task 1 (#62/#22): extend canonical Phaser 3/Three.js selection, routing, lifecycle/testing guidance and current inventory while retaining original engine paths, review modes and baseline identities. Self-reviewed against the accepted web-engine spec and official dated sources; deterministic source-contract checks are not behavioral/browser certification. Task 1 (#19, reviewed PR54 input): add contract-based standalone-tool lifecycle, safe component preservation and explicit review/gate applicability while retaining original game routes and modes. Correct stale behavioral expectations to match canonical onboarding; source assertions are not behavioral certification. Self-reviewed complete diff against approved tooling spec; classifier and real file-processing integration tests provide executable evidence. Independent behavior/review is recorded separately. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review. Board Task 2: register the optional preview-first board-sync workflow, behavioral specification, current inventory and ignored owned local state while preserving original identities. Self-reviewed source diff; fake-gh subprocess contracts and independent schema validation are separate from unverified live GitHub acceptance."
     },
     {
       "path": "CCGS Skill Testing Framework/skills/utility/project-stage-detect.md",
@@ -371,13 +372,14 @@
     {
       "path": "README.md",
       "original_sha256": "bb7abcaee0447d4f812d643240eb7796b6ef2038099504476675d5ff0baa3d96",
-      "patched_sha256": "5f7a2af73c8571e33a0d5c0075f735595e83f90e7e4031816029b3d09e84ed9c",
+      "patched_sha256": "dec031a392e43c848ccb8315bd4e20dbc5d4219096e3a05a3b03972a88de67ae",
       "issue_urls": [
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/62",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/22",
-        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/105"
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/105",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/82"
       ],
-      "rationale": "Task 1 (#62/#22): extend canonical Phaser 3/Three.js selection, routing, lifecycle/testing guidance and current inventory while retaining original engine paths, review modes and baseline identities. Self-reviewed against the accepted web-engine spec and official dated sources; deterministic source-contract checks are not behavioral/browser certification. Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review. Release Task 1: refresh current v0.2.0-beta entry/upgrade guidance with actual feature evidence and dependency limits; preserve historical versions and original attribution. Final release review P2: use accepted child-directory scaffold targets instead of rejected traversal; all three exact preview commands verified without creating targets."
+      "rationale": "Task 1 (#62/#22): extend canonical Phaser 3/Three.js selection, routing, lifecycle/testing guidance and current inventory while retaining original engine paths, review modes and baseline identities. Self-reviewed against the accepted web-engine spec and official dated sources; deterministic source-contract checks are not behavioral/browser certification. Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review. Release Task 1: refresh current v0.2.0-beta entry/upgrade guidance with actual feature evidence and dependency limits; preserve historical versions and original attribution. Final release review P2: use accepted child-directory scaffold targets instead of rejected traversal; all three exact preview commands verified without creating targets. Board Task 2: register the optional preview-first board-sync workflow, behavioral specification, current inventory and ignored owned local state while preserving original identities. Self-reviewed source diff; fake-gh subprocess contracts and independent schema validation are separate from unverified live GitHub acceptance."
     },
     {
       "path": "docs/engine-reference/README.md",
@@ -393,13 +395,14 @@
     {
       "path": ".gitignore",
       "original_sha256": "7c87f007704b8146b58f0b46c41bb6cec4456b18385878adac5d7b0db4a06e4e",
-      "patched_sha256": "e79483ec9e1e098279407f5d50483ee9273da6ad0895533c7977b13286cf6dab",
+      "patched_sha256": "795c4465c20ec75a891597fade98e257fd6f18a8d6c90115e4437ed38b5ebf0f",
       "issue_urls": [
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/62",
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/22",
-        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/105"
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/105",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/82"
       ],
-      "rationale": "Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review."
+      "rationale": "Task 2 web scaffolds: align copy/test commands and patched dependency pins, document runnable templates and ignore browser output. Validated with safe-copy regressions, clean npm acceptance and strict regeneration; runtime limits remain explicit. LibGDX Task 1: preserve original branches and review modes while adding five full specialist routes, module-aware Java/Kotlin source/rule/test handling and dated reference/starter guidance. Complete source diff self-reviewed; deterministic source/filesystem tests, real pure/headless lifecycle tests and desktop packaging recorded separately. No authored behavior spec is claimed executed; controller owns independent review. Board Task 2: register the optional preview-first board-sync workflow, behavioral specification, current inventory and ignored owned local state while preserving original identities. Self-reviewed source diff; fake-gh subprocess contracts and independent schema validation are separate from unverified live GitHub acceptance."
     },
     {
       "path": ".claude/agents/lead-programmer.md",
@@ -427,10 +430,11 @@
       "original_sha256": "f1ab09e790e580447843310332477f3767b6d5792d9b5cdfbf8c179aa8b765cf",
       "issue_urls": [
         "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/19",
-        "https://github.com/Donchitos/Claude-Code-Game-Studios/pull/54"
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/pull/54",
+        "https://github.com/Donchitos/Claude-Code-Game-Studios/issues/82"
       ],
-      "rationale": " Task 1 (#19, reviewed PR54 input): add contract-based standalone-tool lifecycle, safe component preservation and explicit review/gate applicability while retaining original game routes and modes. Correct stale behavioral expectations to match canonical onboarding; source assertions are not behavioral certification. Self-reviewed complete diff against approved tooling spec; classifier and real file-processing integration tests provide executable evidence. Independent behavior/review is recorded separately.",
-      "patched_sha256": "f7cb7b3ae1243a7d849c8b7da5804d8b21bd5c2140de03208d6d71763875ed97"
+      "rationale": " Task 1 (#19, reviewed PR54 input): add contract-based standalone-tool lifecycle, safe component preservation and explicit review/gate applicability while retaining original game routes and modes. Correct stale behavioral expectations to match canonical onboarding; source assertions are not behavioral certification. Self-reviewed complete diff against approved tooling spec; classifier and real file-processing integration tests provide executable evidence. Independent behavior/review is recorded separately. Board Task 2: register the optional preview-first board-sync workflow, behavioral specification, current inventory and ignored owned local state while preserving original identities. Self-reviewed source diff; fake-gh subprocess contracts and independent schema validation are separate from unverified live GitHub acceptance.",
+      "patched_sha256": "82760aa55a6d3040d5d221dae3f61026572d26fe7f97fe6bab64ea451f78c8e2"
     },
     {
       "path": ".claude/docs/technical-preferences.md",

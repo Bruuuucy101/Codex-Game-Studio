@@ -2,7 +2,7 @@
 
 Generated from actual files. Counts prove coverage only; see [validation](validation.md) for execution evidence.
 
-## skills: 74
+## skills: 75
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -13,6 +13,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | asset-audit | `.claude/skills/asset-audit/SKILL.md` | ccgs-asset-audit |
 | asset-spec | `.claude/skills/asset-spec/SKILL.md` | ccgs-asset-spec |
 | balance-check | `.claude/skills/balance-check/SKILL.md` | ccgs-balance-check |
+| board-sync | `.claude/skills/board-sync/SKILL.md` | ccgs-board-sync |
 | brainstorm | `.claude/skills/brainstorm/SKILL.md` | ccgs-brainstorm |
 | bug-report | `.claude/skills/bug-report/SKILL.md` | ccgs-bug-report |
 | bug-triage | `.claude/skills/bug-triage/SKILL.md` | ccgs-bug-triage |
@@ -222,7 +223,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | ux-spec | `.claude/docs/templates/ux-spec.md` | original file, preserved |
 | vertical-slice-report | `.claude/docs/templates/vertical-slice-report.md` | original file, preserved |
 
-## behavior_specs: 135
+## behavior_specs: 136
 
 | Name | Canonical source | Codex route |
 |---|---|---|
@@ -334,6 +335,7 @@ Generated from actual files. Counts prove coverage only; see [validation](valida
 | team-ui | `CCGS Skill Testing Framework/skills/team/team-ui.md` | original file, preserved |
 | adopt | `CCGS Skill Testing Framework/skills/utility/adopt.md` | original file, preserved |
 | asset-spec | `CCGS Skill Testing Framework/skills/utility/asset-spec.md` | original file, preserved |
+| board-sync | `CCGS Skill Testing Framework/skills/utility/board-sync.md` | original file, preserved |
 | brainstorm | `CCGS Skill Testing Framework/skills/utility/brainstorm.md` | original file, preserved |
 | bug-report | `CCGS Skill Testing Framework/skills/utility/bug-report.md` | original file, preserved |
 | bug-triage | `CCGS Skill Testing Framework/skills/utility/bug-triage.md` | original file, preserved |

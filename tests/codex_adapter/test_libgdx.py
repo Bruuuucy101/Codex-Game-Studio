@@ -35,7 +35,7 @@ class LibGdxTests(unittest.TestCase):
         original_skills = {Path(p).parent.name for p in baseline if p.startswith('.claude/skills/') and p.endswith('/SKILL.md')}
         rows = catalog.inventory(ROOT)
         self.assertEqual({r['name'] for r in rows['agents']}, original | ROLES | {'phaser-specialist', 'threejs-specialist', 'game-pipeline-developer'})
-        self.assertEqual({r['name'] for r in rows['skills']}, original_skills | {'setup-tool'})
+        self.assertEqual({r['name'] for r in rows['skills']}, original_skills | {'setup-tool', 'board-sync'})
         files = generate.render(ROOT)
         for name in ROLES:
             meta, body = catalog.frontmatter((ROOT / f'.claude/agents/{name}.md').read_text())

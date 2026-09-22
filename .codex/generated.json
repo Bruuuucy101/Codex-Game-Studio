@@ -8,6 +8,7 @@
     ".agents/skills/ccgs-asset-audit/SKILL.md": "2231f811ddcdad8a16a8be5b182fc7e2917fccdcfeaac32214fc3fe82e1a8eca",
     ".agents/skills/ccgs-asset-spec/SKILL.md": "3ca51e2f15d09c4243ec816405fbe2d4e3f19f635f6e055ff90886f929a2c43c",
     ".agents/skills/ccgs-balance-check/SKILL.md": "50e88c215b059a874ce4ea9749334c5e5e54f1a99cda1202ca98939fe9257d58",
+    ".agents/skills/ccgs-board-sync/SKILL.md": "eac8acb7e44da06a84fd818b5a15412ec1ad83af0eda87a88de72468a416ebc1",
     ".agents/skills/ccgs-brainstorm/SKILL.md": "8b0910ce642ed6de51fe44cfcb758371716125ce75a7e2ee0b157917f6554134",
     ".agents/skills/ccgs-bug-report/SKILL.md": "0380cbb5f2aa644c437c90554b620ce9f1bf9a371fc03a1dbc8e297c530937dd",
     ".agents/skills/ccgs-bug-triage/SKILL.md": "32b2696f63276a96325c5c870f4ee4101d6a49b5be93c8814ba5adc439a055e9",
@@ -132,7 +133,7 @@
     ".codex/agents/ccgs-ux-designer.toml": "a54877e204f14bca596648fb94304e0026a617acdd9562fe202ba6fb56b7b08d",
     ".codex/agents/ccgs-world-builder.toml": "1382928bde2aeffc154cc6550f953a493009f82227dd9a0881fbd6ecb04a3a76",
     ".codex/agents/ccgs-writer.toml": "f98d120fcf8a90e0dc53085c26ad43b8846d12468c8077bc84a0764656784d31",
-    ".codex/capabilities.json": "60de2dd2a76c159a5b9f2a3765c68b2c9bd44fe6be82b6049657f950070bdfd4",
-    "docs/codex-adapter/capabilities.md": "c0226a62b9307b9870ffe1e08273e0fb89368f4ad5e6ae2a1dcf2bbd2d4dcc5d"
+    ".codex/capabilities.json": "86d33b6d7c8e34171f5565c6346128a59752b12ad66b2f2f348fb1d2235d417d",
+    "docs/codex-adapter/capabilities.md": "3e467db808d5ace3bc9b51b1dde828234e55c00a01786694dec93ff4cc38a57d"
   }
 }

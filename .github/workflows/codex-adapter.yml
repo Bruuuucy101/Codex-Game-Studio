@@ -118,8 +118,23 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+  board:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install optional board parser dependency only
+        run: python3 -m pip install -r requirements-board.txt
+      - name: Verify local snapshots and fake GitHub subprocess recovery contracts
+        run: python3 -m unittest discover -s tests/board_sync -v
+
   beta-patch-release:
-    needs: [verify, web, libgdx]
+    needs: [verify, web, libgdx, board]
     if: github.repository == 'Bruuuucy101/Codex-Game-Studio' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:

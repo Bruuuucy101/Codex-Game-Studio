@@ -6,13 +6,13 @@
 
 **此前 v0.1.1-beta 验收记录：完整保留工作流与角色范围，并修正已确认的继承问题；73 项确定性测试、6 个真实 Git 更新场景和当时 3 个行为抽测已通过。尚不能称为所有引擎、所有工作流都已验证的 100% 运行等价版本。** 详细证据见 [验证报告](docs/codex-adapter/validation.md)。
 
-**当前 v0.2.0-beta：74 个工作流、57 个角色。候选版本 CI 的五个必需任务通过，包含 128 项适配器测试、每个 Web 模板 10 项单元 + 4 项 Chromium 测试、libGDX 7 项纯逻辑 + 3 项真实无界面测试与桌面打包。另有 5 个新的配置/咨询行为抽测。最终 main CI、发布标签和下载 ZIP 验证是独立关卡，此处不提前宣告完成。** 见[本次功能证据](docs/codex-adapter/feature-validation-2026-09-21.md)。
+**当前 v0.2.0-beta：75 个工作流、57 个角色。此前候选版本 CI 的五个必需任务通过（不含新增 board 任务），包含 128 项适配器测试、每个 Web 模板 10 项单元 + 4 项 Chromium 测试、libGDX 7 项纯逻辑 + 3 项真实无界面测试与桌面打包。另有 5 个新的配置/咨询行为抽测。最终 main CI、发布标签和下载 ZIP 验证是独立关卡，此处不提前宣告完成。** 见[本次功能证据](docs/codex-adapter/feature-validation-2026-09-21.md)。
 
 ## 保留了什么
 
 | 原版内容 | Codex 接入方式 |
 |---|---|
-| 73 个原工作流 + setup-tool | 当前 74 个 `ccgs-*` 入口，每次读取完整原工作流；没有用摘要替代 |
+| 73 个原工作流 + setup-tool + board-sync | 当前 75 个 `ccgs-*` 入口，每次读取完整原工作流；没有用摘要替代 |
 | 49 个原角色 + 2 个 Web 引擎负责人 + 工具流水线开发者 + 5 个 libGDX 专家 | 当前 57 个角色配置，嵌入完整规范；原 49 个身份保留 |
 | 11 组路径规则 | 保留原文与适用路径；编辑前加载，受支持的工具事件额外自动注入 |
 | 12 个钩子脚本 | 全部保留；11 个脚本接入事件桥接，通知脚本有明确平台差异 |
@@ -130,7 +130,7 @@ python3 tools/ccgs_codex.py scaffold-libgdx --target my-java-game
 - libGDX 需要 JDK 21，使用内置 Gradle 8.14.3 wrapper 和严格依赖锁。运行 `./gradlew :core:test :headless:test :lwjgl3:installDist --no-daemon`，再运行 `./gradlew :headless:run --no-daemon`。首次执行下载 Gradle/Maven 依赖；Windows 对应 `gradlew.bat`，该平台未实测。GPU、音频和手感不能由无界面测试或打包结果替代。
 - 示例 CSV 转换器只需 Python 3.10+ 标准库，无需游戏引擎或外部供应商。
 
-board-sync #82 只有设计，未实现；本版没有任何 board snapshot/setup/sync 命令或依赖。
+board-sync #82 已提供可选 snapshot/setup/sync 命令，默认预览，只有显式 `--write` 才写入。需要读取 sprint YAML 时使用独立的 `requirements-board.txt`；远端操作还需要已认证的 gh。已有本地解析和 fake-gh 子进程契约测试，真实 GitHub 账户验收仍未验证。见[使用与恢复说明](docs/codex-adapter/board-sync.md)。
 创意 MCP #40、付费素材后端 #23、NPC TTS #14 也继续延后。移动端、Kotlin/KTX/GWT、
 WebGPU 和供应商执行未验证。第三方依赖沿用各自许可，官方 Gradle wrapper 为 Apache-2.0；
 见[第三方声明](templates/libgdx/THIRD-PARTY-NOTICES.md)及[升级说明](UPGRADING.md)。

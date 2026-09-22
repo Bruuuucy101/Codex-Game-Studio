@@ -1,6 +1,6 @@
 # Available Skills (Slash Commands)
 
-74 slash commands (73 original plus setup-tool) organized by phase. Type `/` in Claude Code to access any of them.
+75 slash commands (73 original plus setup-tool and board-sync) organized by phase. Type `/` in Claude Code to access any of them.
 
 ## Onboarding & Navigation
 
@@ -9,6 +9,7 @@
 | `/start` | First-time onboarding — asks where you are, then guides you to the right workflow |
 | `/help` | Context-aware "what do I do next?" — reads current stage and surfaces the required next step |
 | `/project-stage-detect` | Full project audit — detect phase, identify existence gaps, recommend next steps |
+| `/board-sync` | Preview/setup/sync optional GitHub Projects draft cards; default no-write, explicit apply and recovery |
 | `/setup-tool` | Author/update/adopt a tool contract; standalone or game component setup and scoped pipeline handoff |
 | `/setup-engine` | Configure engine + version, detect knowledge gaps, populate version-aware reference docs |
 | `/adopt` | Brownfield format audit — checks internal structure of existing GDDs/ADRs/stories, produces migration plan |

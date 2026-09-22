@@ -2,7 +2,7 @@
 
 ## Current v0.2.0-beta acceptance
 
-See [feature validation — 2026-09-21](feature-validation-2026-09-21.md) for the current 74-workflow/57-role inventory, 128 adapter tests, five fresh-agent samples, actual Chromium and libGDX headless/build evidence, exact candidate CI tree and pending final publication gates. Board-sync remains entirely unimplemented.
+See [feature validation — 2026-09-21](feature-validation-2026-09-21.md) for the prior 74-workflow/57-role inventory, 128 adapter tests, five fresh-agent samples, actual Chromium and libGDX headless/build evidence, exact candidate CI tree and pending final publication gates. The current inventory is 75 workflows/57 roles after optional board-sync. Its separate parser/fake-gh contract suite and static schema checks are documented in [board-sync](board-sync.md); live GitHub acceptance remains unverified. Earlier dated counts below are historical evidence.
 
 The sections below are historical implementation checkpoints, retained with their original counts and then-pending work; the current feature report supersedes their pending feature acceptance statements.
 

@@ -808,6 +808,17 @@ skills:
     priority: high
     category: utility
 
+  - name: board-sync
+    spec: CCGS Skill Testing Framework/skills/utility/board-sync.md
+    last_static: ""
+    last_static_result: ""
+    last_spec: ""
+    last_spec_result: ""
+    last_category: ""
+    last_category_result: ""
+    priority: high
+    category: utility
+
 agents:
   # Tier 1 Directors (Opus)
   - name: creative-director
